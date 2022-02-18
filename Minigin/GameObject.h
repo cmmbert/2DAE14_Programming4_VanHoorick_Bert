@@ -9,7 +9,7 @@ namespace dae
 	class GameObject final : public SceneObject
 	{
 	public:
-		void Update() override;
+		void Update(float elapsedSec) override;
 		void Render() const override;
 
 		void AddComponent(const std::shared_ptr<BaseComponent>& comp);

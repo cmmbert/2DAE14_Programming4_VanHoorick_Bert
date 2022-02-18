@@ -10,7 +10,7 @@ namespace dae
 	public:
 		TextureComponent() = default;
 		TextureComponent(const std::string& filename, glm::vec2 position);
-		void Update() override;
+		void Update(float elapsedSec) override;
 		void Render() const override;
 		void SetTexture(const std::string& filename);
 		void SetPosition(float x, float y) { m_Position = glm::vec2(x, y); };

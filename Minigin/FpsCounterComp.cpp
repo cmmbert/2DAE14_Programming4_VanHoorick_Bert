@@ -1,8 +1,8 @@
 #include "MiniginPCH.h"
 #include "FpsCounterComp.h"
 
-void dae::FpsCounterComp::Update()
+void dae::FpsCounterComp::Update(float elapsedSec)
 {
-	TextComponent::Update();
+	TextComponent::Update(elapsedSec);
 	//SetText()
 }

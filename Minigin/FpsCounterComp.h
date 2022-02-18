@@ -10,7 +10,7 @@ namespace dae
 		{
 		}
 
-		void Update() override;
+		void Update(float elapsedSec) override;
 
 	private:
 
