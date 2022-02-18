@@ -10,7 +10,7 @@ dae::TextureComponent::TextureComponent(const std::string& filename, glm::vec2 p
 	SetTexture(filename);
 }
 
-void dae::TextureComponent::Update(float elapsedSec)
+void dae::TextureComponent::Update()
 {
 }
 

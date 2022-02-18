@@ -130,7 +130,7 @@ void dae::Minigin::Run()
 				lag -= m_FixedTimeStep;
 			}
 			Time::GetInstance().Update(deltaTime);
-			sceneManager.Update(deltaTime);
+			sceneManager.Update();
 			renderer.Render();
 		}
 	}

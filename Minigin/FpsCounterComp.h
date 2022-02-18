@@ -11,7 +11,7 @@ namespace dae
 			m_Prefix = text;
 		}
 
-		void Update(float elapsedSec) override;
+		void Update() override;
 		void SetPrefix(const std::string& text) { m_Prefix = text; }
 	private:
 		std::string m_Prefix{};

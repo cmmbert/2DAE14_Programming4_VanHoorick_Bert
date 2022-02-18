@@ -9,7 +9,7 @@ dae::TextComponent::TextComponent(const std::string& text, const std::shared_ptr
 	: m_NeedsUpdate(true), m_Text(text), m_Font(font), m_TextTexture(nullptr)
 { }
 
-void dae::TextComponent::Update(float elapsedSec)
+void dae::TextComponent::Update()
 {
 	if (m_NeedsUpdate)
 	{

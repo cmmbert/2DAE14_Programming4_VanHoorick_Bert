@@ -10,7 +10,7 @@ namespace dae
 	class TextComponent : public BaseComponent
 	{
 	public:
-		void Update(float elapsedSec);
+		void Update();
 		void Render() const;
 
 		void SetText(const std::string& text);

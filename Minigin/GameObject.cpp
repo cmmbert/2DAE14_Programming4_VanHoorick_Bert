@@ -8,11 +8,11 @@ using namespace dae;
 
 dae::GameObject::~GameObject() = default;
 
-void dae::GameObject::Update(float elapsedSec)
+void dae::GameObject::Update()
 {
 	for (auto &comp : m_pComponents)
 	{
-		comp.get()->Update(elapsedSec);
+		comp.get()->Update();
 	}
 }
 
