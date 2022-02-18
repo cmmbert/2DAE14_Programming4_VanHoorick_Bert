@@ -4,5 +4,6 @@
 void dae::FpsCounterComp::Update(float elapsedSec)
 {
 	TextComponent::Update(elapsedSec);
-	//SetText()
+	const int fps = static_cast<int>(1.f / elapsedSec);
+	SetText(std::to_string(fps));
 }

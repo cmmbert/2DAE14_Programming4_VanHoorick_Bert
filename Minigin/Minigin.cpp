@@ -1,6 +1,8 @@
 #include "MiniginPCH.h"
 #include "Minigin.h"
 #include <thread>
+
+#include "FpsCounterComp.h"
 #include "InputManager.h"
 #include "SceneManager.h"
 #include "Renderer.h"
@@ -74,9 +76,11 @@ void dae::Minigin::LoadGame() const
 	go->AddComponent(textc);
 	scene.Add(go);
 
-	//to = std::make_shared<TextComponent>("FPS: --", font);
-	//to->SetPosition(10, 10);
-	//scene.Add(to);
+	go = std::make_shared<GameObject>();
+	auto fpsComp = std::make_shared<FpsCounterComp>("FPS: ", font);
+	fpsComp->SetPosition(10, 10);
+	go->AddComponent(fpsComp);
+	scene.Add(go);
 }
 
 void dae::Minigin::Cleanup()
