@@ -12,6 +12,7 @@
 #include "GameObject.h"
 #include "Scene.h"
 #include "TextureComponent.h"
+#include "Time.h"
 
 using namespace std;
 
@@ -128,7 +129,7 @@ void dae::Minigin::Run()
 				FixedUpdate(m_FixedTimeStep);
 				lag -= m_FixedTimeStep;
 			}
-
+			Time::GetInstance().Update(deltaTime);
 			sceneManager.Update(deltaTime);
 			renderer.Render();
 		}
