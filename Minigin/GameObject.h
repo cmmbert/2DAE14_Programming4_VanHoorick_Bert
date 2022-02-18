@@ -4,16 +4,17 @@
 
 namespace dae
 {
-	class Texture2D;
-
-	// todo: this should become final.
-	class GameObject : public SceneObject
+	class BaseComponent;
+	
+	class GameObject final : public SceneObject
 	{
 	public:
 		void Update() override;
 		void Render() const override;
 
-		void SetTexture(const std::string& filename);
+		void AddComponent(const std::shared_ptr<BaseComponent>& comp);
+		
+
 		void SetPosition(float x, float y);
 
 		GameObject() = default;
@@ -25,7 +26,6 @@ namespace dae
 
 	private:
 		Transform m_Transform;
-		// todo: mmm, every gameobject has a texture? Is that correct?
-		std::shared_ptr<Texture2D> m_Texture{};
+		std::vector<std::shared_ptr<BaseComponent>> m_pComponents;
 	};
 }

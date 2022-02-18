@@ -5,9 +5,10 @@
 #include "SceneManager.h"
 #include "Renderer.h"
 #include "ResourceManager.h"
-#include "TextObject.h"
+#include "TextComponent.h"
 #include "GameObject.h"
 #include "Scene.h"
+#include "TextureComponent.h"
 
 using namespace std;
 
@@ -57,22 +58,25 @@ void dae::Minigin::LoadGame() const
 	auto& scene = SceneManager::GetInstance().CreateScene("Demo");
 
 	auto go = std::make_shared<GameObject>();
-	go->SetTexture("background.jpg");
+	auto tc = std::make_shared<TextureComponent>("background.jpg", glm::vec2(0,0));
+	go->AddComponent(tc);
 	scene.Add(go);
 
 	go = std::make_shared<GameObject>();
-	go->SetTexture("logo.png");
-	go->SetPosition(216, 180);
+	tc = std::make_shared<TextureComponent>("logo.png", glm::vec2(216, 180));
+	go->AddComponent(tc);
 	scene.Add(go);
 
 	auto font = ResourceManager::GetInstance().LoadFont("Lingua.otf", 36);
-	auto to = std::make_shared<TextObject>("Programming 4 Assignment", font);
-	to->SetPosition(80, 20);
-	scene.Add(to);
+	go = std::make_shared<GameObject>();
+	auto textc = std::make_shared<TextComponent>("Programming 4 Assignment", font);
+	textc->SetPosition(80, 20);
+	go->AddComponent(textc);
+	scene.Add(go);
 
-	to = std::make_shared<TextObject>("FPS: --", font);
-	to->SetPosition(10, 10);
-	scene.Add(to);
+	//to = std::make_shared<TextComponent>("FPS: --", font);
+	//to->SetPosition(10, 10);
+	//scene.Add(to);
 }
 
 void dae::Minigin::Cleanup()
