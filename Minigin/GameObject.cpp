@@ -2,8 +2,6 @@
 #include "GameObject.h"
 
 #include "BaseComponent.h"
-#include "ResourceManager.h"
-#include "Renderer.h"
 using namespace dae;
 
 dae::GameObject::~GameObject() = default;
@@ -27,6 +25,16 @@ void dae::GameObject::Render() const
 void GameObject::AddComponent(const std::shared_ptr<BaseComponent>& comp)
 {
 	m_pComponents.push_back(comp);
+}
+
+void GameObject::SetParent(const std::shared_ptr<GameObject>& parent)
+{
+	m_Parent = parent;
+}
+
+void GameObject::AddToChildren(const std::shared_ptr<GameObject>& newChild)
+{
+	m_Children.push_back(newChild);
 }
 
 void dae::GameObject::SetPosition(float x, float y)
