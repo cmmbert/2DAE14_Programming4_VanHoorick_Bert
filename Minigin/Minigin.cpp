@@ -2,6 +2,7 @@
 #include "Minigin.h"
 #include <thread>
 
+#include "Font.h"
 #include "FpsCounterComp.h"
 #include "InputManager.h"
 #include "SceneManager.h"
@@ -77,6 +78,7 @@ void dae::Minigin::LoadGame() const
 	scene.Add(go);
 
 	go = std::make_shared<GameObject>();
+	font = ResourceManager::GetInstance().LoadFont("Lingua.otf", 16);
 	auto fpsComp = std::make_shared<FpsCounterComp>("FPS: ", font);
 	fpsComp->SetPosition(10, 10);
 	go->AddComponent(fpsComp);
@@ -93,7 +95,7 @@ void dae::Minigin::Cleanup()
 
 void dae::Minigin::FixedUpdate(float fixedTimeStep)
 {
-	fixedTimeStep = 5.f; //to get rid of warning
+
 }
 
 void dae::Minigin::Run()

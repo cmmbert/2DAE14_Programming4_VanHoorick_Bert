@@ -10,7 +10,7 @@ dae::GameObject::~GameObject() = default;
 
 void dae::GameObject::Update(float elapsedSec)
 {
-	for (auto comp : m_pComponents)
+	for (auto &comp : m_pComponents)
 	{
 		comp.get()->Update(elapsedSec);
 	}
@@ -18,7 +18,7 @@ void dae::GameObject::Update(float elapsedSec)
 
 void dae::GameObject::Render() const
 {
-	for (auto comp : m_pComponents)
+	for (auto &comp : m_pComponents)
 	{
 		comp.get()->Render();
 	}
