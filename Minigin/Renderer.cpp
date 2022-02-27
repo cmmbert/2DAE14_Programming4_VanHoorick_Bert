@@ -41,12 +41,14 @@ void dae::Renderer::Render() const
 	SDL_SetRenderDrawColor(m_Renderer, color.r, color.g, color.b, color.a);
 	SDL_RenderClear(m_Renderer);
 
-	SceneManager::GetInstance().Render();
-
-	ImGui_ImplOpenGL2_NewFrame();
+	ImGui_ImplOpenGL2_NewFrame(); //Have to do this before the render of objects to allow components to use ImGui
 	ImGui_ImplSDL2_NewFrame(m_Window);
 	ImGui::NewFrame();
-	ImGui::ShowDemoWindow();
+
+	SceneManager::GetInstance().Render();
+
+	
+	//ImGui::ShowDemoWindow();
 	ImGui::Render();
 	ImGui_ImplOpenGL2_RenderDrawData(ImGui::GetDrawData());
 

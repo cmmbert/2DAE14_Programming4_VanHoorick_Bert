@@ -10,6 +10,7 @@
 #include "ResourceManager.h"
 #include "TextComponent.h"
 #include "GameObject.h"
+#include "ImGuiPlotComponent.h"
 #include "Scene.h"
 #include "TextureComponent.h"
 #include "Time.h"
@@ -83,6 +84,13 @@ void dae::Minigin::LoadGame() const
 	auto fpsComp = std::make_shared<FpsCounterComp>("FPS: ", font);
 	fpsComp->SetPosition(10, 10);
 	go->AddComponent(fpsComp);
+	scene.Add(go);
+
+	go = std::make_shared<GameObject>();
+	std::map<std::string, std::vector<float>> map{};
+	map.insert(pair<std::string, std::vector<float>>("int array", { 2025.4f, 407, 339.8f, 260.6f, 233.4f, 170.8f, 107.4f, 59.f, 24.2f, 11.f, 4.6f }));
+	auto plotComp = std::make_shared<ImGuiPlotComponent>( map );
+	go->AddComponent(plotComp);
 	scene.Add(go);
 }
 
