@@ -1,6 +1,8 @@
 #include "MiniginPCH.h"
 #include "InputManager.h"
 
+#include "3rdParty/imgui-1.87/imgui_impl_sdl.h"
+
 bool dae::InputManager::ProcessInput()
 {
 	ZeroMemory(&m_CurrentState, sizeof(XINPUT_STATE));
@@ -17,6 +19,7 @@ bool dae::InputManager::ProcessInput()
 		if (e.type == SDL_MOUSEBUTTONDOWN) {
 			
 		}
+		ImGui_ImplSDL2_ProcessEvent(&e);
 	}
 
 	return true;
