@@ -91,6 +91,15 @@ void dae::Minigin::LoadGame() const
 	map.insert(pair<std::string, std::vector<float>>("int array", { 2025.4f, 407, 339.8f, 260.6f, 233.4f, 170.8f, 107.4f, 59.f, 24.2f, 11.f, 4.6f }));
 	auto plotComp = std::make_shared<ImGuiPlotComponent>( map );
 	go->AddComponent(plotComp);
+
+	std::map<std::string, std::vector<float>> map2{};
+	map2.insert(pair<std::string, std::vector<float>>("gameobject array", { 7269.4f, 5228.8f,2853.6f,1520.6f,774.4f,577.2f,149.4f,81.6f,34.6f,25.2f, 11.8f }));
+	plotComp = std::make_shared<ImGuiPlotComponent>(map2);
+	go->AddComponent(plotComp);
+
+	map.insert(map2.begin(), map2.end());
+	plotComp = std::make_shared<ImGuiPlotComponent>(map);
+	go->AddComponent(plotComp);
 	scene.Add(go);
 }
 

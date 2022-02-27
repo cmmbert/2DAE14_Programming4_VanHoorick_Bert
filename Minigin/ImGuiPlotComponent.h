@@ -19,7 +19,8 @@ namespace dae
 	    void Render() const override;
     private:
 		std::map<std::string, std::vector<float>> m_PlotValues;
-		//std::vector<float> m_HorizontalHeaders;
+
+	    //std::vector<float> m_HorizontalHeaders;
 		//std::vector<float> m_VerticalHeaders;
     };
 }
