@@ -57,5 +57,6 @@ void dae::ImGuiPlotComponent::Render() const
 	conf.frame_size = ImVec2(400, 200);
 	conf.line_thickness = 2.f;
 
+	ImGui::Text(m_PlotValues.begin()->first.c_str());
 	ImGui::Plot(m_PlotValues.begin()->first.c_str(), conf);
 }
