@@ -22,7 +22,7 @@ namespace dae
 
 	    //std::vector<float> m_HorizontalHeaders;
 		//std::vector<float> m_VerticalHeaders;
-		int* m_NrOfSamples = new int(10);
+		std::unique_ptr<int> m_NrOfSamples = std::make_unique<int>(10);
     };
 }
 
