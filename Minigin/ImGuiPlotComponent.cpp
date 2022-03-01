@@ -10,6 +10,7 @@ dae::ImGuiPlotComponent::ImGuiPlotComponent(std::map<std::string, std::vector<fl
 	//m_VerticalHeaders = verticalHeaders;
 	//m_HorizontalHeaders = horizontalHeaders;
 	m_PlotValues = plotValues;
+
 }
 
 void dae::ImGuiPlotComponent::Update()
@@ -44,7 +45,6 @@ void dae::ImGuiPlotComponent::Render() const
 
 	//ONLY RENDERS ONE LINE TODO: use commented code above to support multiple lines
 	ImGui::PlotConfig conf;
-
 	conf.values.ys = m_PlotValues.begin()->second.data();
 	conf.values.count = (int)m_PlotValues.begin()->second.size()+1;
 	conf.scale.min = 0;
@@ -57,6 +57,7 @@ void dae::ImGuiPlotComponent::Render() const
 	conf.frame_size = ImVec2(400, 200);
 	conf.line_thickness = 2.f;
 
+	ImGui::InputInt("# samples", m_NrOfSamples);
 	ImGui::Text(m_PlotValues.begin()->first.c_str());
 	ImGui::Plot(m_PlotValues.begin()->first.c_str(), conf);
 }
