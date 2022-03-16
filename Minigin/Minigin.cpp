@@ -86,28 +86,7 @@ void dae::Minigin::LoadGame() const
 	go->AddComponent(fpsComp);
 	scene.Add(go);
 
-	go = std::make_shared<GameObject>();
-	std::map<std::string, std::vector<float>> map{};
-	map.insert(pair<std::string, std::vector<float>>("int array", { 2025.4f, 407, 339.8f, 260.6f, 233.4f, 170.8f, 107.4f, 59.f, 24.2f, 11.f, 4.6f }));
-	auto plotComp = std::make_shared<ImGuiPlotComponent>( map );
-	go->AddComponent(plotComp);
-
-	std::map<std::string, std::vector<float>> map2{};
-	map2.insert(pair<std::string, std::vector<float>>("gameobject array", { 7269.4f, 5228.8f,2853.6f,1520.6f,774.4f,577.2f,149.4f,81.6f,34.6f,25.2f, 11.8f }));
-	plotComp = std::make_shared<ImGuiPlotComponent>(map2);
-	go->AddComponent(plotComp);
-
-
-
-	std::map<std::string, std::vector<float>> map3{};
-	map3.insert(pair<std::string, std::vector<float>>("gameobjectalt array", {1533.0f, 1971.0f,1616.4f,1030.4f,673.4f,562.0f,313.4f,148.2f,53.0f,26.2f,13.0f}));
-	plotComp = std::make_shared<ImGuiPlotComponent>(map3);
-	go->AddComponent(plotComp);
-
-	map.insert(map2.begin(), map2.end());
-	plotComp = std::make_shared<ImGuiPlotComponent>(map);
-	go->AddComponent(plotComp);
-	scene.Add(go);
+	//DemoScene1(scene);
 }
 
 void dae::Minigin::Cleanup()
@@ -160,4 +139,37 @@ void dae::Minigin::Run()
 	}
 
 	Cleanup();
+}
+
+void dae::Minigin::DemoScene1(Scene& scene) const
+{
+	auto go = std::make_shared<GameObject>();
+
+	go = std::make_shared<GameObject>();
+	std::map<std::string, std::vector<float>> map{};
+	map.insert(pair<std::string, std::vector<float>>("int array", { 2025.4f, 407, 339.8f, 260.6f, 233.4f, 170.8f, 107.4f, 59.f, 24.2f, 11.f, 4.6f }));
+	auto plotComp = std::make_shared<ImGuiPlotComponent>(map);
+	go->AddComponent(plotComp);
+
+	std::map<std::string, std::vector<float>> map2{};
+	map2.insert(pair<std::string, std::vector<float>>("gameobject array", { 7269.4f, 5228.8f,2853.6f,1520.6f,774.4f,577.2f,149.4f,81.6f,34.6f,25.2f, 11.8f }));
+	plotComp = std::make_shared<ImGuiPlotComponent>(map2);
+	go->AddComponent(plotComp);
+
+
+
+	std::map<std::string, std::vector<float>> map3{};
+	map3.insert(pair<std::string, std::vector<float>>("gameobjectalt array", { 1533.0f, 1971.0f,1616.4f,1030.4f,673.4f,562.0f,313.4f,148.2f,53.0f,26.2f,13.0f }));
+	plotComp = std::make_shared<ImGuiPlotComponent>(map3);
+	go->AddComponent(plotComp);
+
+	map.insert(map2.begin(), map2.end());
+	plotComp = std::make_shared<ImGuiPlotComponent>(map);
+	go->AddComponent(plotComp);
+	scene.Add(go);
+}
+
+void dae::Minigin::DemoScene2(Scene& scene) const
+{
+	
 }
