@@ -171,5 +171,7 @@ void dae::Minigin::DemoScene1(Scene& scene) const
 
 void dae::Minigin::DemoScene2(Scene& scene) const
 {
-	
+	auto go = std::make_shared<GameObject>();
+
+
 }

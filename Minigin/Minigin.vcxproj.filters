@@ -108,6 +108,9 @@
     <ClInclude Include="3rdParty\imgui-1.87\imgui_plot.h">
       <Filter>Source Files\imgui</Filter>
     </ClInclude>
+    <ClInclude Include="PeterPepperComp.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MiniginPCH.cpp">
@@ -187,6 +190,9 @@
     </ClCompile>
     <ClCompile Include="3rdParty\imgui-1.87\imgui_plot.cpp">
       <Filter>Source Files\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="PeterPepperComp.cpp">
+      <Filter>Source Files\Components</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
