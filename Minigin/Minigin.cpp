@@ -11,6 +11,7 @@
 #include "TextComponent.h"
 #include "GameObject.h"
 #include "ImGuiPlotComponent.h"
+#include "PeterPepperComp.h"
 #include "Scene.h"
 #include "TextureComponent.h"
 #include "Time.h"
@@ -87,6 +88,7 @@ void dae::Minigin::LoadGame() const
 	scene.Add(go);
 
 	//DemoScene1(scene);
+	DemoScene2(scene);
 }
 
 void dae::Minigin::Cleanup()
@@ -173,5 +175,7 @@ void dae::Minigin::DemoScene2(Scene& scene) const
 {
 	auto go = std::make_shared<GameObject>();
 
+	go->AddComponent(std::make_shared<PeterPepperComp>());
 
+	scene.Add(go);
 }

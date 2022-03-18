@@ -31,6 +31,8 @@ bool dae::InputManager::Update()
 	m_ButtonsPressedThisFrame = buttonChanges & m_pImpl->currentState.Gamepad.wButtons;
 	m_ButtonsReleasedThisFrame = buttonChanges & (~m_pImpl->currentState.Gamepad.wButtons);
 
+
+	if (IsPressed(ControllerButton::ButtonB)) return false;
 	return true; //TODO implement button to stop game
 }
 
