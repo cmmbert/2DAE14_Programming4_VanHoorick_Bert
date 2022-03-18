@@ -1,43 +1,41 @@
 #include "MiniginPCH.h"
+#define WIN32_LEAN_AND_MEAN
+#include <Windows.h>
 #include "InputManager.h"
+#include <XInput.h>
 
-#include "3rdParty/imgui-1.87/imgui_impl_sdl.h"
 
-bool dae::InputManager::ProcessInput()
+class dae::InputManager::impl
 {
-	ZeroMemory(&m_CurrentState, sizeof(XINPUT_STATE));
-	XInputGetState(0, &m_CurrentState);
+public:
+	XINPUT_STATE previousState{};
+	XINPUT_STATE currentState{};
+};
 
-	SDL_Event e;
-	while (SDL_PollEvent(&e)) {
-		if (e.type == SDL_QUIT) {
-			return false;
-		}
-		if (e.type == SDL_KEYDOWN) {
-			
-		}
-		if (e.type == SDL_MOUSEBUTTONDOWN) {
-			
-		}
-		ImGui_ImplSDL2_ProcessEvent(&e);
-	}
 
-	return true;
+dae::InputManager::InputManager()
+	: m_pImpl({ std::make_unique<impl>() })
+{
+
 }
 
-bool dae::InputManager::IsPressed(ControllerButton button) const
+dae::InputManager::~InputManager() = default;
+
+bool dae::InputManager::Update()
 {
-	switch (button)
-	{
-	case ControllerButton::ButtonA:
-		return m_CurrentState.Gamepad.wButtons & XINPUT_GAMEPAD_A;
-	case ControllerButton::ButtonB:
-		return m_CurrentState.Gamepad.wButtons & XINPUT_GAMEPAD_B;
-	case ControllerButton::ButtonX:
-		return m_CurrentState.Gamepad.wButtons & XINPUT_GAMEPAD_X;
-	case ControllerButton::ButtonY:
-		return m_CurrentState.Gamepad.wButtons & XINPUT_GAMEPAD_Y;
-	default: return false;
-	}
+	CopyMemory(&m_pImpl->previousState, &m_pImpl->currentState, sizeof(XINPUT_STATE));
+	ZeroMemory(&m_pImpl->currentState, sizeof(XINPUT_STATE));
+	XInputGetState(0, &m_pImpl->currentState);
+
+	auto buttonChanges = m_pImpl->currentState.Gamepad.wButtons ^ m_pImpl->previousState.Gamepad.wButtons;
+	m_ButtonsPressedThisFrame = buttonChanges & m_pImpl->currentState.Gamepad.wButtons;
+	m_ButtonsReleasedThisFrame = buttonChanges & (~m_pImpl->currentState.Gamepad.wButtons);
+
+	return true; //TODO implement button to stop game
+}
+
+bool dae::InputManager::IsPressed(ControllerButton buttonMask) const
+{
+	return m_ButtonsPressedThisFrame & static_cast<int>(buttonMask);
 }
 

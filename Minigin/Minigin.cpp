@@ -125,7 +125,7 @@ void dae::Minigin::Run()
 			float deltaTime = chrono::duration<float>(currentTime - lastTime).count();
 			lastTime = currentTime;
 			lag += deltaTime;
-			doContinue = input.ProcessInput();
+			doContinue = input.Update();
 
 			while (lag >= m_FixedTimeStep)
 			{
