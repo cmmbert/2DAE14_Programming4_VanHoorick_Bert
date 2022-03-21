@@ -29,10 +29,10 @@ void dae::Renderer::Init(SDL_Window * window)
 		throw std::runtime_error(std::string("SDL_CreateRenderer Error: ") + SDL_GetError());
 	}
 
-	IMGUI_CHECKVERSION();
+	/*IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
 	ImGui_ImplSDL2_InitForOpenGL(window, SDL_GL_GetCurrentContext());
-	ImGui_ImplOpenGL2_Init();
+	ImGui_ImplOpenGL2_Init();*/
 }
 
 void dae::Renderer::Render() const
@@ -41,16 +41,16 @@ void dae::Renderer::Render() const
 	SDL_SetRenderDrawColor(m_Renderer, color.r, color.g, color.b, color.a);
 	SDL_RenderClear(m_Renderer);
 
-	ImGui_ImplOpenGL2_NewFrame(); //Have to do this before the render of objects to allow components to use ImGui
-	ImGui_ImplSDL2_NewFrame(m_Window);
-	ImGui::NewFrame();
+	//ImGui_ImplOpenGL2_NewFrame(); //Have to do this before the render of objects to allow components to use ImGui
+	//ImGui_ImplSDL2_NewFrame(m_Window);
+	//ImGui::NewFrame();
 
 	SceneManager::GetInstance().Render();
 
 	
 	//ImGui::ShowDemoWindow();
-	ImGui::Render();
-	ImGui_ImplOpenGL2_RenderDrawData(ImGui::GetDrawData());
+	/*ImGui::Render();
+	ImGui_ImplOpenGL2_RenderDrawData(ImGui::GetDrawData());*/
 
 
 	SDL_RenderPresent(m_Renderer);

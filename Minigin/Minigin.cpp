@@ -135,8 +135,12 @@ void dae::Minigin::Run()
 				lag -= m_FixedTimeStep;
 			}
 			Time::GetInstance().Update(deltaTime);
+
+
 			sceneManager.Update();
 			renderer.Render();
+			auto sleepTime = std::chrono::duration_cast<std::chrono::duration<float>>(currentTime + std::chrono::milliseconds(MsPerFrame) - std::chrono::high_resolution_clock::now());
+			this_thread::sleep_for(sleepTime);
 		}
 	}
 

@@ -1,10 +1,11 @@
 #pragma once
 #include "BaseComponent.h"
+#include "Subject.h"
 
-class PeterPepperComp : public dae::BaseComponent
+class PeterPepperComp : public dae::BaseComponent, Subject
 {
 public:
-	PeterPepperComp() = default;
+	PeterPepperComp();
 	~PeterPepperComp() = default;
 	PeterPepperComp(const PeterPepperComp& other) = delete;
 	PeterPepperComp(PeterPepperComp&& other) noexcept = delete;

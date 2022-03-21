@@ -1,6 +1,8 @@
 #pragma once
 namespace dae
 {
+	class GameObject;
+
 	class BaseComponent
 	{
 	public:
@@ -13,6 +15,11 @@ namespace dae
 		BaseComponent(BaseComponent&& other) = delete;
 		BaseComponent& operator=(const BaseComponent& other) = delete;
 		BaseComponent& operator=(BaseComponent&& other) = delete;
+
+		void SetGameObject(GameObject* go) { m_pGameObject = go; }
+
+	protected:
+		GameObject* m_pGameObject{};
 	};
 }
 

@@ -25,6 +25,7 @@ void dae::GameObject::Render() const
 void GameObject::AddComponent(const std::shared_ptr<BaseComponent>& comp)
 {
 	m_pComponents.push_back(comp);
+	comp->SetGameObject(this);
 }
 
 void GameObject::SetParent(const std::shared_ptr<GameObject>& parent)

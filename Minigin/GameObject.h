@@ -34,15 +34,16 @@ namespace dae
 	};
 
 	//TODO How to do this??
-	//template <typename T>
-	//T* GameObject::GetComponent() const
-	//{
-	//	for (auto& component : m_pComponents)
-	//	{
-	//		std::cout << "Comparing " << typeid(component).name() << "to type " << typeid(T).name();
-	//		if (typeid(component).name() == typeid(T).name()) 
-	//			return static_cast<T*>(component.get()); //https://stackoverflow.com/questions/351845/finding-the-type-of-an-object-in-c
-	//	}
-	//	return nullptr;
-	//}
+	template <typename T>
+	T* GameObject::GetComponent() const
+	{
+		for (auto& component : m_pComponents)
+		{
+			//std::cout << "Comparing " << typeid(component).name << "to type " << typeid(T).name();
+			auto rtrn = dynamic_cast<T*>(component.get());
+			if (rtrn != nullptr) 
+				return rtrn; //https://stackoverflow.com/questions/351845/finding-the-type-of-an-object-in-c
+		}
+		return nullptr;
+	}
 }
