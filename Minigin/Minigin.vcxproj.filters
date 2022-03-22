@@ -135,6 +135,12 @@
     <ClInclude Include="LivesLeftComp.h">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
+    <ClInclude Include="PointsComp.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyComp.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MiniginPCH.cpp">
@@ -228,6 +234,12 @@
       <Filter>Source Files\Core</Filter>
     </ClCompile>
     <ClCompile Include="LivesLeftComp.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyComp.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="PointsComp.cpp">
       <Filter>Source Files\Components</Filter>
     </ClCompile>
   </ItemGroup>

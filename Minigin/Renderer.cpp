@@ -58,9 +58,9 @@ void dae::Renderer::Render() const
 
 void dae::Renderer::Destroy()
 {
-	ImGui_ImplOpenGL2_Shutdown();
-	ImGui_ImplSDL2_Shutdown();
-	ImGui::DestroyContext();
+	//ImGui_ImplOpenGL2_Shutdown();
+	//ImGui_ImplSDL2_Shutdown();
+	//ImGui::DestroyContext();
 
 	if (m_Renderer != nullptr)
 	{

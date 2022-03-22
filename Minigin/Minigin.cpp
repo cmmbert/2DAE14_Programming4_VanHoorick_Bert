@@ -2,6 +2,7 @@
 #include "Minigin.h"
 #include <thread>
 
+#include "EnemyComp.h"
 #include "Font.h"
 #include "FpsCounterComp.h"
 #include "InputManager.h"
@@ -13,6 +14,7 @@
 #include "ImGuiPlotComponent.h"
 #include "LivesLeftComp.h"
 #include "PeterPepperComp.h"
+#include "PointsComp.h"
 #include "Scene.h"
 #include "TextureComponent.h"
 #include "Time.h"
@@ -188,13 +190,30 @@ void dae::Minigin::DemoScene2(Scene& scene) const
 	auto font = ResourceManager::GetInstance().LoadFont("Lingua.otf", 16);
 
 	auto go = std::make_shared<GameObject>();
-	auto textComp = std::make_shared<LivesLeftComp>("Lives left: ", font);
-	go->AddComponent(textComp);
-	textComp->SetPosition(10, 100);
+	auto livesLeftComp = std::make_shared<LivesLeftComp>("Lives left: ", font);
+	go->AddComponent(livesLeftComp);
+	livesLeftComp->SetPosition(10, 100);
 
-	peterPepper->AddObserver(textComp.get());
+	peterPepper->AddObserver(livesLeftComp.get());
 	scene.Add(go);
 
-	textComp->OnNotify(*peppergo, eEvent::PepperDied);
+	livesLeftComp->OnNotify(*peppergo, eEvent::PepperDied);
+
+
+	go = std::make_shared<GameObject>();
+	auto enemyComp = make_shared<EnemyComp>();
+	go->AddComponent(enemyComp);
+	scene.Add(go);
+
+	go = make_shared<GameObject>();
+	auto textComp = make_shared<TextComponent>("Punten: 0",font);
+	go->AddComponent(textComp);
+	textComp->SetPosition(10, 120);
+
+	auto pointsComp = make_shared<PointsComp>("Punten: ");
+	go->AddComponent(pointsComp);
+
+	enemyComp->AddObserver(pointsComp.get());
+	scene.Add(go);
 
 }
