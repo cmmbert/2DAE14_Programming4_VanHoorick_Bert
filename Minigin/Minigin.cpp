@@ -11,6 +11,7 @@
 #include "TextComponent.h"
 #include "GameObject.h"
 #include "ImGuiPlotComponent.h"
+#include "LivesLeftComp.h"
 #include "PeterPepperComp.h"
 #include "Scene.h"
 #include "TextureComponent.h"
@@ -177,9 +178,23 @@ void dae::Minigin::DemoScene1(Scene& scene) const
 
 void dae::Minigin::DemoScene2(Scene& scene) const
 {
+	auto peppergo = std::make_shared<GameObject>();
+
+	auto peterPepper = std::make_shared<PeterPepperComp>();
+	peppergo->AddComponent(peterPepper);
+
+	scene.Add(peppergo);
+
+	auto font = ResourceManager::GetInstance().LoadFont("Lingua.otf", 16);
+
 	auto go = std::make_shared<GameObject>();
+	auto textComp = std::make_shared<LivesLeftComp>("Lives left: ", font);
+	go->AddComponent(textComp);
+	textComp->SetPosition(10, 100);
 
-	go->AddComponent(std::make_shared<PeterPepperComp>());
-
+	peterPepper->AddObserver(textComp.get());
 	scene.Add(go);
+
+	textComp->OnNotify(*peppergo, eEvent::PepperDied);
+
 }

@@ -2,7 +2,7 @@
 #include "BaseComponent.h"
 #include "Subject.h"
 
-class PeterPepperComp : public dae::BaseComponent, Subject
+class PeterPepperComp : public dae::BaseComponent, public Subject
 {
 public:
 	PeterPepperComp();

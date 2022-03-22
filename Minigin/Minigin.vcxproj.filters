@@ -132,6 +132,9 @@
     <ClInclude Include="Subject.h">
       <Filter>Header Files\Core</Filter>
     </ClInclude>
+    <ClInclude Include="LivesLeftComp.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MiniginPCH.cpp">
@@ -223,6 +226,9 @@
     </ClCompile>
     <ClCompile Include="Subject.cpp">
       <Filter>Source Files\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="LivesLeftComp.cpp">
+      <Filter>Source Files\Components</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

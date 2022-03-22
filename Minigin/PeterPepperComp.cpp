@@ -6,7 +6,7 @@
 
 PeterPepperComp::PeterPepperComp()
 {
-	AddObserver(PlayerObserver());
+	//AddObserver(PlayerObserver());
 }
 
 void PeterPepperComp::OnDeath()
@@ -14,7 +14,6 @@ void PeterPepperComp::OnDeath()
 	--m_LivesLeft;
 	std::cout << "PlayerDied, lives left: " << m_LivesLeft << "\n";
 	NotifyAllObservers(*m_pGameObject, eEvent::PepperDied);
-	
 }
 
 void PeterPepperComp::Update()

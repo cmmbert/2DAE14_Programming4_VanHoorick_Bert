@@ -104,7 +104,7 @@
       <PrecompiledHeaderFile>MiniginPCH.h</PrecompiledHeaderFile>
       <TreatWarningAsError>true</TreatWarningAsError>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <DisableSpecificWarnings>4100</DisableSpecificWarnings>
+      <DisableSpecificWarnings>4100;26495</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -126,7 +126,7 @@
       <PrecompiledHeaderFile>MiniginPCH.h</PrecompiledHeaderFile>
       <TreatWarningAsError>true</TreatWarningAsError>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <DisableSpecificWarnings>4100</DisableSpecificWarnings>
+      <DisableSpecificWarnings>4100;26495</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -150,7 +150,7 @@
       <PrecompiledHeaderFile>MiniginPCH.h</PrecompiledHeaderFile>
       <TreatWarningAsError>true</TreatWarningAsError>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <DisableSpecificWarnings>4100</DisableSpecificWarnings>
+      <DisableSpecificWarnings>4100;26495</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -176,7 +176,7 @@
       <PrecompiledHeaderFile>MiniginPCH.h</PrecompiledHeaderFile>
       <TreatWarningAsError>true</TreatWarningAsError>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <DisableSpecificWarnings>4100</DisableSpecificWarnings>
+      <DisableSpecificWarnings>4100;26495</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -206,6 +206,7 @@
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="ImGuiPlotComponent.h" />
     <ClInclude Include="InputManager.h" />
+    <ClInclude Include="LivesLeftComp.h" />
     <ClInclude Include="Minigin.h" />
     <ClInclude Include="MiniginPCH.h" />
     <ClInclude Include="Observer.h" />
@@ -344,6 +345,7 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="ImGuiPlotComponent.cpp" />
     <ClCompile Include="InputManager.cpp" />
+    <ClCompile Include="LivesLeftComp.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Minigin.cpp" />
     <ClCompile Include="MiniginPCH.cpp">

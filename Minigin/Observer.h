@@ -9,8 +9,7 @@ namespace dae
 class Observer
 {
 public:
-	Observer() = default;
-	virtual ~Observer() = default;
-	virtual void OnNotify(const dae::GameObject& entity, eEvent event){};
+	virtual ~Observer(){};
+	virtual void OnNotify(const dae::GameObject& entity, eEvent event) = 0;
 };
 

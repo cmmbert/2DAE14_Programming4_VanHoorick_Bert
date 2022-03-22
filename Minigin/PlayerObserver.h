@@ -7,7 +7,7 @@ namespace dae
 	class GameObject;
 }
 
-class PlayerObserver : public Observer
+class PlayerObserver final : public Observer
 {
 public:
 	void OnNotify(const dae::GameObject& entity, eEvent event) override;
