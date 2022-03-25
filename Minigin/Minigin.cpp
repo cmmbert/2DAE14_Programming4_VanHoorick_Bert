@@ -1,7 +1,10 @@
 #include "MiniginPCH.h"
 #include "Minigin.h"
+
+#include <steam_api_common.h>
 #include <thread>
 
+#include "Achievements.h"
 #include "EnemyComp.h"
 #include "Font.h"
 #include "FpsCounterComp.h"
@@ -120,7 +123,7 @@ void dae::Minigin::Run()
 		auto& renderer = Renderer::GetInstance();
 		auto& sceneManager = SceneManager::GetInstance();
 		auto& input = InputManager::GetInstance();
-		
+
 		bool doContinue = true;
 		auto lastTime = chrono::high_resolution_clock::now();
 		float lag = 0.0f;
@@ -132,6 +135,8 @@ void dae::Minigin::Run()
 			lag += deltaTime;
 			doContinue = input.Update();
 
+			SteamAPI_RunCallbacks();
+
 			while (lag >= m_FixedTimeStep)
 			{
 				FixedUpdate(m_FixedTimeStep);
@@ -139,6 +144,8 @@ void dae::Minigin::Run()
 			}
 			Time::GetInstance().Update(deltaTime);
 
+			if (dae::InputManager::GetInstance().IsPressed(dae::ControllerButton::ButtonY)) 
+				Achievements::GetInstance().SetWinGameAch();
 
 			sceneManager.Update();
 			renderer.Render();

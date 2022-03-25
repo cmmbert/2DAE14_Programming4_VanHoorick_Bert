@@ -11,7 +11,9 @@ PeterPepperComp::PeterPepperComp()
 
 void PeterPepperComp::OnDeath()
 {
-	--m_LivesLeft;
+	if (m_LivesLeft > 0) 
+		--m_LivesLeft;
+	
 	std::cout << "PlayerDied, lives left: " << m_LivesLeft << "\n";
 	NotifyAllObservers(*m_pGameObject, eEvent::PepperDied);
 }

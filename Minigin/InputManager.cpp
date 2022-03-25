@@ -23,6 +23,20 @@ dae::InputManager::~InputManager() = default;
 
 bool dae::InputManager::Update()
 {
+	SDL_Event e;
+	while (SDL_PollEvent(&e)) {
+		if (e.type == SDL_QUIT) {
+			return false;
+		}
+		if (e.type == SDL_KEYDOWN) {
+
+		}
+		if (e.type == SDL_MOUSEBUTTONDOWN) {
+
+		}
+	}
+
+
 	CopyMemory(&m_pImpl->previousState, &m_pImpl->currentState, sizeof(XINPUT_STATE));
 	ZeroMemory(&m_pImpl->currentState, sizeof(XINPUT_STATE));
 	XInputGetState(0, &m_pImpl->currentState);
