@@ -47,7 +47,7 @@ public:
 	Achievements();
 	void SetWinGameAch();
 	~Achievements() override;
-private:
-	static Achievements* m_pInstance;
+
+	bool IsSteamInitiated;
 
 };

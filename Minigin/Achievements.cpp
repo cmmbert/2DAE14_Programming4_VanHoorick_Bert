@@ -127,19 +127,21 @@ CSteamAchievements* g_SteamAchievements;
 
 Achievements::Achievements()
 {
-	g_SteamAchievements = new CSteamAchievements(g_Achievements, 4);
+	if(IsSteamInitiated)
+		g_SteamAchievements = new CSteamAchievements(g_Achievements, 4);
 }
 
 
 void Achievements::SetWinGameAch()
 {
-	g_SteamAchievements->SetAchievement("ACH_WIN_ONE_GAME");
+	if (IsSteamInitiated)
+		g_SteamAchievements->SetAchievement("ACH_WIN_ONE_GAME");
 }
 
 Achievements::~Achievements()
 {
 	if (g_SteamAchievements)
-		delete g_SteamAchievements; //LINK error when trying to delete pointer? TODO
+		delete g_SteamAchievements;
 }
 
 
