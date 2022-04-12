@@ -70,12 +70,12 @@ void dae::Minigin::LoadGame() const
 	auto& scene = SceneManager::GetInstance().CreateScene("Demo");
 
 	auto go = std::make_shared<GameObject>();
-	auto tc = std::make_shared<TextureComponent>("background.jpg", glm::vec2(0,0));
+	auto tc = std::make_shared<TextureComponent>("Burgertime/spritesheet.png", glm::ivec2(50,50), 16, 16, glm::ivec4(16,16, 16,16));
 	go->AddComponent(tc);
 	scene.Add(go);
 
 	go = std::make_shared<GameObject>();
-	tc = std::make_shared<TextureComponent>("logo.png", glm::vec2(216, 180));
+	tc = std::make_shared<TextureComponent>("logo.png", glm::ivec2(216, 180));
 	go->AddComponent(tc);
 	scene.Add(go);
 
