@@ -28,6 +28,9 @@
     <Filter Include="Source Files\Core">
       <UniqueIdentifier>{aa00909e-760d-43d6-adf9-e5725d056dee}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Core\Services">
+      <UniqueIdentifier>{fff5bd3f-b6f4-466c-af4c-04e50aedb0d2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MiniginPCH.h">
@@ -144,6 +147,18 @@
     <ClInclude Include="Achievements.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="AudioNullService.h">
+      <Filter>Header Files\Core\Services</Filter>
+    </ClInclude>
+    <ClInclude Include="IAudioService.h">
+      <Filter>Header Files\Core\Services</Filter>
+    </ClInclude>
+    <ClInclude Include="SDLMixerAudioService.h">
+      <Filter>Header Files\Core\Services</Filter>
+    </ClInclude>
+    <ClInclude Include="ServiceLocator.h">
+      <Filter>Header Files\Core\Services</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MiniginPCH.cpp">
@@ -247,6 +262,15 @@
     </ClCompile>
     <ClCompile Include="Achievements.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ServiceLocator.cpp">
+      <Filter>Source Files\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="IAudioService.cpp">
+      <Filter>Source Files\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="SDLMixerAudioService.cpp">
+      <Filter>Source Files\Core</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

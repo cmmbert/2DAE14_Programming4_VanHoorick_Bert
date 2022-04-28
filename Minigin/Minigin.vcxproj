@@ -223,6 +223,7 @@ xcopy $(SolutionDir)3rdParty\steam\redistributable_bin\win64\*.dll $(OutputPath)
     <ClInclude Include="3rdParty\imgui-1.87\imstb_textedit.h" />
     <ClInclude Include="3rdParty\imgui-1.87\imstb_truetype.h" />
     <ClInclude Include="Achievements.h" />
+    <ClInclude Include="AudioNullService.h" />
     <ClInclude Include="BaseComponent.h" />
     <ClInclude Include="Command.h" />
     <ClInclude Include="eEvent.h" />
@@ -230,6 +231,7 @@ xcopy $(SolutionDir)3rdParty\steam\redistributable_bin\win64\*.dll $(OutputPath)
     <ClInclude Include="Font.h" />
     <ClInclude Include="FpsCounterComp.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="IAudioService.h" />
     <ClInclude Include="ImGuiPlotComponent.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="LivesLeftComp.h" />
@@ -244,6 +246,8 @@ xcopy $(SolutionDir)3rdParty\steam\redistributable_bin\win64\*.dll $(OutputPath)
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
+    <ClInclude Include="SDLMixerAudioService.h" />
+    <ClInclude Include="ServiceLocator.h" />
     <ClInclude Include="Singleton.h" />
     <ClInclude Include="Subject.h" />
     <ClInclude Include="TextComponent.h" />
@@ -372,6 +376,7 @@ xcopy $(SolutionDir)3rdParty\steam\redistributable_bin\win64\*.dll $(OutputPath)
     <ClCompile Include="Font.cpp" />
     <ClCompile Include="FpsCounterComp.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="IAudioService.cpp" />
     <ClCompile Include="ImGuiPlotComponent.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="LivesLeftComp.cpp" />
@@ -391,6 +396,8 @@ xcopy $(SolutionDir)3rdParty\steam\redistributable_bin\win64\*.dll $(OutputPath)
     <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
+    <ClCompile Include="SDLMixerAudioService.cpp" />
+    <ClCompile Include="ServiceLocator.cpp" />
     <ClCompile Include="Subject.cpp" />
     <ClCompile Include="TextComponent.cpp" />
     <ClCompile Include="Texture2D.cpp" />
