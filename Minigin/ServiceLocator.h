@@ -1,26 +1,19 @@
 #pragma once
 #include "AudioNullService.h"
 #include "IAudioService.h"
+#include "Singleton.h"
 
-class ServiceLocator
+class ServiceLocator : public dae::Singleton<ServiceLocator>
 {
 public:
-	static IAudioService* GetAudioService() { return m_pAudioService; }
-	static void RegisterAudioService(IAudioService* newService)
-	{
-        if (newService == nullptr)
-        {
-            // Revert to null service.
-            m_pAudioService = &m_pAudioNullService;
-        }
-        else
-        {
-            m_pAudioService = newService;
-        }
-	}
+	static IAudioService* GetAudioService();
+	static void RegisterAudioService(IAudioService* newService);
+	~ServiceLocator() override{};
 
 private:
-	static IAudioService* m_pAudioService;
-	static AudioNullService m_pAudioNullService;
+	friend class Singleton<ServiceLocator>;
+	ServiceLocator() = default;
+	IAudioService* m_pAudioService{};
+	AudioNullService m_pAudioNullService{};
 };
 

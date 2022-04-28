@@ -19,6 +19,8 @@
 #include "PeterPepperComp.h"
 #include "PointsComp.h"
 #include "Scene.h"
+#include "ServiceLocator.h"
+#include "SoundComponent.h"
 #include "TextureComponent.h"
 #include "Time.h"
 
@@ -60,6 +62,7 @@ void dae::Minigin::Initialize()
 	}
 
 	Renderer::GetInstance().Init(m_Window);
+	ServiceLocator::RegisterAudioService(nullptr);
 }
 
 /**
@@ -91,8 +94,11 @@ void dae::Minigin::LoadGame() const
 	auto fpsComp = std::make_shared<FpsCounterComp>("FPS: ", font);
 	fpsComp->SetPosition(10, 10);
 	go->AddComponent(fpsComp);
-	scene.Add(go);
 
+	auto sound = std::make_shared<SoundComponent>(1);
+	go->AddComponent(sound);
+	scene.Add(go);
+	sound->Play();
 	//DemoScene1(scene);
 	DemoScene2(scene);
 }

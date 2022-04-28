@@ -159,6 +159,9 @@
     <ClInclude Include="ServiceLocator.h">
       <Filter>Header Files\Core\Services</Filter>
     </ClInclude>
+    <ClInclude Include="SoundComponent.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MiniginPCH.cpp">
@@ -271,6 +274,9 @@
     </ClCompile>
     <ClCompile Include="SDLMixerAudioService.cpp">
       <Filter>Source Files\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="SoundComponent.cpp">
+      <Filter>Source Files\Components</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
