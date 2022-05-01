@@ -3,7 +3,7 @@
 
 #include "ServiceLocator.h"
 
-void SoundComponent::Play()
+void SoundComponent::Play(float volumePerc)
 {
-	ServiceLocator::GetInstance().GetAudioService()->PlaySound(m_SoundId, 0.5f);
+	ServiceLocator::GetInstance().GetAudioService()->PlaySound(m_SoundId, volumePerc);
 }

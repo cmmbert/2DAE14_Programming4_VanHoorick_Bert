@@ -44,7 +44,7 @@ void dae::Minigin::Initialize()
 {
 	PrintSDLVersion();
 	
-	if (SDL_Init(SDL_INIT_VIDEO) != 0) 
+	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) != 0)
 	{
 		throw std::runtime_error(std::string("SDL_Init Error: ") + SDL_GetError());
 	}
@@ -104,9 +104,9 @@ void dae::Minigin::LoadGame() const
 	auto sound3 = std::make_shared<SoundComponent>(3);
 	go->AddComponent(sound3);
 	scene.Add(go);
-	sound3->Play();
-	sound->Play();
-	sound2->Play();
+	//sound3->Play();
+	sound->Play(0.1f);
+	//sound2->Play();
 	//DemoScene1(scene);
 	DemoScene2(scene);
 }

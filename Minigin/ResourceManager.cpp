@@ -1,6 +1,7 @@
 #include "MiniginPCH.h"
 #include "ResourceManager.h"
 #include <SDL_image.h>
+#include <SDL_mixer.h>
 #include <SDL_ttf.h>
 
 #include "Renderer.h"
@@ -26,6 +27,11 @@ void dae::ResourceManager::Init(const std::string& dataPath)
 	if (TTF_Init() != 0) 
 	{
 		throw std::runtime_error(std::string("Failed to load support for fonts: ") + SDL_GetError());
+	}
+
+	if( Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, 2, 4096) < 0)
+	{
+		throw std::runtime_error(std::string("error when calling Mix_OpenAudio:") + Mix_GetError());
 	}
 }
 

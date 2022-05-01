@@ -1,5 +1,6 @@
 #pragma once
 #include "IAudioService.h"
+
 class SDLMixerAudioService final :
     public IAudioService
 {
@@ -20,7 +21,7 @@ private:
 	int m_QTail = 0;
 	static const int m_QueueLength = 32;
 	Sound m_Queue[m_QueueLength]{};
-
+	bool m_HasItemsQueued = false;
 	void ActuallyPlaySound(Sound sound);
 };
 

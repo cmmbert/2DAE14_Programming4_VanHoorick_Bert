@@ -1,5 +1,6 @@
 #include "MiniginPCH.h"
 #include "SDLMixerAudioService.h"
+#include "SDL_mixer.h"
 
 void SDLMixerAudioService::PlaySound(int soundID, float volume)
 {
@@ -9,6 +10,7 @@ void SDLMixerAudioService::PlaySound(int soundID, float volume)
 
 	m_Queue[m_QTail] = Sound(soundID, volume);
 	m_QTail = (m_QTail + 1) % m_QueueLength;
+	m_HasItemsQueued = true;
 }
 
 void SDLMixerAudioService::StopSound(int soundID)
@@ -23,13 +25,16 @@ void SDLMixerAudioService::QueueLoop()
 {
 	while(m_IsLooping)
 	{
-		if (m_QHead == m_QTail)
+		if (m_HasItemsQueued)
+		{
+			ActuallyPlaySound(m_Queue[m_QHead]);
+			++m_QHead;
+			if (m_QHead == m_QTail) m_HasItemsQueued = false;
+		}
+		else
 		{
 			Sleep(5);
-			continue;
 		}
-		ActuallyPlaySound(m_Queue[m_QHead]);
-		++m_QHead;
 	}
 }
 
@@ -38,4 +43,7 @@ void SDLMixerAudioService::ActuallyPlaySound(Sound sound)
 	std::string output = "Play sound with ID: " + std::to_string(sound.id) + "\n";
 	std::cout << output;
 
+	auto sample = Mix_LoadWAV(("../Data/Sounds/" + std::to_string(sound.id) + ".wav").c_str());
+	sample->volume = UINT8(sound.volume * 128);
+	Mix_PlayChannel(-1, sample, 0);
 }
