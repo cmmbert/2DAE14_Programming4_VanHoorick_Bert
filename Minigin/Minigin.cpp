@@ -19,6 +19,7 @@
 #include "PeterPepperComp.h"
 #include "PointsComp.h"
 #include "Scene.h"
+#include "SDLMixerAudioService.h"
 #include "ServiceLocator.h"
 #include "SoundComponent.h"
 #include "TextureComponent.h"
@@ -62,7 +63,7 @@ void dae::Minigin::Initialize()
 	}
 
 	Renderer::GetInstance().Init(m_Window);
-	ServiceLocator::RegisterAudioService(nullptr);
+
 }
 
 /**
@@ -95,10 +96,17 @@ void dae::Minigin::LoadGame() const
 	fpsComp->SetPosition(10, 10);
 	go->AddComponent(fpsComp);
 
+	go = std::make_shared<GameObject>();
 	auto sound = std::make_shared<SoundComponent>(1);
 	go->AddComponent(sound);
+	auto sound2 = std::make_shared<SoundComponent>(2);
+	go->AddComponent(sound2);
+	auto sound3 = std::make_shared<SoundComponent>(3);
+	go->AddComponent(sound3);
 	scene.Add(go);
+	sound3->Play();
 	sound->Play();
+	sound2->Play();
 	//DemoScene1(scene);
 	DemoScene2(scene);
 }
@@ -123,12 +131,18 @@ void dae::Minigin::Run()
 	// tell the resource manager where he can find the game data
 	ResourceManager::GetInstance().Init("../Data/");
 
+
+	auto SdlAudio = new SDLMixerAudioService();
+	ServiceLocator::RegisterAudioService(SdlAudio);
+	std::thread audioThread = std::thread(&SDLMixerAudioService::QueueLoop, SdlAudio);
+
 	LoadGame();
 
 	{
 		auto& renderer = Renderer::GetInstance();
 		auto& sceneManager = SceneManager::GetInstance();
 		auto& input = InputManager::GetInstance();
+
 
 		bool doContinue = true;
 		auto lastTime = chrono::high_resolution_clock::now();
@@ -158,6 +172,8 @@ void dae::Minigin::Run()
 			auto sleepTime = std::chrono::duration_cast<std::chrono::duration<float>>(currentTime + std::chrono::milliseconds(MsPerFrame) - std::chrono::high_resolution_clock::now());
 			this_thread::sleep_for(sleepTime);
 		}
+		SdlAudio->StopQueue();
+		audioThread.join();
 	}
 
 	Cleanup();

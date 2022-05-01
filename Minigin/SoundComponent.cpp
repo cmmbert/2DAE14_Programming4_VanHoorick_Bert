@@ -5,5 +5,5 @@
 
 void SoundComponent::Play()
 {
-	ServiceLocator::GetInstance().GetAudioService()->PlaySound(m_SoundId);
+	ServiceLocator::GetInstance().GetAudioService()->PlaySound(m_SoundId, 0.5f);
 }

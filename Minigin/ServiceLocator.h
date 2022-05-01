@@ -8,7 +8,7 @@ class ServiceLocator : public dae::Singleton<ServiceLocator>
 public:
 	static IAudioService* GetAudioService();
 	static void RegisterAudioService(IAudioService* newService);
-	~ServiceLocator() override{};
+	~ServiceLocator() override;
 
 private:
 	friend class Singleton<ServiceLocator>;
