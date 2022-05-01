@@ -1,34 +1,23 @@
 #include "MiniginPCH.h"
 #include "ServiceLocator.h"
 
+std::shared_ptr<IAudioService> ServiceLocator::m_pAudioService{};
+AudioNullService ServiceLocator::m_pAudioNullService{};
+
 IAudioService* ServiceLocator::GetAudioService()
 {
-    return GetInstance().m_pAudioService;
+    return m_pAudioService.get();
 }
 
 void ServiceLocator::RegisterAudioService(IAudioService* newService)
 {
-    if(GetInstance().m_pAudioService != nullptr)
-    {
-        delete GetInstance().m_pAudioService;
-        GetInstance().m_pAudioService = nullptr;
-    }
     if (newService == nullptr)
     {
         // Revert to null service.
-        GetInstance().m_pAudioService = &GetInstance().m_pAudioNullService;
+        m_pAudioService = std::shared_ptr<IAudioService>(&m_pAudioNullService);
     }
     else
     {
-        GetInstance().m_pAudioService = newService;
-    }
-}
-
-ServiceLocator::~ServiceLocator()
-{
-    if (GetInstance().m_pAudioService != nullptr)
-    {
-        delete GetInstance().m_pAudioService;
-        GetInstance().m_pAudioService = nullptr;
+        m_pAudioService = std::shared_ptr<IAudioService>(newService);
     }
 }

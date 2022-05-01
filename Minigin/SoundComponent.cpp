@@ -5,5 +5,5 @@
 
 void SoundComponent::Play(float volumePerc)
 {
-	ServiceLocator::GetInstance().GetAudioService()->PlaySound(m_SoundId, volumePerc);
+	ServiceLocator::GetAudioService()->PlaySound(m_SoundId, volumePerc);
 }
