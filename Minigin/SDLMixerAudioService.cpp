@@ -23,7 +23,11 @@ void SDLMixerAudioService::QueueLoop()
 {
 	while(m_IsLooping)
 	{
-		if(m_QHead == m_QTail) continue;
+		if (m_QHead == m_QTail)
+		{
+			Sleep(5);
+			continue;
+		}
 		ActuallyPlaySound(m_Queue[m_QHead]);
 		++m_QHead;
 	}
