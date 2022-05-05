@@ -20,7 +20,7 @@ void PeterPepperComp::OnDeath()
 
 void PeterPepperComp::Update()
 {
-	if (dae::InputManager::GetInstance().IsPressed(dae::ControllerButton::ButtonA)) OnDeath();
+	if (dae::InputManager::GetInstance().IsPressed(eControllerButton::ButtonA)) OnDeath();
 }
 
 void PeterPepperComp::Render() const

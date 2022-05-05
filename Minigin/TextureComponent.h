@@ -10,6 +10,7 @@ namespace dae
 	public:
 		TextureComponent() = default;
 		TextureComponent(const std::string& filename, glm::ivec2 position,int width = 0, int height = 0, glm::ivec4 srcRect = {});
+		void Start() override {};
 		void Update() override;
 		void Render() const override;
 		void SetTexture(const std::string& filename);

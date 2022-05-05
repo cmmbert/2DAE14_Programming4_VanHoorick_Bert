@@ -231,6 +231,7 @@ xcopy $(SolutionDir)3rdParty\steam\redistributable_bin\win64\*.dll $(OutputPath)
     <ClInclude Include="AudioNullService.h" />
     <ClInclude Include="BaseComponent.h" />
     <ClInclude Include="Command.h" />
+    <ClInclude Include="eControllerButton.h" />
     <ClInclude Include="eEvent.h" />
     <ClInclude Include="EnemyComp.h" />
     <ClInclude Include="Font.h" />
@@ -379,6 +380,7 @@ xcopy $(SolutionDir)3rdParty\steam\redistributable_bin\win64\*.dll $(OutputPath)
     <ClCompile Include="AnimationComponent.cpp" />
     <ClCompile Include="BaseComponent.cpp" />
     <ClCompile Include="Command.cpp" />
+    <ClCompile Include="eControllerButton.cpp" />
     <ClCompile Include="EnemyComp.cpp" />
     <ClCompile Include="Font.cpp" />
     <ClCompile Include="FpsCounterComp.cpp" />

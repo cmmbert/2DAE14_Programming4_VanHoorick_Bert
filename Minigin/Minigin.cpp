@@ -169,7 +169,7 @@ void dae::Minigin::Run()
 			}
 			Time::GetInstance().Update(deltaTime);
 
-			if (dae::InputManager::GetInstance().IsPressed(dae::ControllerButton::ButtonY)) 
+			if (dae::InputManager::GetInstance().IsPressed(eControllerButton::ButtonY)) 
 				Achievements::GetInstance().SetWinGameAch();
 
 			sceneManager.Update();

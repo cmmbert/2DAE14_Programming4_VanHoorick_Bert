@@ -10,6 +10,7 @@ namespace dae
 	class TextComponent : public BaseComponent
 	{
 	public:
+		void Start() override {};
 		void Update();
 		void Render() const;
 

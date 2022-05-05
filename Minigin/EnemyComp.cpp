@@ -11,7 +11,7 @@ void EnemyComp::OnDeath()
 
 void EnemyComp::Update()
 {
-	if (dae::InputManager::GetInstance().IsPressed(dae::ControllerButton::ButtonX)) 
+	if (dae::InputManager::GetInstance().IsPressed(eControllerButton::ButtonX)) 
 		OnDeath();
 
 }

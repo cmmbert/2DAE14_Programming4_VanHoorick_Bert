@@ -15,7 +15,8 @@ namespace dae
 	    ImGuiPlotComponent& operator=(const ImGuiPlotComponent& other) = delete;
 	    ImGuiPlotComponent& operator=(ImGuiPlotComponent&& other) noexcept = delete;
 
-	    void Update() override;
+		void Start() override {};
+		void Update() override;
 	    void Render() const override;
     private:
 		std::map<std::string, std::vector<float>> m_PlotValues;

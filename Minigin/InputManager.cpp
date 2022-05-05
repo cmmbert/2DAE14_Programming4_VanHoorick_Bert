@@ -5,6 +5,7 @@
 #include <XInput.h>
 
 
+
 class dae::InputManager::impl
 {
 public:
@@ -45,12 +46,17 @@ bool dae::InputManager::Update()
 	m_ButtonsPressedThisFrame = buttonChanges & m_pImpl->currentState.Gamepad.wButtons;
 	m_ButtonsReleasedThisFrame = buttonChanges & (~m_pImpl->currentState.Gamepad.wButtons);
 
+	//for (auto& command : m_Commands)
+	//{
+	//	if (IsPressed(command->GetButtonMask()))
+	//		command->Execute();
+	//}
 
-	if (IsPressed(ControllerButton::ButtonB)) return false;
+	if (IsPressed(eControllerButton::ButtonB)) return false;
 	return true; //TODO implement button to stop game
 }
 
-bool dae::InputManager::IsPressed(ControllerButton buttonMask) const
+bool dae::InputManager::IsPressed(eControllerButton buttonMask) const
 {
 	return m_ButtonsPressedThisFrame & static_cast<int>(buttonMask);
 }
