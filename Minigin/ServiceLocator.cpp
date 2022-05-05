@@ -1,8 +1,8 @@
 #include "MiniginPCH.h"
 #include "ServiceLocator.h"
 
-std::shared_ptr<IAudioService> ServiceLocator::m_pAudioService{};
 AudioNullService ServiceLocator::m_pAudioNullService{};
+std::shared_ptr<IAudioService> ServiceLocator::m_pAudioService{ &m_pAudioNullService };
 
 IAudioService* ServiceLocator::GetAudioService()
 {

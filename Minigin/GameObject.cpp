@@ -42,3 +42,11 @@ void dae::GameObject::SetPosition(float x, float y)
 {
 	m_Transform.SetPosition(x, y, 0.0f);
 }
+
+GameObject::GameObject()
+{
+	for (auto comp : m_pComponents)
+	{
+		comp->Start();
+	}
+}

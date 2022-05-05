@@ -5,6 +5,7 @@
 #include <thread>
 
 #include "Achievements.h"
+#include "AnimationComponent.h"
 #include "EnemyComp.h"
 #include "Font.h"
 #include "FpsCounterComp.h"
@@ -108,6 +109,10 @@ void dae::Minigin::LoadGame() const
 	sound->Play(0.1f);
 	//sound2->Play();
 	//DemoScene1(scene);
+
+	auto anim = std::make_shared<AnimationComponent>();
+	go->AddComponent(anim);
+
 	DemoScene2(scene);
 }
 
