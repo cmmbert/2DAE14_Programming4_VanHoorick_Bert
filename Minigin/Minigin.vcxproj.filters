@@ -31,6 +31,12 @@
     <Filter Include="Header Files\Core\Services">
       <UniqueIdentifier>{fff5bd3f-b6f4-466c-af4c-04e50aedb0d2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Core\Commands">
+      <UniqueIdentifier>{f7e478c9-8585-415f-bcb2-09c65a646758}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Core\Commands">
+      <UniqueIdentifier>{4bd1c40d-6d35-4ed7-9fda-2f9ad0a56d62}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MiniginPCH.h">
@@ -162,11 +168,14 @@
     <ClInclude Include="InputManager.h">
       <Filter>Header Files\Core</Filter>
     </ClInclude>
-    <ClInclude Include="Command.h">
-      <Filter>Header Files\Core</Filter>
-    </ClInclude>
     <ClInclude Include="eControllerButton.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Command.h">
+      <Filter>Header Files\Core\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="JumpCommand.h">
+      <Filter>Header Files\Core\Commands</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -284,11 +293,14 @@
     <ClCompile Include="InputManager.cpp">
       <Filter>Source Files\Core</Filter>
     </ClCompile>
-    <ClCompile Include="Command.cpp">
-      <Filter>Source Files\Core</Filter>
-    </ClCompile>
     <ClCompile Include="eControllerButton.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Command.cpp">
+      <Filter>Source Files\Core\Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="JumpCommand.cpp">
+      <Filter>Source Files\Core\Commands</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

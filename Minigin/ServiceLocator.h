@@ -6,7 +6,7 @@ class ServiceLocator
 {
 public:
 	static IAudioService* GetAudioService();
-	static void RegisterAudioService(IAudioService* newService);
+	static void RegisterAudioService(std::shared_ptr<IAudioService> newService);
 
 private:
 

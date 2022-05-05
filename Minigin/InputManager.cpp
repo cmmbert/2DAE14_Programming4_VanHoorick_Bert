@@ -4,6 +4,7 @@
 #include "InputManager.h"
 #include <XInput.h>
 
+#include "JumpCommand.h"
 
 
 class dae::InputManager::impl
@@ -17,7 +18,7 @@ public:
 dae::InputManager::InputManager()
 	: m_pImpl({ std::make_unique<impl>() })
 {
-
+	m_Commands.push_back(std::make_unique<JumpCommand>());
 }
 
 dae::InputManager::~InputManager() = default;
@@ -46,11 +47,11 @@ bool dae::InputManager::Update()
 	m_ButtonsPressedThisFrame = buttonChanges & m_pImpl->currentState.Gamepad.wButtons;
 	m_ButtonsReleasedThisFrame = buttonChanges & (~m_pImpl->currentState.Gamepad.wButtons);
 
-	//for (auto& command : m_Commands)
-	//{
-	//	if (IsPressed(command->GetButtonMask()))
-	//		command->Execute();
-	//}
+	for (auto& command : m_Commands)
+	{
+		if (IsPressed(command->GetButtonMask()))
+			command->Execute();
+	}
 
 	if (IsPressed(eControllerButton::ButtonB)) return false;
 	return true; //TODO implement button to stop game

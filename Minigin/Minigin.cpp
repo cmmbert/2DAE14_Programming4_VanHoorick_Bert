@@ -137,7 +137,7 @@ void dae::Minigin::Run()
 	ResourceManager::GetInstance().Init("../Data/");
 
 
-	auto SdlAudio = new SDLMixerAudioService();
+	auto SdlAudio = std::make_shared<SDLMixerAudioService>();
 	ServiceLocator::RegisterAudioService(SdlAudio);
 	std::thread audioThread = std::thread(&SDLMixerAudioService::QueueLoop, SdlAudio);
 

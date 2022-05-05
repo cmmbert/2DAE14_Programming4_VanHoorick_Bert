@@ -2,14 +2,14 @@
 #include "ServiceLocator.h"
 
 AudioNullService ServiceLocator::m_pAudioNullService{};
-std::shared_ptr<IAudioService> ServiceLocator::m_pAudioService{ &m_pAudioNullService };
+std::shared_ptr<IAudioService> ServiceLocator::m_pAudioService{ std::make_shared<AudioNullService>(m_pAudioNullService) };
 
 IAudioService* ServiceLocator::GetAudioService()
 {
     return m_pAudioService.get();
 }
 
-void ServiceLocator::RegisterAudioService(IAudioService* newService)
+void ServiceLocator::RegisterAudioService(std::shared_ptr<IAudioService> newService)
 {
     if (newService == nullptr)
     {

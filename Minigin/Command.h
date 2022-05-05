@@ -9,9 +9,9 @@ namespace dae
 	public:
 		virtual ~Command() {}
 		virtual void Execute() = 0;
-		//void SetButtonMask(eControllerButton buttonMask) { m_ButtonMask = buttonMask; }
-		//eControllerButton GetButtonMask() const { return m_ButtonMask; }
+		void SetButtonMask(eControllerButton buttonMask) { m_ButtonMask = buttonMask; }
+		eControllerButton GetButtonMask() const { return m_ButtonMask; }
 	private:
-		//eControllerButton m_ButtonMask{};
+		eControllerButton m_ButtonMask{};
 	};
 }

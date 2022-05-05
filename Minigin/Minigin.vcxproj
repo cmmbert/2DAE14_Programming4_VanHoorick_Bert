@@ -240,6 +240,7 @@ xcopy $(SolutionDir)3rdParty\steam\redistributable_bin\win64\*.dll $(OutputPath)
     <ClInclude Include="IAudioService.h" />
     <ClInclude Include="ImGuiPlotComponent.h" />
     <ClInclude Include="InputManager.h" />
+    <ClInclude Include="JumpCommand.h" />
     <ClInclude Include="LivesLeftComp.h" />
     <ClInclude Include="Minigin.h" />
     <ClInclude Include="MiniginPCH.h" />
@@ -388,6 +389,7 @@ xcopy $(SolutionDir)3rdParty\steam\redistributable_bin\win64\*.dll $(OutputPath)
     <ClCompile Include="IAudioService.cpp" />
     <ClCompile Include="ImGuiPlotComponent.cpp" />
     <ClCompile Include="InputManager.cpp" />
+    <ClCompile Include="JumpCommand.cpp" />
     <ClCompile Include="LivesLeftComp.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Minigin.cpp" />
