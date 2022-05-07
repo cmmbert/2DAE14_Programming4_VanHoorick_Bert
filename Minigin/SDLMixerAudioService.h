@@ -1,5 +1,6 @@
 #pragma once
 #include "IAudioService.h"
+#include "mutex"
 
 class SDLMixerAudioService final :
     public IAudioService
@@ -16,6 +17,7 @@ public:
 	void StopQueue() { m_IsLooping = false; }
 	void StartQueue() { m_IsLooping = true; }
 private:
+	std::mutex m_Mutex;
 	bool m_IsLooping = true;
 	int m_QHead = 0;
 	int m_QTail = 0;

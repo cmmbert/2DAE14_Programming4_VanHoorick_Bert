@@ -5,12 +5,13 @@
 void SDLMixerAudioService::PlaySound(int soundID, float volume)
 {
 	//Technically this method should be called EnqueueSound but to keep the inheritance clean we'll leave it like this
-
+	m_Mutex.lock();
 	assert((m_QTail + 1) % m_QueueLength != m_QHead);
 
 	m_Queue[m_QTail] = Sound(soundID, volume);
 	m_QTail = (m_QTail + 1) % m_QueueLength;
 	m_HasItemsQueued = true;
+	m_Mutex.unlock();
 }
 
 void SDLMixerAudioService::StopSound(int soundID)
@@ -28,8 +29,10 @@ void SDLMixerAudioService::QueueLoop()
 		if (m_HasItemsQueued)
 		{
 			ActuallyPlaySound(m_Queue[m_QHead]);
+			m_Mutex.lock();
 			++m_QHead;
 			if (m_QHead == m_QTail) m_HasItemsQueued = false;
+			m_Mutex.unlock();
 		}
 		else
 		{
