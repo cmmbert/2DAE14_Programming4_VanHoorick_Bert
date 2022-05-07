@@ -144,9 +144,6 @@
     <ClInclude Include="EnemyComp.h">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
-    <ClInclude Include="Achievements.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="AudioNullService.h">
       <Filter>Header Files\Core\Services</Filter>
     </ClInclude>
@@ -271,9 +268,6 @@
     </ClCompile>
     <ClCompile Include="PointsComp.cpp">
       <Filter>Source Files\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="Achievements.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ServiceLocator.cpp">
       <Filter>Source Files\Core</Filter>

@@ -4,7 +4,6 @@
 #include <steam_api_common.h>
 #include <thread>
 
-#include "Achievements.h"
 #include "AnimationComponent.h"
 #include "EnemyComp.h"
 #include "Font.h"
@@ -168,9 +167,6 @@ void dae::Minigin::Run()
 				lag -= m_FixedTimeStep;
 			}
 			Time::GetInstance().Update(deltaTime);
-
-			if (dae::InputManager::GetInstance().IsPressed(eControllerButton::ButtonY)) 
-				Achievements::GetInstance().SetWinGameAch();
 
 			sceneManager.Update();
 			renderer.Render();
