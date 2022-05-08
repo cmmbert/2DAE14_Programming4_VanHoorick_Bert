@@ -1,7 +1,6 @@
 #include "MiniginPCH.h"
 #include "Minigin.h"
 
-#include <steam_api_common.h>
 #include <thread>
 
 #include "AnimationComponent.h"
@@ -23,7 +22,7 @@
 #include "ServiceLocator.h"
 #include "SoundComponent.h"
 #include "TextureComponent.h"
-#include "Time.h"
+#include "GlobalTime.h"
 
 using namespace std;
 
@@ -158,15 +157,14 @@ void dae::Minigin::Run()
 			lastTime = currentTime;
 			lag += deltaTime;
 			doContinue = input.Update();
-
-			SteamAPI_RunCallbacks();
+			
 
 			while (lag >= m_FixedTimeStep)
 			{
 				FixedUpdate(m_FixedTimeStep);
 				lag -= m_FixedTimeStep;
 			}
-			Time::GetInstance().Update(deltaTime);
+			GlobalTime::GetInstance().Update(deltaTime);
 
 			sceneManager.Update();
 			renderer.Render();

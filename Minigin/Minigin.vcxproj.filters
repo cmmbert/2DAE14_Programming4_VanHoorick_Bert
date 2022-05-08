@@ -84,7 +84,7 @@
     <ClInclude Include="FpsCounterComp.h">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
-    <ClInclude Include="Time.h">
+    <ClInclude Include="GlobalTime.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="3rdParty\imgui-1.87\imgui.h">
@@ -221,7 +221,7 @@
     <ClCompile Include="FpsCounterComp.cpp">
       <Filter>Source Files\Components</Filter>
     </ClCompile>
-    <ClCompile Include="Time.cpp">
+    <ClCompile Include="GlobalTime.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="3rdParty\imgui-1.87\imgui.cpp">

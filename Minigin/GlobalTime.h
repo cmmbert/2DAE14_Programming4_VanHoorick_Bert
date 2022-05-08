@@ -1,7 +1,7 @@
 #pragma once
 #include "Singleton.h"
 
-class Time final : public dae::Singleton<Time>
+class GlobalTime final : public dae::Singleton<GlobalTime>
 {
 public:
 	void Update(float elapsedSec);
