@@ -18,6 +18,9 @@ namespace dae
 		void AddToChildren(const std::shared_ptr<GameObject>& newChild);
 
 		void SetPosition(float x, float y);
+		void SetPosition(glm::vec2 vec);
+		void SetPosition(glm::vec3 vec);
+		glm::vec3 GetPosition() { return m_Transform.GetPosition(); }
 
 		GameObject();
 		virtual ~GameObject();

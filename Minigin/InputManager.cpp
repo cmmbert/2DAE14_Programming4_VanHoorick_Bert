@@ -4,7 +4,7 @@
 #include "InputManager.h"
 #include <XInput.h>
 
-#include "JumpCommand.h"
+#include "ClimbCommand.h"
 
 
 class dae::InputManager::impl
@@ -18,7 +18,6 @@ public:
 dae::InputManager::InputManager()
 	: m_pImpl({ std::make_unique<impl>() })
 {
-	m_Commands.push_back(std::make_unique<JumpCommand>());
 }
 
 dae::InputManager::~InputManager() = default;
@@ -47,18 +46,28 @@ bool dae::InputManager::Update()
 	m_ButtonsPressedThisFrame = buttonChanges & m_pImpl->currentState.Gamepad.wButtons;
 	m_ButtonsReleasedThisFrame = buttonChanges & (~m_pImpl->currentState.Gamepad.wButtons);
 
-	for (auto& command : m_Commands)
+	for (auto& command : m_CommandMap)
 	{
-		if (IsPressed(command->GetButtonMask()))
-			command->Execute();
+		if (IsPressed(command.first))
+			command.second->Execute();
 	}
 
 	if (IsPressed(eControllerButton::ButtonB)) return false;
 	return true; //TODO implement button to stop game
 }
 
-bool dae::InputManager::IsPressed(eControllerButton buttonMask) const
+bool dae::InputManager::IsPressed(const eControllerButton& buttonMask) const
 {
 	return m_ButtonsPressedThisFrame & static_cast<int>(buttonMask);
+}
+
+void dae::InputManager::AddOrChangeCommand(eControllerButton button, std::shared_ptr<Command> command)
+{
+	m_CommandMap[button] = command;
+}
+
+void dae::InputManager::RemoveCommand(eControllerButton button)
+{
+	m_CommandMap.erase(button);
 }
 

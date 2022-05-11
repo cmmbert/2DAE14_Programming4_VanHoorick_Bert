@@ -1,12 +1,12 @@
 #include "MiniginPCH.h"
 #include "TextureComponent.h"
 
+#include "GameObject.h"
 #include "Renderer.h"
 #include "ResourceManager.h"
 
-dae::TextureComponent::TextureComponent(const std::string& filename, glm::ivec2 position, int width, int height, glm::ivec4 srcRect)
+dae::TextureComponent::TextureComponent(const std::string& filename, int width, int height, glm::ivec4 srcRect)
 {
-	m_Position = position;
 	m_SrcRect = srcRect;
 	m_Width = width;
 	m_Height = height;
@@ -19,7 +19,8 @@ void dae::TextureComponent::Update()
 
 void dae::TextureComponent::Render() const
 {
-	dae::Renderer::GetInstance().RenderTexture(*m_Texture, m_Position.x, m_Position.y, m_Width, m_Height, m_SrcRect);
+	auto pos = glm::ivec2{ m_pGameObject->GetPosition().x, -m_pGameObject->GetPosition().y };
+	dae::Renderer::GetInstance().RenderTexture(*m_Texture, pos.x, pos.y, m_Width, m_Height, m_SrcRect);
 }
 
 void dae::TextureComponent::SetTexture(const std::string& filename)

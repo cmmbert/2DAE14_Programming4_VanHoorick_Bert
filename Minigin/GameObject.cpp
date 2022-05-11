@@ -43,6 +43,16 @@ void dae::GameObject::SetPosition(float x, float y)
 	m_Transform.SetPosition(x, y, 0.0f);
 }
 
+void GameObject::SetPosition(glm::vec2 vec)
+{
+	m_Transform.SetPosition(vec.x, vec.y, m_Transform.GetPosition().z);
+}
+
+void GameObject::SetPosition(glm::vec3 vec)
+{
+	m_Transform.SetPosition(vec.x, vec.y, vec.z);
+}
+
 GameObject::GameObject()
 {
 	for (auto comp : m_pComponents)

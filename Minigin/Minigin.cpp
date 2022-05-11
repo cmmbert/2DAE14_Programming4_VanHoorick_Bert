@@ -23,6 +23,7 @@
 #include "SoundComponent.h"
 #include "TextureComponent.h"
 #include "GlobalTime.h"
+#include "ClimbCommand.h"
 
 using namespace std;
 
@@ -63,6 +64,7 @@ void dae::Minigin::Initialize()
 
 	Renderer::GetInstance().Init(m_Window);
 
+	
 }
 
 /**
@@ -70,15 +72,20 @@ void dae::Minigin::Initialize()
  */
 void dae::Minigin::LoadGame() const
 {
+	auto& input = InputManager::GetInstance();
+
 	auto& scene = SceneManager::GetInstance().CreateScene("Demo");
 
 	auto go = std::make_shared<GameObject>();
-	auto tc = std::make_shared<TextureComponent>("Burgertime/spritesheet.png", glm::ivec2(50,50), 16, 16, glm::ivec4(16,16, 16,16));
+	go->SetPosition(glm::vec2(50, -50));
+	auto tc = std::make_shared<TextureComponent>("Burgertime/spritesheet.png", 16, 16, glm::ivec4(16,16, 16,16));
 	go->AddComponent(tc);
 	scene.Add(go);
+	input.AddOrChangeCommand(eControllerButton::DpadUp, make_shared<ClimbCommand>(go));
 
 	go = std::make_shared<GameObject>();
-	tc = std::make_shared<TextureComponent>("logo.png", glm::ivec2(216, 180));
+	go->SetPosition(glm::ivec2(216, -180));
+	tc = std::make_shared<TextureComponent>("logo.png");
 	go->AddComponent(tc);
 	scene.Add(go);
 
