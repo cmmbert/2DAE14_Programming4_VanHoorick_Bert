@@ -51,3 +51,14 @@ void SDLMixerAudioService::ActuallyPlaySound(Sound sound)
 	sample->volume = UINT8(sound.volume * 128);
 	Mix_PlayChannel(-1, sample, 0);
 }
+
+SDLMixerAudioService::SDLMixerAudioService()
+{
+	m_AudioThread = std::thread(&SDLMixerAudioService::QueueLoop, this);
+}
+
+SDLMixerAudioService::~SDLMixerAudioService()
+{
+	StopQueue();
+	m_AudioThread.join();
+}

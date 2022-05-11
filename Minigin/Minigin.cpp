@@ -144,7 +144,7 @@ void dae::Minigin::Run()
 
 	auto SdlAudio = std::make_shared<SDLMixerAudioService>();
 	ServiceLocator::RegisterAudioService(SdlAudio);
-	std::thread audioThread = std::thread(&SDLMixerAudioService::QueueLoop, SdlAudio);
+	
 
 	LoadGame();
 
@@ -178,8 +178,6 @@ void dae::Minigin::Run()
 			auto sleepTime = std::chrono::duration_cast<std::chrono::duration<float>>(currentTime + std::chrono::milliseconds(MsPerFrame) - std::chrono::high_resolution_clock::now());
 			this_thread::sleep_for(sleepTime);
 		}
-		SdlAudio->StopQueue();
-		audioThread.join();
 	}
 
 	Cleanup();
