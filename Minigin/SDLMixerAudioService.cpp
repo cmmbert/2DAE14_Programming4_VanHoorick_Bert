@@ -28,11 +28,12 @@ void SDLMixerAudioService::QueueLoop()
 	{
 		if (m_HasItemsQueued)
 		{
-			ActuallyPlaySound(m_Queue[m_QHead]);
 			m_Mutex.lock();
+			auto v = m_Queue[m_QHead];
 			++m_QHead;
 			if (m_QHead == m_QTail) m_HasItemsQueued = false;
 			m_Mutex.unlock();
+			ActuallyPlaySound(v);
 		}
 		else
 		{

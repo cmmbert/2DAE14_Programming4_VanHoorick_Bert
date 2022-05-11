@@ -22,6 +22,7 @@ namespace dae
 		int m_ButtonsReleasedThisFrame{};
 
 		//std::unique_ptr<Command> m_ButtonX;
+		//vervang door std::map
 		std::vector < std::unique_ptr<Command>> m_Commands{};
 	};
 
