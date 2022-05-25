@@ -8,7 +8,7 @@ namespace dae
 	{
 	public:
 		void Initialize();
-		void LoadGame() const;
+		Scene& LoadGame() const;
 		void Cleanup();
 		void FixedUpdate(float fixedTimeStep);
 		void Run();
@@ -19,5 +19,6 @@ namespace dae
 
 		void DemoScene1(Scene& scene) const;
 		void DemoScene2(Scene& scene) const;
+		void Level1(Scene& scene) const;
 	};
 }

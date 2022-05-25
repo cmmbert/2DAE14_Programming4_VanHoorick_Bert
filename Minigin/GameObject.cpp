@@ -35,6 +35,7 @@ void GameObject::SetParent(const std::shared_ptr<GameObject>& parent)
 
 void GameObject::AddToChildren(const std::shared_ptr<GameObject>& newChild)
 {
+	newChild->SetParent(std::shared_ptr<GameObject>(this));
 	m_Children.push_back(newChild);
 }
 

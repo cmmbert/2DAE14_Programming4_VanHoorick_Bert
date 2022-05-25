@@ -64,61 +64,70 @@ void dae::Minigin::Initialize()
 
 	Renderer::GetInstance().Init(m_Window);
 
-	
+
+
+	// tell the resource manager where he can find the game data
+	ResourceManager::GetInstance().Init("../Data/");
+
+
+	auto SdlAudio = std::make_shared<SDLMixerAudioService>();
+	ServiceLocator::RegisterAudioService(SdlAudio);
 }
 
 /**
  * Code constructing the scene world starts here
  */
-void dae::Minigin::LoadGame() const
+dae::Scene& dae::Minigin::LoadGame() const
 {
 	auto& input = InputManager::GetInstance();
 
 	auto& scene = SceneManager::GetInstance().CreateScene("Demo");
 
-	auto go = std::make_shared<GameObject>();
-	go->SetPosition(glm::vec2(50, -50));
-	auto tc = std::make_shared<TextureComponent>("Burgertime/spritesheet.png", 16, 16, glm::ivec4(16,16, 16,16));
-	go->AddComponent(tc);
-	scene.Add(go);
-	input.AddOrChangeCommand(eControllerButton::DpadUp, make_shared<ClimbCommand>(go));
 
-	go = std::make_shared<GameObject>();
-	go->SetPosition(glm::ivec2(216, -180));
-	tc = std::make_shared<TextureComponent>("logo.png");
-	go->AddComponent(tc);
-	scene.Add(go);
+	return scene;
+	//auto go = std::make_shared<GameObject>();
+	//go->SetPosition(glm::vec2(50, -50));
+	//auto tc = std::make_shared<TextureComponent>("Burgertime/spritesheet.png", 160, 160, glm::ivec4(16,16, 16,16));
+	//go->AddComponent(tc);
+	////scene.Add(go);
+	//input.AddOrChangeCommand(eControllerButton::DpadUp, make_shared<ClimbCommand>(go));
 
-	auto font = ResourceManager::GetInstance().LoadFont("Lingua.otf", 36);
-	go = std::make_shared<GameObject>();
-	auto textc = std::make_shared<TextComponent>("Programming 4 Assignment", font);
-	textc->SetPosition(80, 20);
-	go->AddComponent(textc);
-	scene.Add(go);
+	//go = std::make_shared<GameObject>();
+	//go->SetPosition(glm::ivec2(216, -180));
+	//tc = std::make_shared<TextureComponent>("logo.png");
+	////go->AddComponent(tc);
+	//scene.Add(go);
 
-	go = std::make_shared<GameObject>();
-	font = ResourceManager::GetInstance().LoadFont("Lingua.otf", 16);
-	auto fpsComp = std::make_shared<FpsCounterComp>("FPS: ", font);
-	fpsComp->SetPosition(10, 10);
-	go->AddComponent(fpsComp);
+	//auto font = ResourceManager::GetInstance().LoadFont("Lingua.otf", 36);
+	//go = std::make_shared<GameObject>();
+	//auto textc = std::make_shared<TextComponent>("Programming 4 Assignment", font);
+	//textc->SetPosition(80, 20);
+	////go->AddComponent(textc);
+	//scene.Add(go);
 
-	go = std::make_shared<GameObject>();
-	auto sound = std::make_shared<SoundComponent>(1);
-	go->AddComponent(sound);
-	auto sound2 = std::make_shared<SoundComponent>(2);
-	go->AddComponent(sound2);
-	auto sound3 = std::make_shared<SoundComponent>(3);
-	go->AddComponent(sound3);
-	scene.Add(go);
-	//sound3->Play();
-	sound->Play(0.1f);
-	//sound2->Play();
-	//DemoScene1(scene);
+	//go = std::make_shared<GameObject>();
+	//font = ResourceManager::GetInstance().LoadFont("Lingua.otf", 16);
+	//auto fpsComp = std::make_shared<FpsCounterComp>("FPS: ", font);
+	//fpsComp->SetPosition(10, 10);
+	//go->AddComponent(fpsComp);
 
-	auto anim = std::make_shared<AnimationComponent>();
-	go->AddComponent(anim);
+	//go = std::make_shared<GameObject>();
+	//auto sound = std::make_shared<SoundComponent>(1);
+	//go->AddComponent(sound);
+	//auto sound2 = std::make_shared<SoundComponent>(2);
+	//go->AddComponent(sound2);
+	//auto sound3 = std::make_shared<SoundComponent>(3);
+	//go->AddComponent(sound3);
+	//scene.Add(go);
+	////sound3->Play();
+	//sound->Play(0.1f);
+	////sound2->Play();
+	////DemoScene1(scene);
 
-	DemoScene2(scene);
+	//auto anim = std::make_shared<AnimationComponent>();
+	//go->AddComponent(anim);
+
+	//Level1(scene);
 }
 
 void dae::Minigin::Cleanup()
@@ -136,17 +145,6 @@ void dae::Minigin::FixedUpdate(float fixedTimeStep)
 
 void dae::Minigin::Run()
 {
-	Initialize();
-
-	// tell the resource manager where he can find the game data
-	ResourceManager::GetInstance().Init("../Data/");
-
-
-	auto SdlAudio = std::make_shared<SDLMixerAudioService>();
-	ServiceLocator::RegisterAudioService(SdlAudio);
-	
-
-	LoadGame();
 
 	{
 		auto& renderer = Renderer::GetInstance();
@@ -249,4 +247,21 @@ void dae::Minigin::DemoScene2(Scene& scene) const
 	enemyComp->AddObserver(pointsComp.get());
 	scene.Add(go);
 
+}
+
+void dae::Minigin::Level1(Scene& scene) const
+{
+	auto burgerGo = std::make_shared<GameObject>();
+	burgerGo->SetPosition(50, -70);
+	/*int burgerSize = 80;
+
+	auto texLeft = std::make_shared<TextureComponent>("Burgertime/spritesheet.png", burgerSize, burgerSize, glm::vec4{ 112,49,8,8 });
+	auto texMidL = std::make_shared<TextureComponent>("Burgertime/spritesheet.png", burgerSize, burgerSize, glm::vec4{ 120,49,8,8 }, glm::ivec2{burgerSize, 0});
+	auto texMidR = std::make_shared<TextureComponent>("Burgertime/spritesheet.png", burgerSize, burgerSize, glm::vec4{ 128,49,8,8 }, glm::ivec2{ burgerSize*2, 0 });
+	auto texRight = std::make_shared<TextureComponent>("Burgertime/spritesheet.png", burgerSize, burgerSize, glm::vec4{ 136,49,8,8 }, glm::ivec2{ burgerSize*3, 0 });
+	burgerGo->AddComponent(texLeft);
+	burgerGo->AddComponent(texMidL);
+	burgerGo->AddComponent(texMidR);
+	burgerGo->AddComponent(texRight);*/
+	scene.Add(burgerGo);
 }

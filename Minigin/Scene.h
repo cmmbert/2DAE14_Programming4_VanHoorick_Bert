@@ -1,4 +1,5 @@
 #pragma once
+#include "MiniginPCH.h"
 #include "SceneManager.h"
 
 namespace dae

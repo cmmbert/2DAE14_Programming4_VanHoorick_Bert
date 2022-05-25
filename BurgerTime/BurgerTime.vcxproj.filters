@@ -13,10 +13,30 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Source Files\Prefabs">
+      <UniqueIdentifier>{a78aa78a-90e7-4adf-a3d1-25de3f2a3365}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Prefabs\BurgerPiece">
+      <UniqueIdentifier>{d759d133-44ce-410a-a14c-1fbd3235ef13}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BurgerTime.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="BurgerPiece.cpp">
+      <Filter>Source Files\Prefabs\BurgerPiece</Filter>
+    </ClCompile>
+    <ClCompile Include="BurgerShardComp.cpp">
+      <Filter>Source Files\Prefabs\BurgerPiece</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="BurgerPiece.h">
+      <Filter>Source Files\Prefabs\BurgerPiece</Filter>
+    </ClInclude>
+    <ClInclude Include="BurgerShardComp.h">
+      <Filter>Source Files\Prefabs\BurgerPiece</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

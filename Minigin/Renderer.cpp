@@ -94,8 +94,7 @@ void dae::Renderer::RenderTexture(
 		src.y = srcRect.y;
 		src.w = srcRect.w;
 		src.h = srcRect.z;
-		dst.w += 50;
-		dst.h += 50;
+
 		SDL_RenderCopy(GetSDLRenderer(), texture.GetSDLTexture(), &src, &dst);
 	}
 
