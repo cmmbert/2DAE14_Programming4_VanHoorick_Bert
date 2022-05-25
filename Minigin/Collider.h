@@ -21,6 +21,6 @@ public:
     const dae::Transform& GetTransform() const { return m_pGameObject->GetTransform(); }
     const ColliderTag& GetTag() const { return m_ColliderTag; };
 
-    virtual void OnCollision(Collider* other){};
+    void OnCollision(Collider* other);;
 };
 

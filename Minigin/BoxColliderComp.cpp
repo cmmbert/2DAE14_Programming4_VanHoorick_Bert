@@ -18,11 +18,6 @@ void BoxColliderComp::Render() const
 {
 }
 
-void BoxColliderComp::OnCollision(Collider* other)
-{
-
-}
-
 BoxColliderComp::~BoxColliderComp()
 {
 }

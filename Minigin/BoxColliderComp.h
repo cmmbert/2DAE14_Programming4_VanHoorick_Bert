@@ -12,7 +12,6 @@ public:
 	void Start() override;
 	void Update() override;
 	void Render() const override;
-	void OnCollision(Collider* other) override;
 	~BoxColliderComp() override;
 };
 

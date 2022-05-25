@@ -1,10 +1,10 @@
 #pragma once
-#include "BoxColliderComp.h"
+#include "BaseComponent.h"
 
-class BurgerShardComp : public BoxColliderComp
+class BurgerShardComp : public dae::BaseComponent
 {
 public:
-	BurgerShardComp() : BoxColliderComp("burgerPiece")
+	BurgerShardComp()
 	{
 		
 	}
@@ -12,6 +12,6 @@ public:
 	void Start() override;
 	void Update() override;
 	void Render() const override;
-	void OnCollision(Collider* other) override;
+	void OnCollision(dae::GameObject* other) override;
 };
 

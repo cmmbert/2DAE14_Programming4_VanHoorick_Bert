@@ -8,6 +8,8 @@ void CollisionManager::RegisterCollider(Collider* collider)
 
 void CollisionManager::UnregisterCollider(Collider* collider)
 {
+	//TODO fix this map bug: map says its size is 1 without actually having any element inside it
+	if (m_Tags.size() == 1) return;
 	auto& col = m_Tags[collider->GetTag().GetName()];
 	col.erase(std::remove(col.begin(), col.end(), collider), col.end());
 }
@@ -20,15 +22,20 @@ void CollisionManager::Update()
 		{
 			for (auto second : tag.second)
 			{
-				auto box1BR = coll->GetTransform().GetSize();
-				box1BR.x += (int)coll->GetTransform().GetPosition().x;
-				box1BR.y += (int)coll->GetTransform().GetPosition().y;
+				if (coll == second) continue;
+				auto box1TL = (glm::ivec2)coll->GetTransform().GetPosition();
+				box1TL.y += coll->GetTransform().GetSize().y;
 
-				auto box2BR = second->GetTransform().GetSize();
-				box2BR.x += (int)second->GetTransform().GetPosition().x;
-				box2BR.y += (int)second->GetTransform().GetPosition().y;
-				if(BoxCollision(coll->GetTransform().GetPosition(), box1BR,
-					second->GetTransform().GetPosition(), box2BR))
+				auto box1BR = (glm::ivec2)coll->GetTransform().GetPosition();
+				box1BR.x += coll->GetTransform().GetSize().x;
+
+				auto box2TL = (glm::ivec2)second->GetTransform().GetPosition();
+				box2TL.y += second->GetTransform().GetSize().y;
+
+				auto box2BR = (glm::ivec2)second->GetTransform().GetPosition();
+				box2BR.x += second->GetTransform().GetSize().x;
+
+				if(BoxCollision(box1TL, box1BR,	box2TL, box2BR))
 				{
 					coll->OnCollision(second);
 				}

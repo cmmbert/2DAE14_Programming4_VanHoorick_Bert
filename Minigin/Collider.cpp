@@ -18,3 +18,12 @@ Collider::~Collider()
 {
 	CollisionManager().GetInstance().UnregisterCollider(this);
 }
+
+void Collider::OnCollision(Collider* other)
+{
+	auto go = other->m_pGameObject;
+	for (auto comp : m_pGameObject->GetComponents())
+	{
+		comp->OnCollision(go);
+	}
+}

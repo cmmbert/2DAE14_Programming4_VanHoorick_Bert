@@ -24,6 +24,8 @@ namespace dae
 		const Transform& GetTransform() const { return m_Transform; }
 		void SetSize(int w, int h);
 
+		std::vector<std::shared_ptr<BaseComponent>> GetComponents() { return m_pComponents; }
+
 		GameObject();
 		virtual ~GameObject();
 		GameObject(const GameObject& other) = delete;

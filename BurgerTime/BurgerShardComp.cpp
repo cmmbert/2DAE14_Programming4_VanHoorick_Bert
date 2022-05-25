@@ -14,7 +14,7 @@ void BurgerShardComp::Render() const
 {
 }
 
-void BurgerShardComp::OnCollision(Collider* other)
+void BurgerShardComp::OnCollision(dae::GameObject* other)
 {
 	std::cout << "Collision\n";
 }
