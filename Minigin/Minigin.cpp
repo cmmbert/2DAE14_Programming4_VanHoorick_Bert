@@ -24,6 +24,7 @@
 #include "TextureComponent.h"
 #include "GlobalTime.h"
 #include "ClimbCommand.h"
+#include "CollisionManager.h"
 
 using namespace std;
 
@@ -172,6 +173,7 @@ void dae::Minigin::Run()
 			GlobalTime::GetInstance().Update(deltaTime);
 
 			sceneManager.Update();
+			CollisionManager().GetInstance().Update();
 			renderer.Render();
 			auto sleepTime = std::chrono::duration_cast<std::chrono::duration<float>>(currentTime + std::chrono::milliseconds(MsPerFrame) - std::chrono::high_resolution_clock::now());
 			this_thread::sleep_for(sleepTime);

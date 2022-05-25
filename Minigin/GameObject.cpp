@@ -2,6 +2,7 @@
 #include "GameObject.h"
 
 #include "BaseComponent.h"
+#include "Renderer.h"
 using namespace dae;
 
 dae::GameObject::~GameObject() = default;
@@ -41,22 +42,30 @@ void GameObject::AddToChildren(const std::shared_ptr<GameObject>& newChild)
 
 void dae::GameObject::SetPosition(float x, float y)
 {
-	m_Transform.SetPosition(x, y, 0.0f);
+	SetPosition({ x,y,m_Transform.GetPosition().z });
 }
 
 void GameObject::SetPosition(glm::vec2 vec)
 {
-	m_Transform.SetPosition(vec.x, vec.y, m_Transform.GetPosition().z);
+	SetPosition(vec.x, vec.y);
 }
 
 void GameObject::SetPosition(glm::vec3 vec)
 {
+	auto sSize = Renderer::GetInstance().ScreenSize();
 	m_Transform.SetPosition(vec.x, vec.y, vec.z);
+}
+
+void GameObject::SetSize(int w, int h)
+{
+	m_Transform.SetSize(w, h);
 }
 
 GameObject::GameObject()
 {
-	for (auto comp : m_pComponents)
+	auto sSize = Renderer::GetInstance().ScreenSize();
+	m_Transform.SetPosition(0, (float)(-sSize.y), 0);
+	for (auto comp: m_pComponents)
 	{
 		comp->Start();
 	}

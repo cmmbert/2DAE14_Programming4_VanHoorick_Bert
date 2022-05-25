@@ -37,6 +37,12 @@
     <Filter Include="Source Files\Core\Commands">
       <UniqueIdentifier>{4bd1c40d-6d35-4ed7-9fda-2f9ad0a56d62}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Collision">
+      <UniqueIdentifier>{4c4c7899-0590-475b-8193-0ff14ea498dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Collision">
+      <UniqueIdentifier>{00a5f5c1-27a2-4355-9efd-a8d64798d518}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MiniginPCH.h">
@@ -174,6 +180,15 @@
     <ClInclude Include="ClimbCommand.h">
       <Filter>Header Files\Core\Commands</Filter>
     </ClInclude>
+    <ClInclude Include="BoxColliderComp.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionManager.h">
+      <Filter>Header Files\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="Collider.h">
+      <Filter>Header Files\Collision</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MiniginPCH.cpp">
@@ -295,6 +310,15 @@
     </ClCompile>
     <ClCompile Include="ClimbCommand.cpp">
       <Filter>Source Files\Core\Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="BoxColliderComp.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionManager.cpp">
+      <Filter>Source Files\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="Collider.cpp">
+      <Filter>Source Files\Collision</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

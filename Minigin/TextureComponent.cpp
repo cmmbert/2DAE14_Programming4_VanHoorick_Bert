@@ -18,7 +18,7 @@ void dae::TextureComponent::Update()
 
 void dae::TextureComponent::Render() const
 {
-	auto pos = glm::ivec2{ m_pGameObject->GetPosition().x, -m_pGameObject->GetPosition().y };
+	auto pos = glm::ivec2{ m_pGameObject->GetPosition().x, m_pGameObject->GetPosition().y };
 	pos += m_DstOffset;
 	dae::Renderer::GetInstance().RenderTexture(* m_Texture, pos.x, pos.y, m_Width, m_Height, m_SrcRect);
 }

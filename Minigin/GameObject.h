@@ -20,7 +20,9 @@ namespace dae
 		void SetPosition(float x, float y);
 		void SetPosition(glm::vec2 vec);
 		void SetPosition(glm::vec3 vec);
-		glm::vec3 GetPosition() { return m_Transform.GetPosition(); }
+		glm::vec3 GetPosition() const { return m_Transform.GetPosition(); }
+		const Transform& GetTransform() const { return m_Transform; }
+		void SetSize(int w, int h);
 
 		GameObject();
 		virtual ~GameObject();

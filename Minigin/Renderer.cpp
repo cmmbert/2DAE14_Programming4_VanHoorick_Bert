@@ -76,7 +76,7 @@ void dae::Renderer::RenderTexture(
 {
 	SDL_Rect dst{};
 	dst.x = x;
-	dst.y = y;
+	dst.y = GetInstance().ScreenSize().y - y - height;
 	dst.w = width;
 	dst.h = height;
 
@@ -98,4 +98,11 @@ void dae::Renderer::RenderTexture(
 		SDL_RenderCopy(GetSDLRenderer(), texture.GetSDLTexture(), &src, &dst);
 	}
 
+}
+
+glm::ivec2 dae::Renderer::ScreenSize()
+{
+	glm::ivec2 size{};
+	SDL_GetWindowSize(m_Window, &size.x, &size.y);
+	return size;
 }
