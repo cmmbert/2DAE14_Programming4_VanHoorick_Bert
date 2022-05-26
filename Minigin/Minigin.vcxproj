@@ -238,6 +238,7 @@ xcopy $(SolutionDir)3rdParty\steam\redistributable_bin\win64\*.dll $(OutputPath)
     <ClInclude Include="3rdParty\imgui-1.87\imstb_rectpack.h" />
     <ClInclude Include="3rdParty\imgui-1.87\imstb_textedit.h" />
     <ClInclude Include="3rdParty\imgui-1.87\imstb_truetype.h" />
+    <ClInclude Include="AnimationComponent.h" />
     <ClInclude Include="AudioNullService.h" />
     <ClInclude Include="BaseComponent.h" />
     <ClInclude Include="BoxColliderComp.h" />
@@ -386,6 +387,7 @@ xcopy $(SolutionDir)3rdParty\steam\redistributable_bin\win64\*.dll $(OutputPath)
       <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">TurnOffAllWarnings</WarningLevel>
       <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">TurnOffAllWarnings</WarningLevel>
     </ClCompile>
+    <ClCompile Include="AnimationComponent.cpp" />
     <ClCompile Include="BaseComponent.cpp" />
     <ClCompile Include="BoxColliderComp.cpp" />
     <ClCompile Include="Collider.cpp" />

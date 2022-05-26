@@ -28,3 +28,8 @@ void dae::TextureComponent::SetTexture(const std::string& filename)
 {
 	m_Texture = dae::ResourceManager::GetInstance().LoadTexture(filename);
 }
+
+void dae::TextureComponent::SetSrcRect(glm::ivec4 srcRect)
+{
+	m_SrcRect = srcRect;
+}

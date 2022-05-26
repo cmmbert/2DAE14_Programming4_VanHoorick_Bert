@@ -15,6 +15,7 @@ namespace dae
 		void Update() override;
 		void Render() const override;
 		void SetTexture(const std::string& filename);
+		void SetSrcRect(glm::ivec4 srcRect);
 	private:
 		std::shared_ptr<Texture2D> m_Texture{};
 		glm::ivec4 m_SrcRect{};
