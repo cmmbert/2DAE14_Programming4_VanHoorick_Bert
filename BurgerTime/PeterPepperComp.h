@@ -16,10 +16,12 @@ public:
 private:
 	void OnDeath();
 public:
+	void Run(int direction);
 	void Start() override {};
 	void Update() override;
 	void Render() const override;
 
 	int m_LivesLeft{ 3 };
+	int m_Speed{300};
 };
 

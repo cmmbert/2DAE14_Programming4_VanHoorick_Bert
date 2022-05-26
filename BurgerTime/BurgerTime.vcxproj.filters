@@ -43,7 +43,7 @@
       <Filter>Source Files\PeterPepper</Filter>
     </ClCompile>
     <ClCompile Include="PeterCommands.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\PeterPepper</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -63,7 +63,7 @@
       <Filter>Source Files\PeterPepper</Filter>
     </ClInclude>
     <ClInclude Include="PeterCommands.h">
-      <Filter>Header Files</Filter>
+      <Filter>Source Files\PeterPepper</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

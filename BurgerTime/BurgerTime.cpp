@@ -9,7 +9,6 @@
 
 #include "BoxColliderComp.h"
 #include "BurgerPiece.h"
-#include "BurgerShardComp.h"
 #include "GameObject.h"
 #include "InputManager.h"
 #include "Minigin.h"
@@ -30,29 +29,19 @@ int main(int, char* []) {
 	burgerComp->GenerateShards(glm::ivec2{ 112,49 }, scene);
 
 	scene.Add(burger);
-
-	/*auto test = std::make_shared<dae::GameObject>();
-	auto collision = std::make_shared<BoxColliderComp>("burgerPiece");
-	auto texLeft = std::make_shared<dae::TextureComponent>("Burgertime/spritesheet.png", glm::vec4{ 112,49,8,8 });
-	auto shard = std::make_shared<BurgerShardComp>();
-	test->AddComponent(shard);
-	test->AddComponent(collision);
-	test->SetSize(80, 80);
-	test->SetPosition(glm::ivec2{ 0,0 });
-	test->AddComponent(texLeft);
-	scene.Add(test);
-	*/
+	
 	auto pepper = std::make_shared<dae::GameObject>();
 	auto collision = std::make_shared<BoxColliderComp>(pepper.get(), "burgerPiece");
 	auto texture = std::make_shared<dae::TextureComponent>(pepper.get(), "Burgertime/spritesheet.png", glm::vec4{ 0,0,16,16 });
+	auto pepComp = std::make_shared<PeterPepperComp>(pepper.get());
 	pepper->AddComponent(collision);
 	pepper->SetSize(160, 160);
-	pepper->SetPosition(glm::ivec2{ 400,4 });
+	pepper->SetPosition(glm::ivec2{ 400,50 });
 	pepper->AddComponent(texture);
 	scene.Add(pepper);
 
-	input.AddOrChangeCommand(eControllerButton::DpadRight, std::make_shared<LateralMovementCommand>(pepper, 500));
-	input.AddOrChangeCommand(eControllerButton::DpadLeft,  std::make_shared<LateralMovementCommand>(pepper, -500));
+	input.AddOrChangeCommand(eControllerButton::DpadRight, std::make_shared<LateralMovementCommand>(pepComp, 1));
+	input.AddOrChangeCommand(eControllerButton::DpadLeft,  std::make_shared<LateralMovementCommand>(pepComp, -1));
 
 	engine.Run();
 	return 0;

@@ -2,6 +2,7 @@
 #include <memory>
 
 #include "Command.h"
+#include "PeterPepperComp.h"
 
 namespace dae
 {
@@ -11,12 +12,12 @@ namespace dae
 class LateralMovementCommand : public dae::Command
 {
 public:
-	LateralMovementCommand(std::shared_ptr<dae::GameObject> pGo, float speed);
+	LateralMovementCommand(std::shared_ptr<PeterPepperComp> pepperComp, int direction);
 	void Execute() override;
 	void FirstExecute() override;
 
 private:
-	std::shared_ptr<dae::GameObject> m_pGameObject{};
-	float m_Speed;
+	std::shared_ptr<PeterPepperComp> m_pPepper{};
+	int m_Direction;
 };
 
