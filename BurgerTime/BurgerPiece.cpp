@@ -15,6 +15,7 @@ void BurgerPiece::GenerateShards(glm::ivec2 texSrc, dae::Scene& sceneRef)
 	{
 		glm::ivec4 srcRec = glm::ivec4{ texSrc.x + i * 8,texSrc.y , 8,8};
 		auto shardGo = std::make_shared<dae::GameObject>();
+		shardGo->SetParent(m_pGameObject);
 		glm::vec3 offset = glm::vec3{ i * m_ShardSize, 0 , 0 };
 		shardGo->SetPosition(m_pGameObject->GetPosition() + offset);
 		shardGo->SetSize(m_ShardSize, m_ShardSize);
