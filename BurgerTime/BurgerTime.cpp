@@ -47,11 +47,12 @@ int main(int, char* []) {
 	auto texture = std::make_shared<dae::TextureComponent>(pepper.get(), "Burgertime/spritesheet.png", glm::vec4{ 0,0,16,16 });
 	pepper->AddComponent(collision);
 	pepper->SetSize(160, 160);
-	pepper->SetPosition(glm::ivec2{ 40,4 });
+	pepper->SetPosition(glm::ivec2{ 400,4 });
 	pepper->AddComponent(texture);
 	scene.Add(pepper);
 
 	input.AddOrChangeCommand(eControllerButton::DpadRight, std::make_shared<LateralMovementCommand>(pepper, 500));
+	input.AddOrChangeCommand(eControllerButton::DpadLeft,  std::make_shared<LateralMovementCommand>(pepper, -500));
 
 	engine.Run();
 	return 0;

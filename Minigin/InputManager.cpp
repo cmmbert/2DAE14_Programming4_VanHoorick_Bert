@@ -43,8 +43,8 @@ bool dae::InputManager::Update()
 	XInputGetState(0, &m_pImpl->currentState);
 
 	auto buttonChanges = m_pImpl->currentState.Gamepad.wButtons ^ m_pImpl->previousState.Gamepad.wButtons;
-	m_ButtonsPressedThisFrame = buttonChanges & m_pImpl->currentState.Gamepad.wButtons;
-	m_ButtonsReleasedThisFrame = buttonChanges & (~m_pImpl->currentState.Gamepad.wButtons);
+	m_ButtonsPressedThisFrame = m_pImpl->currentState.Gamepad.wButtons;
+	m_ButtonsReleasedThisFrame = ~m_pImpl->currentState.Gamepad.wButtons;
 
 	for (auto& command : m_CommandMap)
 	{
