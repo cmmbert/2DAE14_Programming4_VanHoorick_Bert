@@ -11,12 +11,12 @@ ColliderTag::ColliderTag(const std::string& name) : m_Name(name)
 
 Collider::Collider(const std::string& tag) : m_ColliderTag(tag)
 {
-	CollisionManager().GetInstance().RegisterCollider(this);
+	CollisionManager::GetInstance().RegisterCollider(this);
 }
 
 Collider::~Collider()
 {
-	CollisionManager().GetInstance().UnregisterCollider(this);
+	CollisionManager::GetInstance().UnregisterCollider(this);
 }
 
 void Collider::OnCollision(Collider* other)

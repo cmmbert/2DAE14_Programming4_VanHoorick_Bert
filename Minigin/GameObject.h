@@ -1,4 +1,5 @@
 #pragma once
+#include "MiniginPCH.h"
 #include "Transform.h"
 #include "SceneObject.h"
 
@@ -15,6 +16,7 @@ namespace dae
 		void AddComponent(const std::shared_ptr<BaseComponent>& comp);
 		template <typename T> T* GetComponent() const;
 		void SetParent(const std::shared_ptr<GameObject>& parent);
+		std::shared_ptr<GameObject> GetParent() { return m_Parent; }
 		void AddToChildren(const std::shared_ptr<GameObject>& newChild);
 
 		void SetPosition(float x, float y);

@@ -6,8 +6,13 @@
 
 class CollisionManager : public dae::Singleton<CollisionManager>
 {
+private:
 	std::map<std::string, std::vector<Collider*>> m_Tags{};
 public:
+	CollisionManager()
+	{
+		auto test = 5;
+	}
 	void RegisterCollider(Collider* collider);
 	void UnregisterCollider(Collider* collider);
 	void Update();
