@@ -11,10 +11,13 @@
 #include "BurgerPiece.h"
 #include "BurgerShardComp.h"
 #include "GameObject.h"
+#include "InputManager.h"
 #include "Minigin.h"
+#include "PeterCommands.h"
 #include "Scene.h"
 
 int main(int, char* []) {
+	auto& input = dae::InputManager::GetInstance();
 
 	dae::Minigin engine;
 	engine.Initialize();
@@ -48,6 +51,7 @@ int main(int, char* []) {
 	pepper->AddComponent(texture);
 	scene.Add(pepper);
 
+	input.AddOrChangeCommand(eControllerButton::DpadRight, std::make_shared<LateralMovementCommand>(pepper, 500));
 
 	engine.Run();
 	return 0;

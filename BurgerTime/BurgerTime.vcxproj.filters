@@ -42,6 +42,9 @@
     <ClCompile Include="PlayerObserver.cpp">
       <Filter>Source Files\PeterPepper</Filter>
     </ClCompile>
+    <ClCompile Include="PeterCommands.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BurgerPiece.h">
@@ -58,6 +61,9 @@
     </ClInclude>
     <ClInclude Include="PlayerObserver.h">
       <Filter>Source Files\PeterPepper</Filter>
+    </ClInclude>
+    <ClInclude Include="PeterCommands.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
