@@ -7,5 +7,6 @@ namespace dae
 	public:
 		virtual ~Command() {}
 		virtual void Execute() = 0;
+		virtual void FirstExecute() = 0;
 	};
 }

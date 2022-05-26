@@ -16,6 +16,7 @@ namespace dae
 		~InputManager();
 		bool Update(); //Returns false to stop the game loop
 		bool IsPressed(const eControllerButton& buttonMask) const;
+		bool IsPressedThisFrame(const eControllerButton& buttonMask) const;
 		void AddOrChangeCommand(eControllerButton button, std::shared_ptr<Command> command);
 		void RemoveCommand(eControllerButton button);
 	private:
@@ -23,6 +24,7 @@ namespace dae
 		std::unique_ptr<impl> m_pImpl;
 		int m_ButtonsPressedThisFrame{};
 		int m_ButtonsReleasedThisFrame{};
+		int m_ButtonsPressed{};
 		std::map<eControllerButton, std::shared_ptr<Command>> m_CommandMap{};
 
 	};

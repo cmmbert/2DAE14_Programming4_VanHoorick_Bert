@@ -43,13 +43,16 @@ bool dae::InputManager::Update()
 	XInputGetState(0, &m_pImpl->currentState);
 
 	auto buttonChanges = m_pImpl->currentState.Gamepad.wButtons ^ m_pImpl->previousState.Gamepad.wButtons;
-	m_ButtonsPressedThisFrame = m_pImpl->currentState.Gamepad.wButtons;
-	m_ButtonsReleasedThisFrame = ~m_pImpl->currentState.Gamepad.wButtons;
+	m_ButtonsPressedThisFrame = buttonChanges & m_pImpl->currentState.Gamepad.wButtons;
+	m_ButtonsReleasedThisFrame = buttonChanges & (~m_pImpl->currentState.Gamepad.wButtons);
+	m_ButtonsPressed = m_pImpl->currentState.Gamepad.wButtons;
 
 	for (auto& command : m_CommandMap)
 	{
 		if (IsPressed(command.first))
 			command.second->Execute();
+		if (IsPressedThisFrame(command.first))
+			command.second->FirstExecute();
 	}
 
 	if (IsPressed(eControllerButton::ButtonB)) return false;
@@ -57,6 +60,11 @@ bool dae::InputManager::Update()
 }
 
 bool dae::InputManager::IsPressed(const eControllerButton& buttonMask) const
+{
+	return m_ButtonsPressed & static_cast<int>(buttonMask);
+}
+
+bool dae::InputManager::IsPressedThisFrame(const eControllerButton& buttonMask) const
 {
 	return m_ButtonsPressedThisFrame & static_cast<int>(buttonMask);
 }

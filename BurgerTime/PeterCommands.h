@@ -13,6 +13,7 @@ class LateralMovementCommand : public dae::Command
 public:
 	LateralMovementCommand(std::shared_ptr<dae::GameObject> pGo, float speed);
 	void Execute() override;
+	void FirstExecute() override;
 
 private:
 	std::shared_ptr<dae::GameObject> m_pGameObject{};

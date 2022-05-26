@@ -12,3 +12,7 @@ void LateralMovementCommand::Execute()
 	auto pos = m_pGameObject->GetPosition();
 	m_pGameObject->SetPosition(pos.x + m_Speed * GlobalTime::GetInstance().GetElapsed(), pos.y);
 }
+
+void LateralMovementCommand::FirstExecute()
+{
+}
