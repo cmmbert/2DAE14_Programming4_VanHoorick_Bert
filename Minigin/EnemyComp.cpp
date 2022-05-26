@@ -15,7 +15,3 @@ void EnemyComp::Update()
 		OnDeath();
 
 }
-
-void EnemyComp::Render() const
-{
-}

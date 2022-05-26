@@ -11,11 +11,6 @@ dae::TextureComponent::TextureComponent(dae::GameObject* gameObject, const std::
 	m_DstOffset = dstOffset;
 	SetTexture(filename);
 }
-
-void dae::TextureComponent::Update()
-{
-}
-
 void dae::TextureComponent::Render() const
 {
 	auto pos = glm::ivec2{ m_pGameObject->GetPosition().x, m_pGameObject->GetPosition().y };

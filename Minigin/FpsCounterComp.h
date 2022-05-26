@@ -10,8 +10,7 @@ namespace dae
 		{
 			m_Prefix = text;
 		}
-
-		void Start() override {};
+		
 		void Update() override;
 		void SetPrefix(const std::string& text) { m_Prefix = text; }
 	private:

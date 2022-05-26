@@ -31,7 +31,3 @@ void PeterPepperComp::Update()
 	if (dae::InputManager::GetInstance().IsPressed(eControllerButton::ButtonA)) OnDeath();
 }
 
-void PeterPepperComp::Render() const
-{
-
-}

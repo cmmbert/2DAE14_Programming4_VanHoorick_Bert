@@ -28,10 +28,6 @@ public:
 			break;
 		}
 	}
-
-	void Start() override {};
-	void Update() override;
-	void Render() const override;
 private:
 	std::string m_Prefix{};
 	int m_Points{ 0 };

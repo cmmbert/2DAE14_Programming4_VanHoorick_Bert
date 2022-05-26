@@ -19,8 +19,6 @@ public:
 	void AddAnimationFrame(const std::string& animName, glm::ivec2 texCoords);
 	void SetCurrentAnimation(const std::string& animName);
 	void SetAnimationSpeed(float timeBetweenFrames);
-	void Start() override;
 	void Update() override;
-	void Render() const override;
 };
 

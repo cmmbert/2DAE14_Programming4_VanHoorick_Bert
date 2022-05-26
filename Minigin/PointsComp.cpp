@@ -6,11 +6,3 @@ PointsComp::PointsComp(dae::GameObject* gameObject, const std::string& prefix)
 	m_Prefix(prefix)
 {
 }
-
-void PointsComp::Update()
-{
-}
-
-void PointsComp::Render() const
-{
-}

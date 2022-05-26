@@ -12,9 +12,6 @@ public:
 	SoundComponent(SoundComponent&& other) = delete;
 	SoundComponent& operator=(const SoundComponent& other) = delete;
 	SoundComponent& operator=(SoundComponent&& other) = delete;
-	void Start() override {};
-	void Update() override {}
-	void Render() const override {}
 	void Play(float volumePerc = 0.5f);
 	void SetSoundId(int soundId) { m_SoundId = soundId; }
 private:

@@ -11,8 +11,6 @@ namespace dae
 	public:
 		TextureComponent() = delete;
 		TextureComponent(dae::GameObject* gameObject, const std::string& filename, glm::ivec4 srcRect = {}, glm::ivec2 dstOffset = {});
-		void Start() override {};
-		void Update() override;
 		void Render() const override;
 		void SetTexture(const std::string& filename);
 		void SetSrcRect(glm::ivec4 srcRect);

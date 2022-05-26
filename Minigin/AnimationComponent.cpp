@@ -24,9 +24,6 @@ void AnimationComponent::SetAnimationSpeed(float timeBetweenFrames)
 	m_TimeBetweenFrames = timeBetweenFrames;
 }
 
-void AnimationComponent::Start()
-{
-}
 
 void AnimationComponent::Update()
 {
@@ -40,6 +37,3 @@ void AnimationComponent::Update()
 	}
 }
 
-void AnimationComponent::Render() const
-{
-}

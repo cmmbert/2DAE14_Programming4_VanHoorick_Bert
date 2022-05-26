@@ -11,8 +11,7 @@ public:
 	{
 		m_Prefix = prefix;
 	}
-
-	void Start() override {};
+	
 	void Update() override;
 	void OnNotify(const dae::GameObject& entity, eEvent event) override
 	{

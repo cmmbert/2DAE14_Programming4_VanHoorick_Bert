@@ -6,9 +6,9 @@ namespace dae
 	class BaseComponent
 	{
 	public:
-		virtual void Start() = 0;
-		virtual void Update() = 0;
-		virtual void Render()  const = 0;
+		virtual void Start(){};
+		virtual void Update(){};
+		virtual void Render() const {};
 		virtual void OnCollision(GameObject* other){};
 
 
