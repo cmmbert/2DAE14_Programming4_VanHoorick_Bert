@@ -38,15 +38,15 @@ int main(int, char* []) {
 	test->SetPosition(glm::ivec2{ 0,0 });
 	test->AddComponent(texLeft);
 	scene.Add(test);
-
-	test = std::make_shared<dae::GameObject>();
-	collision = std::make_shared<BoxColliderComp>("burgerPiece");
-	texLeft = std::make_shared<dae::TextureComponent>("Burgertime/spritesheet.png", glm::vec4{ 0,0,16,16 });
-	test->AddComponent(collision);
-	test->SetSize(160, 160);
-	test->SetPosition(glm::ivec2{ 40,4 });
-	test->AddComponent(texLeft);
-	scene.Add(test);*/
+	*/
+	auto pepper = std::make_shared<dae::GameObject>();
+	auto collision = std::make_shared<BoxColliderComp>(pepper.get(), "burgerPiece");
+	auto texture = std::make_shared<dae::TextureComponent>(pepper.get(), "Burgertime/spritesheet.png", glm::vec4{ 0,0,16,16 });
+	pepper->AddComponent(collision);
+	pepper->SetSize(160, 160);
+	pepper->SetPosition(glm::ivec2{ 40,4 });
+	pepper->AddComponent(texture);
+	scene.Add(pepper);
 
 
 	engine.Run();

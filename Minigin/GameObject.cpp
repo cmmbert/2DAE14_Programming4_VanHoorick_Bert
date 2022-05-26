@@ -65,7 +65,7 @@ GameObject::GameObject()
 {
 	auto sSize = Renderer::GetInstance().ScreenSize();
 	m_Transform.SetPosition(0, (float)(-sSize.y), 0);
-	for (auto comp: m_pComponents)
+	for (auto& comp: m_pComponents)
 	{
 		comp->Start();
 	}
