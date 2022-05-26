@@ -252,7 +252,6 @@ xcopy $(SolutionDir)3rdParty\steam\redistributable_bin\win64\*.dll $(OutputPath)
     <ClInclude Include="FpsCounterComp.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="IAudioService.h" />
-    <ClInclude Include="ImGuiPlotComponent.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="ClimbCommand.h" />
     <ClInclude Include="LivesLeftComp.h" />
@@ -403,7 +402,6 @@ xcopy $(SolutionDir)3rdParty\steam\redistributable_bin\win64\*.dll $(OutputPath)
     <ClCompile Include="FpsCounterComp.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="IAudioService.cpp" />
-    <ClCompile Include="ImGuiPlotComponent.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="ClimbCommand.cpp" />
     <ClCompile Include="LivesLeftComp.cpp" />

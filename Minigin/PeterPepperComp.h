@@ -5,7 +5,8 @@
 class PeterPepperComp : public dae::BaseComponent, public Subject
 {
 public:
-	PeterPepperComp();
+	PeterPepperComp() = delete;
+	PeterPepperComp(dae::GameObject* gameObject);
 	~PeterPepperComp() = default;
 	PeterPepperComp(const PeterPepperComp& other) = delete;
 	PeterPepperComp(PeterPepperComp&& other) noexcept = delete;

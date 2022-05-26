@@ -9,7 +9,7 @@ class BurgerShardComp : public dae::BaseComponent
 	glm::ivec2 m_ParentPos;
 public:
 	BurgerShardComp() = delete;
-	explicit BurgerShardComp(int idx);
+	explicit BurgerShardComp(dae::GameObject* gameObject, int idx);
 	void Start() override;
 	void Update() override;
 	void Render() const override;

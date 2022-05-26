@@ -17,7 +17,7 @@ namespace dae
 		void SetText(const std::string& text);
 		void SetPosition(float x, float y);
 
-		explicit TextComponent(const std::string& text, const std::shared_ptr<Font>& font);
+		explicit TextComponent(dae::GameObject* gameObject, const std::string& text, const std::shared_ptr<Font>& font);
 		virtual ~TextComponent() = default;
 		TextComponent(const TextComponent& other) = delete;
 		TextComponent(TextComponent&& other) = delete;

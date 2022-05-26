@@ -3,7 +3,7 @@
 
 class PeterPepperComp;
 
-BurgerShardComp::BurgerShardComp(int idx) : m_Index(idx)
+BurgerShardComp::BurgerShardComp(dae::GameObject* gameObject, int idx) : BaseComponent(gameObject), m_Index(idx)
 {
 	m_ParentPos = m_pGameObject->GetParent()->GetPosition();
 }

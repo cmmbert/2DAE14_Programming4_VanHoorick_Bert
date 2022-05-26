@@ -12,7 +12,8 @@ namespace dae
 		virtual void OnCollision(GameObject* other){};
 
 
-		BaseComponent() = default;
+		BaseComponent() = delete;
+		BaseComponent(GameObject* gameObject);
 		virtual ~BaseComponent() = default;
 		BaseComponent(const BaseComponent& other) = delete;
 		BaseComponent(BaseComponent&& other) = delete;

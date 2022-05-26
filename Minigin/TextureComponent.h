@@ -9,8 +9,8 @@ namespace dae
 	class TextureComponent : public BaseComponent
 	{
 	public:
-		TextureComponent() = default;
-		TextureComponent(const std::string& filename, glm::ivec4 srcRect = {}, glm::ivec2 dstOffset = {});
+		TextureComponent() = delete;
+		TextureComponent(dae::GameObject* gameObject, const std::string& filename, glm::ivec4 srcRect = {}, glm::ivec2 dstOffset = {});
 		void Start() override {};
 		void Update() override;
 		void Render() const override;

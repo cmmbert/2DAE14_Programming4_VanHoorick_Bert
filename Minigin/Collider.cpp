@@ -9,7 +9,7 @@ ColliderTag::ColliderTag(const std::string& name) : m_Name(name)
 
 }
 
-Collider::Collider(const std::string& tag) : m_ColliderTag(tag)
+Collider::Collider(dae::GameObject* gameObject, const std::string& tag) : BaseComponent(gameObject), m_ColliderTag(tag)
 {
 	CollisionManager::GetInstance().RegisterCollider(this);
 }

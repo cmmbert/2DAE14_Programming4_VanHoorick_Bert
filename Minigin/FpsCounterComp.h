@@ -5,8 +5,8 @@ namespace dae
 	class FpsCounterComp final : public TextComponent
 	{
 	public:
-		FpsCounterComp(const std::string& text, const std::shared_ptr<Font>& font)
-			: TextComponent(text, font)
+		FpsCounterComp(dae::GameObject* gameObject, const std::string& text, const std::shared_ptr<Font>& font)
+			: TextComponent(gameObject, text, font)
 		{
 			m_Prefix = text;
 		}

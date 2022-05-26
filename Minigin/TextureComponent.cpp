@@ -5,7 +5,7 @@
 #include "Renderer.h"
 #include "ResourceManager.h"
 
-dae::TextureComponent::TextureComponent(const std::string& filename, glm::ivec4 srcRect, glm::ivec2 dstOffset) :
+dae::TextureComponent::TextureComponent(dae::GameObject* gameObject, const std::string& filename, glm::ivec4 srcRect, glm::ivec2 dstOffset) : BaseComponent(gameObject),
  m_SrcRect(srcRect)
 {
 	m_DstOffset = dstOffset;

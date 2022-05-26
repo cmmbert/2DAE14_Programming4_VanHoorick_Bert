@@ -4,7 +4,7 @@
 #include "BurgerShardComp.h"
 #include "GameObject.h"
 
-BurgerPiece::BurgerPiece(int shardSize): m_ShardSize(shardSize)
+BurgerPiece::BurgerPiece(dae::GameObject* gameObject, int shardSize): BaseComponent(gameObject), m_ShardSize(shardSize)
 {
 }
 
@@ -20,12 +20,12 @@ void BurgerPiece::GenerateShards(glm::ivec2 texSrc, dae::Scene& sceneRef)
 		shardGo->SetSize(m_ShardSize, m_ShardSize);
 		//auto coll = std::make_shared<BoxColliderComp>("burgerPiece");
 		//shardGo->AddComponent(coll);
-		auto pTexture = std::make_shared<dae::TextureComponent>("Burgertime/spritesheet.png", srcRec);
+		auto pTexture = std::make_shared<dae::TextureComponent>(shardGo.get(), "Burgertime/spritesheet.png", srcRec);
 		shardGo->AddComponent(pTexture);
-		auto shard = std::make_shared<BurgerShardComp>(i);
+		auto shard = std::make_shared<BurgerShardComp>(shardGo.get(), i);
 		shardGo->AddComponent(shard);
 
-		auto collision = std::make_shared<BoxColliderComp>("burgerPiece");
+		auto collision = std::make_shared<BoxColliderComp>(shardGo.get(), "burgerPiece");
 		shardGo->AddComponent(collision);
 		m_pShards.push_back(shardGo);
 		sceneRef.Add(shardGo);

@@ -4,7 +4,7 @@
 #include "InputManager.h"
 #include "PlayerObserver.h"
 
-PeterPepperComp::PeterPepperComp()
+PeterPepperComp::PeterPepperComp(dae::GameObject* gameObject) : BaseComponent(gameObject)
 {
 	//AddObserver(PlayerObserver());
 }

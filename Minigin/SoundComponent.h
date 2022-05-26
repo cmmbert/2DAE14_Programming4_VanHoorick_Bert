@@ -4,9 +4,8 @@
 class SoundComponent : public dae::BaseComponent
 {
 public:
-	SoundComponent() = default;
-	SoundComponent(int soundId) : m_SoundId(soundId) {
-	}
+	SoundComponent() = delete;
+	SoundComponent(dae::GameObject* gameObject, int soundId) : BaseComponent(gameObject), m_SoundId(soundId) {}
 
 	virtual ~SoundComponent() = default;
 	SoundComponent(const SoundComponent& other) = delete;

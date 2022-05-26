@@ -2,7 +2,7 @@
 #include "BoxColliderComp.h"
 
 
-BoxColliderComp::BoxColliderComp(const std::string& tag): Collider(tag)
+BoxColliderComp::BoxColliderComp(dae::GameObject* gameObject, const std::string& tag): Collider(gameObject, tag)
 {
 }
 

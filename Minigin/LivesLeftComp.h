@@ -6,8 +6,8 @@
 class LivesLeftComp final : public dae::TextComponent, public Observer
 {
 public:
-	LivesLeftComp(const std::string& prefix, const std::shared_ptr<dae::Font>& font)
-		: TextComponent(prefix, font)
+	LivesLeftComp(dae::GameObject* gameObject, const std::string& prefix, const std::shared_ptr<dae::Font>& font)
+		: TextComponent(gameObject, prefix, font)
 	{
 		m_Prefix = prefix;
 	}

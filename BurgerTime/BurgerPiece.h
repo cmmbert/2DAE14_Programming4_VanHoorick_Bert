@@ -13,7 +13,7 @@ class BurgerPiece : public dae::BaseComponent
 	int m_ShardSize;
 
 public:
-	BurgerPiece(int shardSize = 80);
+	BurgerPiece(dae::GameObject* gameObject, int shardSize = 80);
 	void GenerateShards(glm::ivec2 texSrc, dae::Scene& sceneRef);
 	void Start() override;
 	void Update() override;

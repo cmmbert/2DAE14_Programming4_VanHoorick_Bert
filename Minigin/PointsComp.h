@@ -6,7 +6,7 @@
 class PointsComp : public dae::BaseComponent, public Observer
 {
 public:
-	PointsComp(const std::string& prefix) { m_Prefix = prefix; }
+	PointsComp(dae::GameObject* gameObject, const std::string& prefix);
 	~PointsComp() = default;
 	PointsComp(const PointsComp& other) = delete;
 	PointsComp(PointsComp&& other) noexcept = delete;

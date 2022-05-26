@@ -7,7 +7,7 @@ class BoxColliderComp : public Collider
 {
 public:
 	BoxColliderComp() = delete;
-	explicit BoxColliderComp(const std::string& tag);
+	explicit BoxColliderComp(dae::GameObject* gameObject, const std::string& tag);
 
 	void Start() override;
 	void Update() override;
