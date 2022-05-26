@@ -120,9 +120,6 @@
     <ClInclude Include="3rdParty\imgui-1.87\imgui_plot.h">
       <Filter>Source Files\imgui</Filter>
     </ClInclude>
-    <ClInclude Include="PeterPepperComp.h">
-      <Filter>Header Files\Components</Filter>
-    </ClInclude>
     <ClInclude Include="eEvent.h">
       <Filter>Header Files\Core</Filter>
     </ClInclude>
@@ -132,14 +129,8 @@
     <ClInclude Include="Singleton.h">
       <Filter>Header Files\Core</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerObserver.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Subject.h">
       <Filter>Header Files\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="LivesLeftComp.h">
-      <Filter>Header Files\Components</Filter>
     </ClInclude>
     <ClInclude Include="PointsComp.h">
       <Filter>Header Files\Components</Filter>
@@ -162,9 +153,6 @@
     <ClInclude Include="SoundComponent.h">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
-    <ClInclude Include="AnimationComponent.h">
-      <Filter>Header Files\Components</Filter>
-    </ClInclude>
     <ClInclude Include="InputManager.h">
       <Filter>Header Files\Core</Filter>
     </ClInclude>
@@ -177,13 +165,13 @@
     <ClInclude Include="ClimbCommand.h">
       <Filter>Header Files\Core\Commands</Filter>
     </ClInclude>
-    <ClInclude Include="BoxColliderComp.h">
-      <Filter>Header Files\Components</Filter>
-    </ClInclude>
     <ClInclude Include="CollisionManager.h">
       <Filter>Header Files\Collision</Filter>
     </ClInclude>
     <ClInclude Include="Collider.h">
+      <Filter>Header Files\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="BoxColliderComp.h">
       <Filter>Header Files\Collision</Filter>
     </ClInclude>
   </ItemGroup>
@@ -260,17 +248,8 @@
     <ClCompile Include="3rdParty\imgui-1.87\imgui_plot.cpp">
       <Filter>Source Files\imgui</Filter>
     </ClCompile>
-    <ClCompile Include="PeterPepperComp.cpp">
-      <Filter>Source Files\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerObserver.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Subject.cpp">
       <Filter>Source Files\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="LivesLeftComp.cpp">
-      <Filter>Source Files\Components</Filter>
     </ClCompile>
     <ClCompile Include="EnemyComp.cpp">
       <Filter>Source Files\Components</Filter>
@@ -290,9 +269,6 @@
     <ClCompile Include="SoundComponent.cpp">
       <Filter>Source Files\Components</Filter>
     </ClCompile>
-    <ClCompile Include="AnimationComponent.cpp">
-      <Filter>Source Files\Components</Filter>
-    </ClCompile>
     <ClCompile Include="InputManager.cpp">
       <Filter>Source Files\Core</Filter>
     </ClCompile>
@@ -305,13 +281,13 @@
     <ClCompile Include="ClimbCommand.cpp">
       <Filter>Source Files\Core\Commands</Filter>
     </ClCompile>
-    <ClCompile Include="BoxColliderComp.cpp">
-      <Filter>Source Files\Components</Filter>
-    </ClCompile>
     <ClCompile Include="CollisionManager.cpp">
       <Filter>Source Files\Collision</Filter>
     </ClCompile>
     <ClCompile Include="Collider.cpp">
+      <Filter>Source Files\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="BoxColliderComp.cpp">
       <Filter>Source Files\Collision</Filter>
     </ClCompile>
   </ItemGroup>

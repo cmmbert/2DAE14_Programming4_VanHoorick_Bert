@@ -158,10 +158,16 @@
     <ClCompile Include="BurgerPiece.cpp" />
     <ClCompile Include="BurgerShardComp.cpp" />
     <ClCompile Include="BurgerTime.cpp" />
+    <ClCompile Include="LivesLeftComp.cpp" />
+    <ClCompile Include="PeterPepperComp.cpp" />
+    <ClCompile Include="PlayerObserver.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BurgerPiece.h" />
     <ClInclude Include="BurgerShardComp.h" />
+    <ClInclude Include="LivesLeftComp.h" />
+    <ClInclude Include="PeterPepperComp.h" />
+    <ClInclude Include="PlayerObserver.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -19,6 +19,9 @@
     <Filter Include="Source Files\Prefabs\BurgerPiece">
       <UniqueIdentifier>{d759d133-44ce-410a-a14c-1fbd3235ef13}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\PeterPepper">
+      <UniqueIdentifier>{a93cfe4d-52cf-45c7-974d-834d5956fc0d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BurgerTime.cpp">
@@ -30,6 +33,15 @@
     <ClCompile Include="BurgerShardComp.cpp">
       <Filter>Source Files\Prefabs\BurgerPiece</Filter>
     </ClCompile>
+    <ClCompile Include="PeterPepperComp.cpp">
+      <Filter>Source Files\PeterPepper</Filter>
+    </ClCompile>
+    <ClCompile Include="LivesLeftComp.cpp">
+      <Filter>Source Files\PeterPepper</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerObserver.cpp">
+      <Filter>Source Files\PeterPepper</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BurgerPiece.h">
@@ -37,6 +49,15 @@
     </ClInclude>
     <ClInclude Include="BurgerShardComp.h">
       <Filter>Source Files\Prefabs\BurgerPiece</Filter>
+    </ClInclude>
+    <ClInclude Include="PeterPepperComp.h">
+      <Filter>Source Files\PeterPepper</Filter>
+    </ClInclude>
+    <ClInclude Include="LivesLeftComp.h">
+      <Filter>Source Files\PeterPepper</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerObserver.h">
+      <Filter>Source Files\PeterPepper</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

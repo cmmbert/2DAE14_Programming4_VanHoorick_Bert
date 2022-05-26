@@ -2,27 +2,15 @@
 #include "Minigin.h"
 
 #include <thread>
-
-#include "AnimationComponent.h"
-#include "EnemyComp.h"
-#include "Font.h"
-#include "FpsCounterComp.h"
 #include "InputManager.h"
 #include "SceneManager.h"
 #include "Renderer.h"
 #include "ResourceManager.h"
-#include "TextComponent.h"
 #include "GameObject.h"
-#include "LivesLeftComp.h"
-#include "PeterPepperComp.h"
-#include "PointsComp.h"
 #include "Scene.h"
 #include "SDLMixerAudioService.h"
 #include "ServiceLocator.h"
-#include "SoundComponent.h"
-#include "TextureComponent.h"
 #include "GlobalTime.h"
-#include "ClimbCommand.h"
 #include "CollisionManager.h"
 
 using namespace std;
