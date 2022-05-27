@@ -26,7 +26,7 @@ int main(int, char* []) {
 	auto burger = std::make_shared<dae::GameObject>();
 	auto burgerComp = std::make_shared<BurgerPiece>(burger.get());
 	burger->AddComponent(burgerComp);
-	burger->SetPosition(glm::ivec2{ 40,4 });
+	burger->SetPosition(glm::ivec2{ 40,325 });
 	burgerComp->GenerateShards(glm::ivec2{ 112,49 }, scene);
 
 	scene.Add(burger);
@@ -48,7 +48,7 @@ int main(int, char* []) {
 	pepper->AddComponent(animComp);
 	pepper->AddComponent(collision);
 	pepper->SetSize(160, 160);
-	pepper->SetPosition(glm::ivec2{ 400,50 });
+	pepper->SetPosition(glm::ivec2{ 400,325 });
 	pepper->AddComponent(texture);
 	scene.Add(pepper);
 

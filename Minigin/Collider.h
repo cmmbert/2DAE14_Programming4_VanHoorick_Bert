@@ -18,9 +18,9 @@ class Collider :
 public:
     Collider(dae::GameObject* gameObject, const std::string& tag);
     ~Collider();
-    const dae::Transform& GetTransform() const { return m_pGameObject->GetTransform(); }
+    //const dae::Transform& GetTransform() const { return m_pGameObject->GetTransform(); }
     const ColliderTag& GetTag() const { return m_ColliderTag; };
 
-    void OnCollision(Collider* other);;
+    void OnCollision(Collider* other);
 };
 

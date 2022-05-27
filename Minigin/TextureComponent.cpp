@@ -13,7 +13,7 @@ dae::TextureComponent::TextureComponent(dae::GameObject* gameObject, const std::
 }
 void dae::TextureComponent::Render() const
 {
-	auto pos = glm::ivec2{ m_pGameObject->GetPosition().x, m_pGameObject->GetPosition().y };
+	auto pos = glm::ivec2{ m_pGameObject->GetWorldPosition().x, m_pGameObject->GetWorldPosition().y };
 	pos += m_DstOffset;
 	dae::Renderer::GetInstance().RenderTexture(* m_Texture, pos.x, pos.y, 
 		m_pGameObject->GetTransform().GetSize().x, m_pGameObject->GetTransform().GetSize().y, m_SrcRect);

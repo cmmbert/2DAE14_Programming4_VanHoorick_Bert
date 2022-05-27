@@ -8,7 +8,7 @@ class BurgerShardComp : public dae::BaseComponent
 {
 	const int m_Nudge{ -20 };
 	int m_Index;
-	int m_ParentY;
+	int m_OriginalY;
 	BurgerPiece* m_BurgerPiece;
 public:
 	BurgerShardComp() = delete;

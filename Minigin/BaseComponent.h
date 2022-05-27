@@ -21,7 +21,7 @@ namespace dae
 		BaseComponent& operator=(BaseComponent&& other) = delete;
 
 		void SetGameObject(GameObject* go) { m_pGameObject = go; }
-
+		GameObject* GetGameObject() const { return m_pGameObject; }
 	protected:
 		GameObject* m_pGameObject{};
 	};

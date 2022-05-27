@@ -40,6 +40,15 @@ void GameObject::AddToChildren(const std::shared_ptr<GameObject>& newChild)
 	m_Children.push_back(newChild);
 }
 
+glm::vec3 GameObject::GetWorldPosition()
+{
+	if(m_Parent != nullptr)
+	{
+		return m_Parent->GetWorldPosition() + m_Transform.GetPosition();
+	}
+	return m_Transform.GetPosition();
+}
+
 void dae::GameObject::SetPosition(float x, float y)
 {
 	SetPosition({ x,y,m_Transform.GetPosition().z });
@@ -48,11 +57,11 @@ void dae::GameObject::SetPosition(float x, float y)
 void GameObject::SetPosition(glm::vec2 vec)
 {
 	SetPosition(vec.x, vec.y);
+	
 }
 
 void GameObject::SetPosition(glm::vec3 vec)
 {
-	auto sSize = Renderer::GetInstance().ScreenSize();
 	m_Transform.SetPosition(vec.x, vec.y, vec.z);
 }
 
@@ -61,11 +70,11 @@ void GameObject::SetSize(int w, int h)
 	m_Transform.SetSize(w, h);
 }
 
-GameObject::GameObject()
+GameObject::GameObject(): m_Parent(nullptr)
 {
 	auto sSize = Renderer::GetInstance().ScreenSize();
 	m_Transform.SetPosition(0, (float)(-sSize.y), 0);
-	for (auto& comp: m_pComponents)
+	for (auto& comp : m_pComponents)
 	{
 		comp->Start();
 	}

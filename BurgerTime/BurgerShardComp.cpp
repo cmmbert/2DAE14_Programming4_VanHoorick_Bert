@@ -5,7 +5,7 @@
 class PeterPepperComp;
 
 BurgerShardComp::BurgerShardComp(dae::GameObject* gameObject, int idx, BurgerPiece* burgerPiece) : BaseComponent(gameObject), m_Index(idx),
-	m_ParentY(m_pGameObject->GetParent()->GetPosition().y),
+	m_OriginalY(m_pGameObject->GetPosition().y),
 	m_BurgerPiece(burgerPiece)
 {
 }
@@ -19,7 +19,7 @@ void BurgerShardComp::Update()
 	if(m_SteppedOn)
 	{
 		auto pos = m_pGameObject->GetPosition();
-		pos.y = m_ParentY + m_Nudge;
+		pos.y = m_OriginalY + m_Nudge;
 		m_pGameObject->SetPosition(pos);
 	}
 }

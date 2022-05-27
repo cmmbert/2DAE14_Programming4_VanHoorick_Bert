@@ -23,17 +23,17 @@ void CollisionManager::Update()
 			for (auto second : tag.second)
 			{
 				if (coll == second) continue;
-				auto box1TL = (glm::ivec2)coll->GetTransform().GetPosition();
-				box1TL.y += coll->GetTransform().GetSize().y;
+				auto box1TL = (glm::ivec2)coll->GetGameObject()->GetWorldPosition();
+				box1TL.y += coll->GetGameObject()->GetTransform().GetSize().y;
 
-				auto box1BR = (glm::ivec2)coll->GetTransform().GetPosition();
-				box1BR.x += coll->GetTransform().GetSize().x;
+				auto box1BR = (glm::ivec2)coll->GetGameObject()->GetWorldPosition();
+				box1BR.x += coll->GetGameObject()->GetTransform().GetSize().x;
 
-				auto box2TL = (glm::ivec2)second->GetTransform().GetPosition();
-				box2TL.y += second->GetTransform().GetSize().y;
+				auto box2TL = (glm::ivec2)second->GetGameObject()->GetWorldPosition();
+				box2TL.y += second->GetGameObject()->GetTransform().GetSize().y;
 
-				auto box2BR = (glm::ivec2)second->GetTransform().GetPosition();
-				box2BR.x += second->GetTransform().GetSize().x;
+				auto box2BR = (glm::ivec2)second->GetGameObject()->GetWorldPosition();
+				box2BR.x += second->GetGameObject()->GetTransform().GetSize().x;
 
 				if(BoxCollision(box1TL, box1BR,	box2TL, box2BR))
 				{

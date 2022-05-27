@@ -18,7 +18,7 @@ void BurgerPiece::GenerateShards(glm::ivec2 texSrc, dae::Scene& sceneRef)
 		auto shardGo = std::make_shared<dae::GameObject>();
 		shardGo->SetParent(m_pGameObject);
 		glm::vec3 offset = glm::vec3{ i * m_ShardSize, 0 , 0 };
-		shardGo->SetPosition(m_pGameObject->GetPosition() + offset);
+		shardGo->SetPosition(offset);
 		shardGo->SetSize(m_ShardSize, m_ShardSize);
 		auto pTexture = std::make_shared<dae::TextureComponent>(shardGo.get(), "Burgertime/spritesheet.png", srcRec);
 		shardGo->AddComponent(pTexture);
@@ -40,7 +40,7 @@ void BurgerPiece::OnSteppedOn(int shardIdx)
 		if (!shard) return;
 	}
 	//If we get this far it means all shards are stepped on
-
+	m_IsFalling = true;
 }
 
 void BurgerPiece::Start()
