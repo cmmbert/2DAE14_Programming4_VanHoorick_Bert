@@ -158,6 +158,7 @@
     <ClCompile Include="BurgerPiece.cpp" />
     <ClCompile Include="BurgerShardComp.cpp" />
     <ClCompile Include="BurgerTime.cpp" />
+    <ClCompile Include="EnemyComponent.cpp" />
     <ClCompile Include="LivesLeftComp.cpp" />
     <ClCompile Include="PeterCommands.cpp" />
     <ClCompile Include="PeterPepperComp.cpp" />
@@ -166,6 +167,7 @@
   <ItemGroup>
     <ClInclude Include="BurgerPiece.h" />
     <ClInclude Include="BurgerShardComp.h" />
+    <ClInclude Include="EnemyComponent.h" />
     <ClInclude Include="LivesLeftComp.h" />
     <ClInclude Include="PeterCommands.h" />
     <ClInclude Include="PeterPepperComp.h" />

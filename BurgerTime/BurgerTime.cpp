@@ -10,6 +10,7 @@
 #include "AnimationComponent.h"
 #include "BoxColliderComp.h"
 #include "BurgerPiece.h"
+#include "EnemyComponent.h"
 #include "GameObject.h"
 #include "InputManager.h"
 #include "Minigin.h"
@@ -38,8 +39,22 @@ int main(int, char* []) {
 	scene.Add(pepper);
 
 	auto hotdog = std::make_shared<dae::GameObject>();
+	auto enemy = std::make_shared<EnemyComponent>(hotdog.get());
+	auto texture = std::make_shared<dae::TextureComponent>(hotdog.get(), "Burgertime/spritesheet.png", glm::vec4{ 32,32,16,16 });
+	auto animComp = std::make_shared<AnimationComponent>(hotdog.get(), texture, 0.2f);
+	animComp->AddAnimationFrame("run", { 32, 32 });
+	animComp->AddAnimationFrame("run", { 48, 32 });
+	animComp->SetCurrentAnimation("run");
+	hotdog->SetSize(160, 160);
+	hotdog->SetPosition({400, 100});
+	hotdog->AddComponent(enemy);
+	hotdog->AddComponent(texture);
+	hotdog->AddComponent(animComp);
 
+	auto collision = std::make_shared<BoxColliderComp>(hotdog.get(), "burgerPiece");
+	hotdog->AddComponent(collision);
 
+	scene.Add(hotdog);
 
 	engine.Run();
 	return 0;

@@ -19,6 +19,9 @@
     <Filter Include="Source Files\BurgerPiece">
       <UniqueIdentifier>{d759d133-44ce-410a-a14c-1fbd3235ef13}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Enemies">
+      <UniqueIdentifier>{ab65ba52-6eed-4234-8421-2abc764b8357}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BurgerTime.cpp">
@@ -42,6 +45,9 @@
     <ClCompile Include="PeterCommands.cpp">
       <Filter>Source Files\PeterPepper</Filter>
     </ClCompile>
+    <ClCompile Include="EnemyComponent.cpp">
+      <Filter>Source Files\Enemies</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BurgerPiece.h">
@@ -61,6 +67,9 @@
     </ClInclude>
     <ClInclude Include="PeterCommands.h">
       <Filter>Source Files\PeterPepper</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyComponent.h">
+      <Filter>Source Files\Enemies</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
