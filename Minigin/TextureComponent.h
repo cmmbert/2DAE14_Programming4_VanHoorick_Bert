@@ -14,6 +14,7 @@ namespace dae
 		void Render() const override;
 		void SetTexture(const std::string& filename);
 		void SetSrcRect(glm::ivec4 srcRect);
+		bool m_Flipped{};
 	private:
 		std::shared_ptr<Texture2D> m_Texture{};
 		glm::ivec4 m_SrcRect{};

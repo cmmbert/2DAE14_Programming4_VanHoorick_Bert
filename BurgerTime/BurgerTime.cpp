@@ -41,12 +41,17 @@ int main(int, char* []) {
 	auto hotdog = std::make_shared<dae::GameObject>();
 	auto enemy = std::make_shared<EnemyComponent>(hotdog.get());
 	auto texture = std::make_shared<dae::TextureComponent>(hotdog.get(), "Burgertime/spritesheet.png", glm::vec4{ 32,32,16,16 });
+	texture->m_Flipped = true;
 	auto animComp = std::make_shared<AnimationComponent>(hotdog.get(), texture, 0.2f);
 	animComp->AddAnimationFrame("run", { 32, 32 });
 	animComp->AddAnimationFrame("run", { 48, 32 });
 	animComp->SetCurrentAnimation("run");
+	animComp->AddAnimationFrame("death", { 0, 48 });
+	animComp->AddAnimationFrame("death", { 16, 48 });
+	animComp->AddAnimationFrame("death", { 32, 48 });
+	animComp->AddAnimationFrame("death", { 48, 48 });
 	hotdog->SetSize(160, 160);
-	hotdog->SetPosition({400, 100});
+	hotdog->SetPosition({100, 100});
 	hotdog->AddComponent(enemy);
 	hotdog->AddComponent(texture);
 	hotdog->AddComponent(animComp);

@@ -71,7 +71,7 @@ void dae::Renderer::Destroy()
 
 void dae::Renderer::RenderTexture(
 	const Texture2D& texture, const int x, const int y, const int width, const int height,
-	glm::ivec4 srcRect
+	glm::ivec4 srcRect, bool flipped
 ) const
 {
 	SDL_Rect dst{};
@@ -82,22 +82,22 @@ void dae::Renderer::RenderTexture(
 
 	if(dst.w <= 0 || dst.h <= 0)
 		SDL_QueryTexture(texture.GetSDLTexture(), nullptr, nullptr, &dst.w, &dst.h);
+	SDL_Rect* src = nullptr;
 
-	if(srcRect.w <= 0 || srcRect.z <= 0)
+	if (srcRect.w > 0 && srcRect.z > 0)
 	{
-		SDL_RenderCopy(GetSDLRenderer(), texture.GetSDLTexture(), nullptr, &dst);
+		src = new SDL_Rect();
+		src->x = srcRect.x;
+		src->y = srcRect.y;
+		src->w = srcRect.w;
+		src->h = srcRect.z;
 	}
-	else
-	{
-		SDL_Rect src{};
-		src.x = srcRect.x;
-		src.y = srcRect.y;
-		src.w = srcRect.w;
-		src.h = srcRect.z;
+	auto flip = SDL_FLIP_NONE;
+	if (flipped)
+		flip = SDL_FLIP_HORIZONTAL;
+	SDL_RenderCopyEx(GetSDLRenderer(), texture.GetSDLTexture(), src, &dst, 0, nullptr, flip);
 
-		SDL_RenderCopy(GetSDLRenderer(), texture.GetSDLTexture(), &src, &dst);
-	}
-
+	delete src;
 }
 
 glm::ivec2 dae::Renderer::ScreenSize()

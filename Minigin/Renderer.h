@@ -19,7 +19,7 @@ namespace dae
 		
 		void RenderTexture(
 			const Texture2D& texture, const int x, const int y, const int width = 0, const int height = 0,
-			glm::ivec4 srcRect = {}
+			glm::ivec4 srcRect = {}, bool flipped = false
 		) const;
 
 		SDL_Renderer* GetSDLRenderer() const { return m_Renderer; }
