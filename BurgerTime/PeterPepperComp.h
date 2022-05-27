@@ -16,6 +16,7 @@ public:
 private:
 	void OnDeath();
 public:
+	void StartRunAnim(int direction);
 	void Run(int direction);
 	void Update() override;
 

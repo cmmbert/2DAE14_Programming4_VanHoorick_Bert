@@ -5,6 +5,8 @@
 #include "GlobalTime.h"
 #include "InputManager.h"
 #include "PlayerObserver.h"
+#include "TextureComponent.h"
+#include <AnimationComponent.h>
 
 PeterPepperComp::PeterPepperComp(dae::GameObject* gameObject) : BaseComponent(gameObject)
 {
@@ -18,6 +20,14 @@ void PeterPepperComp::OnDeath()
 	
 	std::cout << "PlayerDied, lives left: " << m_LivesLeft << "\n";
 	NotifyAllObservers(*m_pGameObject, eEvent::PepperDied);
+}
+
+void PeterPepperComp::StartRunAnim(int direction)
+{
+	auto text = m_pGameObject->GetComponent<dae::TextureComponent>();
+	auto anim = m_pGameObject->GetComponent<AnimationComponent>();
+	anim->SetCurrentAnimation("run");
+	text->m_Flipped = direction == 1;
 }
 
 void PeterPepperComp::Run(int direction)

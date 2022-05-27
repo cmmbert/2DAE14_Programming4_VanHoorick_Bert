@@ -9,7 +9,8 @@ void CollisionManager::RegisterCollider(Collider* collider)
 void CollisionManager::UnregisterCollider(Collider* collider)
 {
 	//TODO fix this map bug: map says its size is 1 without actually having any element inside it
-	if (m_Tags.size() == 1) return;
+	return;
+	if (m_Tags.size() == 0) return;
 	auto& col = m_Tags[collider->GetTag().GetName()];
 	col.erase(std::remove(col.begin(), col.end(), collider), col.end());
 }

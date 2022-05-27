@@ -22,6 +22,9 @@
     <Filter Include="Source Files\Enemies">
       <UniqueIdentifier>{ab65ba52-6eed-4234-8421-2abc764b8357}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Level">
+      <UniqueIdentifier>{a3a0b191-0820-40c1-80f9-1b551ff58992}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BurgerTime.cpp">
@@ -48,6 +51,9 @@
     <ClCompile Include="EnemyComponent.cpp">
       <Filter>Source Files\Enemies</Filter>
     </ClCompile>
+    <ClCompile Include="LadderComp.cpp">
+      <Filter>Source Files\Level</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BurgerPiece.h">
@@ -70,6 +76,9 @@
     </ClInclude>
     <ClInclude Include="EnemyComponent.h">
       <Filter>Source Files\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="LadderComp.h">
+      <Filter>Source Files\Level</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

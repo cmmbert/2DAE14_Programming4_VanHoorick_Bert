@@ -12,4 +12,5 @@ void LateralMovementCommand::Execute()
 
 void LateralMovementCommand::FirstExecute()
 {
+	m_pPepper->StartRunAnim(m_Direction);
 }

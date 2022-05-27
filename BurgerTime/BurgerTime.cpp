@@ -13,11 +13,13 @@
 #include "EnemyComponent.h"
 #include "GameObject.h"
 #include "InputManager.h"
+#include "LadderComp.h"
 #include "Minigin.h"
 #include "PeterCommands.h"
 #include "Scene.h"
 
 std::shared_ptr<dae::GameObject> GeneratePeter(glm::ivec2 pos);
+std::shared_ptr<dae::GameObject> GenerateHotdog(glm::ivec2 pos);
 
 
 int main(int, char* []) {
@@ -38,6 +40,24 @@ int main(int, char* []) {
 	auto pepper = GeneratePeter(glm::ivec2{ 400,325 });
 	scene.Add(pepper);
 
+	auto hotdog = GenerateHotdog({ 100, 100 });
+	scene.Add(hotdog);
+
+	auto ladder = std::make_shared<dae::GameObject>();
+	auto coll = std::make_shared<BoxColliderComp>(ladder.get(), "ladder");
+	ladder->AddComponent(coll);
+	ladder->SetSize(160, 20);
+	ladder->SetPosition(40, 200);
+	auto ladrComp = std::make_shared<LadderComp>(ladder.get(), scene);
+	ladder->AddComponent(ladrComp);
+	scene.Add(ladder);
+
+	engine.Run();
+	return 0;
+}
+
+std::shared_ptr<dae::GameObject> GenerateHotdog(glm::ivec2 pos)
+{
 	auto hotdog = std::make_shared<dae::GameObject>();
 	auto enemy = std::make_shared<EnemyComponent>(hotdog.get());
 	auto texture = std::make_shared<dae::TextureComponent>(hotdog.get(), "Burgertime/spritesheet.png", glm::vec4{ 32,32,16,16 });
@@ -51,7 +71,7 @@ int main(int, char* []) {
 	animComp->AddAnimationFrame("death", { 32, 48 });
 	animComp->AddAnimationFrame("death", { 48, 48 });
 	hotdog->SetSize(160, 160);
-	hotdog->SetPosition({100, 100});
+	hotdog->SetPosition(pos);
 	hotdog->AddComponent(enemy);
 	hotdog->AddComponent(texture);
 	hotdog->AddComponent(animComp);
@@ -59,10 +79,7 @@ int main(int, char* []) {
 	auto collision = std::make_shared<BoxColliderComp>(hotdog.get(), "burgerPiece");
 	hotdog->AddComponent(collision);
 
-	scene.Add(hotdog);
-
-	engine.Run();
-	return 0;
+	return hotdog;
 }
 
 std::shared_ptr<dae::GameObject> GeneratePeter(glm::ivec2 pos)

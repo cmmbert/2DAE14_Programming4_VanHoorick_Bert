@@ -89,8 +89,8 @@ void dae::Renderer::RenderTexture(
 		src = new SDL_Rect();
 		src->x = srcRect.x;
 		src->y = srcRect.y;
-		src->w = srcRect.w;
-		src->h = srcRect.z;
+		src->w = srcRect.z;
+		src->h = srcRect.w;
 	}
 	auto flip = SDL_FLIP_NONE;
 	if (flipped)
