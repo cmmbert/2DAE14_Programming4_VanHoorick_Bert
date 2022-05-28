@@ -16,7 +16,10 @@ Collider::Collider(dae::GameObject* gameObject, const std::string& tag) : BaseCo
 
 Collider::~Collider()
 {
-	CollisionManager::GetInstance().UnregisterCollider(this);
+	//TODO fix this map bug: map says its size is 1 without actually having any element inside it
+	//auto& collMan = CollisionManager::GetInstance();
+	//if(collMan == nullptr)
+	//CollisionManager::GetInstance().UnregisterCollider(this);
 }
 
 void Collider::OnCollision(Collider* other)
