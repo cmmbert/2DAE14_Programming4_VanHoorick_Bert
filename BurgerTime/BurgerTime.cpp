@@ -9,7 +9,6 @@
 
 #include "AnimationComponent.h"
 #include "BlockComp.h"
-#include "BlockLeft.h"
 #include "BoxColliderComp.h"
 #include "BurgerPiece.h"
 #include "EnemyComponent.h"
@@ -82,7 +81,7 @@ int main(int, char* []) {
 	auto blockLeft = std::make_shared<dae::GameObject>();
 	blockLeft->SetSize(5, 100);
 	blockLeft->SetPosition(200, 100);
-	auto blockLeftComp = std::make_shared<BlockLeft>(blockLeft.get());
+	auto blockLeftComp = std::make_shared<BlockComp>(blockLeft.get(), static_cast<int>(Direction::Left));
 	blockLeft->AddComponent(blockLeftComp);
 	coll = std::make_shared<BoxColliderComp>(block.get(), "block");
 	blockLeft->AddComponent(coll);

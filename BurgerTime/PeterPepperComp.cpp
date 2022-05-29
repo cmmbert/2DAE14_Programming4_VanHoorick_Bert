@@ -9,8 +9,6 @@
 #include <AnimationComponent.h>
 
 #include "BlockComp.h"
-#include "BlockLeft.h"
-#include "BlockRight.h"
 #include "LadderComp.h"
 #include "LadderTop.h"
 
@@ -102,16 +100,14 @@ void PeterPepperComp::OnCollision(dae::GameObject* other)
 	}
 	if (auto block = other->GetComponent<BlockComp>())
 	{
+		/*if(block->IsBlockingDirection(Direction::Up)) //Not needed for this game
+			m_IsTouchingBlock = true;*/
 		if(block->IsBlockingDirection(Direction::Down))
 			m_IsTouchingBlock = true;
-	}
-	if (other->GetComponent<BlockLeft>())
-	{
-		m_IsTouchingLeftBlock = true;
-	}
-	if (other->GetComponent<BlockRight>())
-	{
-		m_IsTouchingRightBlock = true;
+		if(block->IsBlockingDirection(Direction::Right))
+			m_IsTouchingRightBlock = true;
+		if(block->IsBlockingDirection(Direction::Left))
+			m_IsTouchingLeftBlock = true;
 	}
 }
 
