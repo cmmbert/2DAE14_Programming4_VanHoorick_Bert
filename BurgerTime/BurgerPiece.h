@@ -5,6 +5,7 @@
 #include <glm/glm.hpp>
 
 #include "BurgerShardComp.h"
+#include "LevelSettings.h"
 #include "Scene.h"
 #include "TextureComponent.h"
 
@@ -16,7 +17,7 @@ class BurgerPiece : public dae::BaseComponent
 	bool m_IsFalling{};
 	float m_FallingSpeed{ 100 };
 public:
-	BurgerPiece(dae::GameObject* gameObject, int shardSize = 80);
+	BurgerPiece(dae::GameObject* gameObject, int shardSize = 8*LevelSettings::Scale);
 	void GenerateShards(glm::ivec2 texSrc, dae::Scene& sceneRef);
 	void OnSteppedOn(int shardIdx);
 	void Start() override;

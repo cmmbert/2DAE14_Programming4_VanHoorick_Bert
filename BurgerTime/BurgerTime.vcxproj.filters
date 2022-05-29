@@ -92,5 +92,8 @@
     <ClInclude Include="BlockComp.h">
       <Filter>Source Files\Level</Filter>
     </ClInclude>
+    <ClInclude Include="LevelSettings.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

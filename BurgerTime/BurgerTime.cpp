@@ -16,6 +16,7 @@
 #include "GameObject.h"
 #include "InputManager.h"
 #include "LadderComp.h"
+#include "LevelSettings.h"
 #include "Minigin.h"
 #include "PeterCommands.h"
 #include "Scene.h"
@@ -24,7 +25,7 @@ std::shared_ptr<dae::GameObject> GeneratePeter(glm::ivec2 pos);
 std::shared_ptr<dae::GameObject> GenerateHotdog(glm::ivec2 pos);
 std::shared_ptr<dae::GameObject> GenerateBlockingField(Direction direction);
 
-const int scale = 10;
+//const int LevelSettings::Scale = 2;
 
 
 int main(int, char* []) {
@@ -38,8 +39,8 @@ int main(int, char* []) {
 	auto ladder = std::make_shared<dae::GameObject>();
 
 
-	ladder->SetSize(16 * scale, 32 * scale);
-	ladder->SetPosition(32 * scale, 8 * scale);
+	ladder->SetSize(16 * LevelSettings::Scale, 32 * LevelSettings::Scale);
+	ladder->SetPosition(32 * LevelSettings::Scale, 8 * LevelSettings::Scale);
 	auto coll = std::make_shared<BoxColliderComp>(ladder.get(), "ladder");
 	ladder->AddComponent(coll);
 	auto ladrComp = std::make_shared<LadderComp>(ladder.get(), scene);
@@ -55,39 +56,39 @@ int main(int, char* []) {
 
 
 	auto block = GenerateBlockingField(Direction::Down);
-	block->SetSize(16 * scale, 2);
-	block->SetPosition(24 * scale, 8 * scale);
+	block->SetSize(16 * LevelSettings::Scale, 2);
+	block->SetPosition(24 * LevelSettings::Scale, 8 * LevelSettings::Scale);
 	scene.Add(block);
 	block = GenerateBlockingField(Direction::Left);
 	block->SetSize(5, 1000);
-	block->SetPosition(8 * scale, 8 * scale);
+	block->SetPosition(8 * LevelSettings::Scale, 8 * LevelSettings::Scale);
 	scene.Add(block);
 
 	block = GenerateBlockingField(Direction::Right);
-	block->SetSize(5, 10 * scale);
-	block->SetPosition(56 * scale, 8 * scale);
+	block->SetSize(5, 10 * LevelSettings::Scale);
+	block->SetPosition(56 * LevelSettings::Scale, 8 * LevelSettings::Scale);
 	scene.Add(block);
 
 
 	auto floor = std::make_shared<dae::GameObject>();
 	auto texture = std::make_shared<dae::TextureComponent>(floor.get(), "Burgertime/spritesheet.png", glm::vec4{ 202,141,32,3 });
 	floor->AddComponent(texture);
-	floor->SetSize(32 * scale, 3 * scale);
-	floor->SetPosition(24 * scale, 5 * scale);
+	floor->SetSize(32 * LevelSettings::Scale, 3 * LevelSettings::Scale);
+	floor->SetPosition(24 * LevelSettings::Scale, 5 * LevelSettings::Scale);
 	scene.Add(floor);
 
 	floor = std::make_shared<dae::GameObject>();
 	texture = std::make_shared<dae::TextureComponent>(floor.get(), "Burgertime/spritesheet.png", glm::vec4{ 202,147,16,3 });
 	floor->AddComponent(texture);
-	floor->SetSize(16 * scale, 3 * scale);
-	floor->SetPosition(8 * scale, 5 * scale);
+	floor->SetSize(16 * LevelSettings::Scale, 3 * LevelSettings::Scale);
+	floor->SetPosition(8 * LevelSettings::Scale, 5 * LevelSettings::Scale);
 	scene.Add(floor);
 
 	floor = std::make_shared<dae::GameObject>();
 	texture = std::make_shared<dae::TextureComponent>(floor.get(), "Burgertime/spritesheet.png", glm::vec4{ 202,141,32,3 });
 	floor->AddComponent(texture);
-	floor->SetSize(32 * scale, 3 * scale);
-	floor->SetPosition(24 * scale, 37 * scale);
+	floor->SetSize(32 * LevelSettings::Scale, 3 * LevelSettings::Scale);
+	floor->SetPosition(24 * LevelSettings::Scale, 37 * LevelSettings::Scale);
 	scene.Add(floor);
 
 
@@ -96,15 +97,15 @@ int main(int, char* []) {
 	auto burger = std::make_shared<dae::GameObject>();
 	auto burgerComp = std::make_shared<BurgerPiece>(burger.get());
 	burger->AddComponent(burgerComp);
-	burger->SetPosition(glm::ivec2{ 4 * scale,37 * scale });
+	burger->SetPosition(glm::ivec2{ 4 * LevelSettings::Scale,37 * LevelSettings::Scale });
 	burgerComp->GenerateShards(glm::ivec2{ 112,49 }, scene);
 
 	scene.Add(burger);
 
-	auto pepper = GeneratePeter(glm::ivec2{ 42 * scale,8 * scale });
+	auto pepper = GeneratePeter(glm::ivec2{ 42 * LevelSettings::Scale,8 * LevelSettings::Scale });
 	scene.Add(pepper);
 
-	auto hotdog = GenerateHotdog({ 10 * scale, 8 * scale });
+	auto hotdog = GenerateHotdog({ 10 * LevelSettings::Scale, 8 * LevelSettings::Scale });
 	scene.Add(hotdog);
 
 
@@ -126,7 +127,7 @@ std::shared_ptr<dae::GameObject> GenerateHotdog(glm::ivec2 pos)
 	animComp->AddAnimationFrame("death", { 16, 48 });
 	animComp->AddAnimationFrame("death", { 32, 48 });
 	animComp->AddAnimationFrame("death", { 48, 48 });
-	hotdog->SetSize(16 * scale, 16 * scale);
+	hotdog->SetSize(16 * LevelSettings::Scale, 16 * LevelSettings::Scale);
 	hotdog->SetPosition(pos);
 	hotdog->AddComponent(enemy);
 	hotdog->AddComponent(texture);
@@ -161,7 +162,7 @@ std::shared_ptr<dae::GameObject> GeneratePeter(glm::ivec2 pos)
 	animComp->SetCurrentAnimation("climb");
 
 	pepper->AddComponent(animComp);
-	pepper->SetSize(16 * scale, 16 * scale);
+	pepper->SetSize(16 * LevelSettings::Scale, 16 * LevelSettings::Scale);
 	pepper->SetPosition(pos);
 	pepper->AddComponent(texture);
 
@@ -171,8 +172,8 @@ std::shared_ptr<dae::GameObject> GeneratePeter(glm::ivec2 pos)
 	input.AddOrChangeCommand(eControllerButton::DpadUp, std::make_shared<VerticalMovementCommand>(pepComp, 1));
 	input.AddOrChangeCommand(eControllerButton::DpadDown, std::make_shared<VerticalMovementCommand>(pepComp, -1));
 
-	pepComp->AddLevelHeight(8 * scale);
-	pepComp->AddLevelHeight(40 * scale);
+	pepComp->AddLevelHeight(8 * LevelSettings::Scale);
+	pepComp->AddLevelHeight(40 * LevelSettings::Scale);
 	return pepper;
 }
 

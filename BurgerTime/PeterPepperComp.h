@@ -1,5 +1,6 @@
 #pragma once
 #include "BaseComponent.h"
+#include "LevelSettings.h"
 #include "Subject.h"
 
 class PeterPepperComp : public dae::BaseComponent, public Subject
@@ -8,7 +9,7 @@ class PeterPepperComp : public dae::BaseComponent, public Subject
 private:
 	void OnDeath();
 
-	int m_Speed{ 300 };
+	int m_Speed{ 30 * LevelSettings::Scale };
 	bool m_IsTouchingTopLadder{};
 	bool m_IsTouchingBlock{};
 	bool m_IsTouchingLadder{};
