@@ -147,10 +147,9 @@ std::shared_ptr<dae::GameObject> GeneratePeter(glm::ivec2 pos)
 	animComp->AddAnimationFrame("run", { 64, 0 });
 	animComp->AddAnimationFrame("run", { 80, 0 });
 	animComp->SetCurrentAnimation("run");
-	animComp->AddAnimationFrame("climb", { 96, 0 });
-	animComp->AddAnimationFrame("climb", { 112, 0 });
-	animComp->AddAnimationFrame("climb", { 128, 0 });
-	animComp->SetCurrentAnimation("climb");
+	animComp->AddAnimationFrame("climbup", { 96, 0 });
+	animComp->AddAnimationFrame("climbup", { 112, 0 });
+	animComp->AddAnimationFrame("climbup", { 128, 0 });
 
 	pepper->AddComponent(animComp);
 	pepper->SetSize(16 * LevelSettings::Scale, 16 * LevelSettings::Scale);

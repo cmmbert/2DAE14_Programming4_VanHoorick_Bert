@@ -43,7 +43,8 @@ void PeterPepperComp::OnDeath()
 void PeterPepperComp::StartClimbAnim(int direction)
 {
 	if (!CanClimbUp() && !CanClimbDown()) return;
-
+	auto anim = m_pGameObject->GetComponent<AnimationComponent>();
+	anim->SetCurrentAnimation("climbup");
 }
 
 void PeterPepperComp::TryClimb(int direction)

@@ -13,6 +13,7 @@ namespace dae
 		TextureComponent(dae::GameObject* gameObject, const std::string& filename, glm::ivec4 srcRect = {}, glm::ivec2 dstOffset = {});
 		void Render() const override;
 		void SetTexture(const std::string& filename);
+		glm::ivec4 GetTexCoord() const { return m_SrcRect; }
 		void SetSrcRect(glm::ivec4 srcRect);
 		bool m_Flipped{};
 	private:
