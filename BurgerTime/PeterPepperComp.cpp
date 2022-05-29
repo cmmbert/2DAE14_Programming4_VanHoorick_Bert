@@ -9,6 +9,7 @@
 #include <AnimationComponent.h>
 
 #include "LadderComp.h"
+#include "LadderTop.h"
 
 PeterPepperComp::PeterPepperComp(dae::GameObject* gameObject) : BaseComponent(gameObject)
 {
@@ -32,9 +33,11 @@ void PeterPepperComp::StartClimbAnim(int direction)
 
 void PeterPepperComp::TryClimb(int direction)
 {
-	if (!m_IsTouchingLadder) return;
-	auto pos = m_pGameObject->GetPosition();
-	m_pGameObject->SetPosition(pos.x, pos.y + m_Speed * GlobalTime::GetInstance().GetElapsed() * direction);
+	if(m_IsTouchingTopLadder && direction == -1 || m_IsTouchingLadder)
+	{
+		auto pos = m_pGameObject->GetPosition();
+		m_pGameObject->SetPosition(pos.x, pos.y + m_Speed * GlobalTime::GetInstance().GetElapsed() * direction);
+	}
 }
 
 void PeterPepperComp::StartRunAnim(int direction)
@@ -56,13 +59,18 @@ void PeterPepperComp::Update()
 
 
 	m_IsTouchingLadder = false;
+	m_IsTouchingTopLadder = false;
 }
 
 void PeterPepperComp::OnCollision(dae::GameObject* other)
 {
-	if(other->GetComponent<LadderComp>())
+	if (other->GetComponent<LadderComp>())
 	{
 		m_IsTouchingLadder = true;
+	}
+	if (other->GetComponent<LadderTop>())
+	{
+		m_IsTouchingTopLadder = true;
 	}
 }
 

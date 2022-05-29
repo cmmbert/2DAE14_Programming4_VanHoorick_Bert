@@ -54,6 +54,9 @@
     <ClCompile Include="LadderComp.cpp">
       <Filter>Source Files\Level</Filter>
     </ClCompile>
+    <ClCompile Include="LadderTop.cpp">
+      <Filter>Source Files\Level</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BurgerPiece.h">
@@ -78,6 +81,9 @@
       <Filter>Source Files\Enemies</Filter>
     </ClInclude>
     <ClInclude Include="LadderComp.h">
+      <Filter>Source Files\Level</Filter>
+    </ClInclude>
+    <ClInclude Include="LadderTop.h">
       <Filter>Source Files\Level</Filter>
     </ClInclude>
   </ItemGroup>

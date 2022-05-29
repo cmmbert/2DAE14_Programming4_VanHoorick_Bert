@@ -44,12 +44,20 @@ int main(int, char* []) {
 	scene.Add(hotdog);
 
 	auto ladder = std::make_shared<dae::GameObject>();
+
+
+	ladder->SetSize(160, 100);
+	ladder->SetPosition(50, 100);
 	auto coll = std::make_shared<BoxColliderComp>(ladder.get(), "ladder");
 	ladder->AddComponent(coll);
-	ladder->SetSize(160, 300);
-	ladder->SetPosition(400, 100);
 	auto ladrComp = std::make_shared<LadderComp>(ladder.get(), scene);
 	ladder->AddComponent(ladrComp);
+
+#if _DEBUG
+	auto texture = std::make_shared<dae::TextureComponent>(ladder.get(), "Burgertime/spritesheet.png", glm::vec4{ 87,38,1,1 });
+	ladder->AddComponent(texture);
+#endif
+
 	scene.Add(ladder);
 
 	engine.Run();

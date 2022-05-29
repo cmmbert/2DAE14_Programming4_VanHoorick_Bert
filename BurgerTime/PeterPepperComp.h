@@ -10,6 +10,7 @@ private:
 
 	int m_Speed{ 300 };
 	bool m_IsTouchingLadder{};
+	bool m_IsTouchingTopLadder{};
 public:
 	PeterPepperComp() = delete;
 	PeterPepperComp(dae::GameObject* gameObject);
