@@ -2,6 +2,6 @@
 class LevelSettings
 {
 public:
-	static const int Scale{2};
+	static const int Scale{3};
 };
 

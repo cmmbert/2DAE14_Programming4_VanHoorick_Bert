@@ -88,12 +88,14 @@ void PeterPepperComp::OnCollision(dae::GameObject* other)
 {
 	if (other->GetComponent<LadderComp>())
 	{
-		m_IsTouchingLadder = true;
+		int deviation = 5;
+		if (abs(other->GetWorldPosition().x - m_pGameObject->GetWorldPosition().x) <= deviation)
+			m_IsTouchingLadder = true;
 	}
 	if (other->GetComponent<LadderTop>())
 	{
 		int deviation = 5;
-		if(abs(other->GetPosition().y - m_pGameObject->GetPosition().y <= deviation))
+		if(abs(other->GetWorldPosition().x - m_pGameObject->GetWorldPosition().x) <= deviation)
 		{
 			m_IsTouchingTopLadder = true;
 		}
