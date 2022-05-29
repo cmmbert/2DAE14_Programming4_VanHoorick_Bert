@@ -14,7 +14,7 @@
 
 bool PeterPepperComp::IsOnFloor()
 {
-	int deviation = 5;
+	int deviation = 10;
 	for (int levelHeight : m_LevelHeights)
 	{
 		if (abs(levelHeight - m_pGameObject->GetWorldPosition().y) <= deviation)

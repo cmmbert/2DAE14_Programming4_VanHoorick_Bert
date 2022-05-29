@@ -34,7 +34,7 @@ void LadderComp::RecalculateSize()
 	top->SetPosition(0, m_NrOfSteps * m_StepSize.y);
 	top->SetSize(m_StepSize.x, m_StepSize.y);
 
-#if _DEBUG
+#if _DEBUGRENDERING
 	auto texture = std::make_shared<dae::TextureComponent>(top.get(), "Burgertime/spritesheet.png", glm::vec4{ 81,70,1,1 });
 	top->AddComponent(texture);
 #endif
