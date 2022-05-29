@@ -4,6 +4,12 @@
 
 class PeterPepperComp : public dae::BaseComponent, public Subject
 {
+
+private:
+	void OnDeath();
+
+	int m_Speed{ 300 };
+	bool m_IsTouchingLadder{};
 public:
 	PeterPepperComp() = delete;
 	PeterPepperComp(dae::GameObject* gameObject);
@@ -13,14 +19,14 @@ public:
 	PeterPepperComp& operator=(const PeterPepperComp& other) = delete;
 	PeterPepperComp& operator=(PeterPepperComp&& other) noexcept = delete;
 
-private:
-	void OnDeath();
-public:
+
+	void StartClimbAnim(int direction);
+	void TryClimb(int direction);
 	void StartRunAnim(int direction);
 	void Run(int direction);
 	void Update() override;
-
+	void OnCollision(dae::GameObject* other) override;
 	int m_LivesLeft{ 3 };
-	int m_Speed{300};
+
 };
 

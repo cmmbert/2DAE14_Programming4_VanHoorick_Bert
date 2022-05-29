@@ -37,7 +37,7 @@ int main(int, char* []) {
 
 	scene.Add(burger);
 	
-	auto pepper = GeneratePeter(glm::ivec2{ 400,325 });
+	auto pepper = GeneratePeter(glm::ivec2{ 400,100 });
 	scene.Add(pepper);
 
 	auto hotdog = GenerateHotdog({ 100, 100 });
@@ -46,8 +46,8 @@ int main(int, char* []) {
 	auto ladder = std::make_shared<dae::GameObject>();
 	auto coll = std::make_shared<BoxColliderComp>(ladder.get(), "ladder");
 	ladder->AddComponent(coll);
-	ladder->SetSize(160, 20);
-	ladder->SetPosition(40, 200);
+	ladder->SetSize(160, 300);
+	ladder->SetPosition(400, 100);
 	auto ladrComp = std::make_shared<LadderComp>(ladder.get(), scene);
 	ladder->AddComponent(ladrComp);
 	scene.Add(ladder);
@@ -86,8 +86,11 @@ std::shared_ptr<dae::GameObject> GeneratePeter(glm::ivec2 pos)
 {
 	auto pepper = std::make_shared<dae::GameObject>();
 	auto collision = std::make_shared<BoxColliderComp>(pepper.get(), "burgerPiece");
+	auto coll = std::make_shared<BoxColliderComp>(pepper.get(), "ladder");
+	pepper->AddComponent(coll);
 	auto texture = std::make_shared<dae::TextureComponent>(pepper.get(), "Burgertime/spritesheet.png", glm::vec4{ 0,0,16,16 });
 	auto pepComp = std::make_shared<PeterPepperComp>(pepper.get());
+	pepper->AddComponent(pepComp);
 	auto animComp = std::make_shared<AnimationComponent>(pepper.get(), texture, 0.2f);
 	animComp->AddAnimationFrame("run", { 48, 0 });
 	animComp->AddAnimationFrame("run", { 64, 0 });
@@ -107,6 +110,8 @@ std::shared_ptr<dae::GameObject> GeneratePeter(glm::ivec2 pos)
 	auto& input = dae::InputManager::GetInstance();
 	input.AddOrChangeCommand(eControllerButton::DpadRight, std::make_shared<LateralMovementCommand>(pepComp, 1));
 	input.AddOrChangeCommand(eControllerButton::DpadLeft, std::make_shared<LateralMovementCommand>(pepComp, -1));
+	input.AddOrChangeCommand(eControllerButton::DpadUp, std::make_shared<VerticalMovementCommand>(pepComp, 1));
+	input.AddOrChangeCommand(eControllerButton::DpadDown, std::make_shared<VerticalMovementCommand>(pepComp, -1));
 
 	return pepper;
 }

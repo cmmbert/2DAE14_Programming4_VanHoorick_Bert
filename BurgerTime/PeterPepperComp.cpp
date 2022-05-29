@@ -8,6 +8,8 @@
 #include "TextureComponent.h"
 #include <AnimationComponent.h>
 
+#include "LadderComp.h"
+
 PeterPepperComp::PeterPepperComp(dae::GameObject* gameObject) : BaseComponent(gameObject)
 {
 	//AddObserver(PlayerObserver());
@@ -20,6 +22,19 @@ void PeterPepperComp::OnDeath()
 	
 	std::cout << "PlayerDied, lives left: " << m_LivesLeft << "\n";
 	NotifyAllObservers(*m_pGameObject, eEvent::PepperDied);
+}
+
+void PeterPepperComp::StartClimbAnim(int direction)
+{
+	if (!m_IsTouchingLadder) return;
+
+}
+
+void PeterPepperComp::TryClimb(int direction)
+{
+	if (!m_IsTouchingLadder) return;
+	auto pos = m_pGameObject->GetPosition();
+	m_pGameObject->SetPosition(pos.x, pos.y + m_Speed * GlobalTime::GetInstance().GetElapsed() * direction);
 }
 
 void PeterPepperComp::StartRunAnim(int direction)
@@ -38,6 +53,16 @@ void PeterPepperComp::Run(int direction)
 
 void PeterPepperComp::Update()
 {
-	if (dae::InputManager::GetInstance().IsPressed(eControllerButton::ButtonA)) OnDeath();
+
+
+	m_IsTouchingLadder = false;
+}
+
+void PeterPepperComp::OnCollision(dae::GameObject* other)
+{
+	if(other->GetComponent<LadderComp>())
+	{
+		m_IsTouchingLadder = true;
+	}
 }
 

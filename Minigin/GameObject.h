@@ -44,13 +44,13 @@ namespace dae
 		GameObject* m_Parent;
 	};
 
-	//TODO How to do this??
+
 	template <typename T>
 	T* GameObject::GetComponent() const
 	{
 		for (auto& component : m_pComponents)
 		{
-			auto rtrn = dynamic_cast<T*>(component.get());
+			T* rtrn = dynamic_cast<T*>(component.get());
 			if (rtrn != nullptr) 
 				return rtrn; //https://stackoverflow.com/questions/351845/finding-the-type-of-an-object-in-c
 		}
