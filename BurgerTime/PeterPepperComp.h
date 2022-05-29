@@ -9,8 +9,17 @@ private:
 	void OnDeath();
 
 	int m_Speed{ 300 };
-	bool m_IsTouchingLadder{};
 	bool m_IsTouchingTopLadder{};
+	bool m_IsTouchingBlock{};
+	bool m_IsTouchingLadder{};
+	std::vector<int> m_LevelHeights{};
+	bool IsOnFloor();
+	bool CanClimbUp() { return m_IsTouchingLadder; }
+	bool CanClimbDown() { return (m_IsTouchingLadder || m_IsTouchingTopLadder) && !m_IsTouchingBlock; }
+	bool m_IsTouchingLeftBlock{};
+	bool CanMoveLeft() { return !m_IsTouchingLeftBlock; }
+	bool m_IsTouchingRightBlock{};
+	bool CanMoveRight() { return !m_IsTouchingRightBlock; }
 public:
 	PeterPepperComp() = delete;
 	PeterPepperComp(dae::GameObject* gameObject);
@@ -27,6 +36,8 @@ public:
 	void Run(int direction);
 	void Update() override;
 	void OnCollision(dae::GameObject* other) override;
+
+	void AddLevelHeight(int newHeight);
 	int m_LivesLeft{ 3 };
 
 };

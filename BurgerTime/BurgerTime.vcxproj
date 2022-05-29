@@ -155,6 +155,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BlockComp.cpp" />
+    <ClCompile Include="BlockLeft.cpp" />
+    <ClCompile Include="BlockRight.cpp" />
     <ClCompile Include="BurgerPiece.cpp" />
     <ClCompile Include="BurgerShardComp.cpp" />
     <ClCompile Include="BurgerTime.cpp" />
@@ -167,6 +170,9 @@
     <ClCompile Include="PlayerObserver.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BlockComp.h" />
+    <ClInclude Include="BlockLeft.h" />
+    <ClInclude Include="BlockRight.h" />
     <ClInclude Include="BurgerPiece.h" />
     <ClInclude Include="BurgerShardComp.h" />
     <ClInclude Include="EnemyComponent.h" />

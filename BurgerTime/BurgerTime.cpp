@@ -8,6 +8,8 @@
 #endif
 
 #include "AnimationComponent.h"
+#include "BlockComp.h"
+#include "BlockLeft.h"
 #include "BoxColliderComp.h"
 #include "BurgerPiece.h"
 #include "EnemyComponent.h"
@@ -60,6 +62,35 @@ int main(int, char* []) {
 
 	scene.Add(ladder);
 
+
+	auto block = std::make_shared<dae::GameObject>();
+	block->SetSize(160, 2);
+	block->SetPosition(50, 101);
+
+	auto blockComp = std::make_shared<BlockComp>(block.get(), (int)Direction::Down);
+	block->AddComponent(blockComp);
+
+	coll = std::make_shared<BoxColliderComp>(block.get(), "block");
+	block->AddComponent(coll);
+#if _DEBUG
+	texture = std::make_shared<dae::TextureComponent>(block.get(), "Burgertime/spritesheet.png", glm::vec4{ 100,24,1,1 });
+	block->AddComponent(texture);
+#endif
+
+	scene.Add(block);
+
+	auto blockLeft = std::make_shared<dae::GameObject>();
+	blockLeft->SetSize(5, 100);
+	blockLeft->SetPosition(200, 100);
+	auto blockLeftComp = std::make_shared<BlockLeft>(blockLeft.get());
+	blockLeft->AddComponent(blockLeftComp);
+	coll = std::make_shared<BoxColliderComp>(block.get(), "block");
+	blockLeft->AddComponent(coll);
+	scene.Add(blockLeft);
+#if _DEBUG
+	texture = std::make_shared<dae::TextureComponent>(blockLeft.get(), "Burgertime/spritesheet.png", glm::vec4{ 100,24,1,1 });
+	blockLeft->AddComponent(texture);
+#endif
 	engine.Run();
 	return 0;
 }
@@ -93,8 +124,11 @@ std::shared_ptr<dae::GameObject> GenerateHotdog(glm::ivec2 pos)
 std::shared_ptr<dae::GameObject> GeneratePeter(glm::ivec2 pos)
 {
 	auto pepper = std::make_shared<dae::GameObject>();
-	auto collision = std::make_shared<BoxColliderComp>(pepper.get(), "burgerPiece");
 	auto coll = std::make_shared<BoxColliderComp>(pepper.get(), "ladder");
+	pepper->AddComponent(coll);
+	coll = std::make_shared<BoxColliderComp>(pepper.get(), "burgerPiece");;
+	pepper->AddComponent(coll);
+	coll = std::make_shared<BoxColliderComp>(pepper.get(), "block");
 	pepper->AddComponent(coll);
 	auto texture = std::make_shared<dae::TextureComponent>(pepper.get(), "Burgertime/spritesheet.png", glm::vec4{ 0,0,16,16 });
 	auto pepComp = std::make_shared<PeterPepperComp>(pepper.get());
@@ -110,7 +144,6 @@ std::shared_ptr<dae::GameObject> GeneratePeter(glm::ivec2 pos)
 	animComp->SetCurrentAnimation("climb");
 
 	pepper->AddComponent(animComp);
-	pepper->AddComponent(collision);
 	pepper->SetSize(160, 160);
 	pepper->SetPosition(pos);
 	pepper->AddComponent(texture);
@@ -121,6 +154,8 @@ std::shared_ptr<dae::GameObject> GeneratePeter(glm::ivec2 pos)
 	input.AddOrChangeCommand(eControllerButton::DpadUp, std::make_shared<VerticalMovementCommand>(pepComp, 1));
 	input.AddOrChangeCommand(eControllerButton::DpadDown, std::make_shared<VerticalMovementCommand>(pepComp, -1));
 
+	pepComp->AddLevelHeight(100);
+	pepComp->AddLevelHeight(200);
 	return pepper;
 }
 
