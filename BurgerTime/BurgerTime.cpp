@@ -73,6 +73,8 @@ int main(int, char* []) {
 	std::shared_ptr<dae::GameObject> ladder{};
 	ladder = GenerateLadder({ 0,42 * LevelSettings::Scale }, {16*LevelSettings::Scale, 34*LevelSettings::Scale}, scene);
 	scene.Add(ladder);
+	ladder = GenerateLadder({ 192 * LevelSettings::Scale, 42 * LevelSettings::Scale }, {16*LevelSettings::Scale, 34*LevelSettings::Scale}, scene);
+	scene.Add(ladder);
 
 	floor = GenerateFloorLight({ 0, 41 * LevelSettings::Scale });
 	scene.Add(floor);
@@ -90,9 +92,11 @@ int main(int, char* []) {
 	scene.Add(floor);
 	floor = GenerateFloorDark({ 160 * LevelSettings::Scale,41 * LevelSettings::Scale });
 	scene.Add(floor);
+	floor = GenerateFloorLight({ 192 * LevelSettings::Scale, 41 * LevelSettings::Scale });
+	scene.Add(floor);
 
-	LevelSettings::m_LevelHeights.push_back(76 * LevelSettings::Scale);
-	LevelSettings::m_LevelHeights.push_back(44 * LevelSettings::Scale);
+	LevelSettings::m_LevelHeights.insert(76 * LevelSettings::Scale);
+	LevelSettings::m_LevelHeights.insert(44 * LevelSettings::Scale);
 
 
 	auto burger = GenerateBurgerPiece({ 16 * LevelSettings::Scale,73 * LevelSettings::Scale }, { 112,49 }, scene);
@@ -199,6 +203,9 @@ std::shared_ptr<dae::GameObject> GenerateLadder(glm::ivec2 pos, glm::ivec2 scale
 	auto debugtexture = std::make_shared<dae::TextureComponent>(ladder.get(), "Burgertime/spritesheet.png", glm::vec4{ 87,38,1,1 });
 	ladder->AddComponent(debugtexture);
 #endif
+
+	LevelSettings::m_LevelLadderCrossPoints.insert(pos.x);
+
 
 	return ladder;
 }

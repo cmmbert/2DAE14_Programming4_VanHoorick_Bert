@@ -8,6 +8,46 @@
 #include "LadderComp.h"
 #include "LadderTop.h"
 
+bool EnemyComponent::CanChangeDirection()
+{
+	int deviation = 10;
+	for (int levelWidth : LevelSettings::m_LevelLadderCrossPoints)
+	{
+		if (abs(levelWidth - m_pGameObject->GetWorldPosition().x) <= deviation)
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
+void EnemyComponent::ChangeDirection()
+{
+	std::cout << "New dir: ";
+	const auto targetPos = m_Target->GetPosition();
+	const auto pos = m_pGameObject->GetPosition();
+	if(CanClimbUp() && targetPos.y > pos.y)
+	{
+		m_CurrentChaseDir = { 0,1 };
+		return;
+	}
+	if(CanClimbDown() && targetPos.y < pos.y)
+	{
+		m_CurrentChaseDir = { 0,-1 };
+		return;
+	}
+	if(targetPos.x < pos.x)
+	{
+		m_CurrentChaseDir = { -1 ,0 };
+		return;
+	}
+	if(targetPos.x > pos.x)
+	{
+		m_CurrentChaseDir = { 1 ,0 };
+		return;
+	}
+}
+
 EnemyComponent::EnemyComponent(dae::GameObject* gameObject, std::shared_ptr<dae::GameObject> target): BaseComponent(gameObject), m_Target(target)
 {
 }
@@ -19,7 +59,7 @@ bool EnemyComponent::IsOnFloor()
 	{
 		if (abs(levelHeight - m_pGameObject->GetWorldPosition().y) <= deviation)
 		{
-			m_pGameObject->SetPosition(m_pGameObject->GetPosition().x, levelHeight);
+			//m_pGameObject->SetPosition(m_pGameObject->GetPosition().x, levelHeight);
 			return true;
 		}
 	}
@@ -28,19 +68,9 @@ bool EnemyComponent::IsOnFloor()
 
 void EnemyComponent::ChaseTarget()
 {
-	if(IsOnFloor())
+	if(m_CurrentChaseDir.x != 0)
 	{
-		if(m_CurrentChaseDir.x != 0)
-		{
-			if(m_CurrentChaseDir.x > 0)
-			{
-				Run(1);
-			}
-			else
-			{
-				Run(-1);
-			}
-		}
+		Run(m_CurrentChaseDir.x);
 	}
 }
 
@@ -104,6 +134,12 @@ void EnemyComponent::Update()
 	}
 	else
 	{
+		if (m_CurrentChaseDir == glm::ivec2{ 0,0 }) ChangeDirection(); //Invalid direction, so get a new one
+		if(CanChangeDirection())
+		{
+			ChangeDirection();
+			std::cout << m_CurrentChaseDir.x << ";" << m_CurrentChaseDir.y << "\n";
+		}
 		ChaseTarget();
 	}
 
@@ -112,3 +148,4 @@ void EnemyComponent::Update()
 	m_IsTouchingLadder = false;
 	m_IsTouchingTopLadder = false;
 }
+

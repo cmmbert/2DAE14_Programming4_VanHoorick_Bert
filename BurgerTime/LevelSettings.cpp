@@ -1,2 +1,3 @@
 #include "LevelSettings.h"
-std::vector<int> LevelSettings::m_LevelHeights{};
+std::set<int> LevelSettings::m_LevelHeights{};
+std::set<int> LevelSettings::m_LevelLadderCrossPoints{};
