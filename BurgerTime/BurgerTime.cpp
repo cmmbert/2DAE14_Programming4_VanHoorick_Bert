@@ -1,5 +1,5 @@
 #include "MiniginPCH.h"
-#define _DEBUGRENDERING 0; //1 for debug collision boxes etc
+#define _DEBUGRENDERING 1; //1 for debug collision boxes etc
 
 #if _DEBUG
 // ReSharper disable once CppUnusedIncludeDirective
@@ -53,6 +53,19 @@ int main(int, char* []) {
 	//Level 1
 	std::shared_ptr<dae::GameObject> floor{};
 
+	floor = GenerateFloorLight({ 0, 121 * LevelSettings::Scale });
+	scene.Add(floor);
+	floor = GenerateFloorDark({ 16 * LevelSettings::Scale,121 * LevelSettings::Scale });
+	scene.Add(floor);
+	floor = GenerateFloorLight({ 48 * LevelSettings::Scale, 121 * LevelSettings::Scale });
+	scene.Add(floor);
+	auto block = GenerateBlockingField(Direction::Right);
+	block->SetPosition(64 * LevelSettings::Scale, 121 * LevelSettings::Scale);
+	block->SetSize(1, 16 * LevelSettings::Scale);
+	scene.Add(block);
+	LevelSettings::m_LevelHeights.insert(124 * LevelSettings::Scale);
+
+
 	floor = GenerateFloorLight({ 0, 73 * LevelSettings::Scale });
 	scene.Add(floor);
 	floor = GenerateFloorDark({ 16 * LevelSettings::Scale,73 * LevelSettings::Scale });
@@ -65,13 +78,14 @@ int main(int, char* []) {
 	scene.Add(floor);
 	floor = GenerateFloorDark({ 112 * LevelSettings::Scale,73 * LevelSettings::Scale });
 	scene.Add(floor);
-	auto block = GenerateBlockingField(Direction::Right);
+	block = GenerateBlockingField(Direction::Right);
 	block->SetPosition(144 * LevelSettings::Scale, 73 * LevelSettings::Scale);
 	block->SetSize(1, 16 * LevelSettings::Scale);
 	scene.Add(block);
+	LevelSettings::m_LevelHeights.insert(76 * LevelSettings::Scale);
 
 	std::shared_ptr<dae::GameObject> ladder{};
-	ladder = GenerateLadder({ 0,42 * LevelSettings::Scale }, {16*LevelSettings::Scale, 34*LevelSettings::Scale}, scene);
+	ladder = GenerateLadder({ 0,42 * LevelSettings::Scale }, {16*LevelSettings::Scale, 82*LevelSettings::Scale}, scene);
 	scene.Add(ladder);
 	ladder = GenerateLadder({ 192 * LevelSettings::Scale, 42 * LevelSettings::Scale }, {16*LevelSettings::Scale, 34*LevelSettings::Scale}, scene);
 	scene.Add(ladder);
@@ -95,7 +109,6 @@ int main(int, char* []) {
 	floor = GenerateFloorLight({ 192 * LevelSettings::Scale, 41 * LevelSettings::Scale });
 	scene.Add(floor);
 
-	LevelSettings::m_LevelHeights.insert(76 * LevelSettings::Scale);
 	LevelSettings::m_LevelHeights.insert(44 * LevelSettings::Scale);
 
 
