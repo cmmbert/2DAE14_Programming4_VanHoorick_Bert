@@ -91,14 +91,15 @@ int main(int, char* []) {
 	floor = GenerateFloorDark({ 160 * LevelSettings::Scale,41 * LevelSettings::Scale });
 	scene.Add(floor);
 
+	LevelSettings::m_LevelHeights.push_back(76 * LevelSettings::Scale);
+	LevelSettings::m_LevelHeights.push_back(44 * LevelSettings::Scale);
+
+
 	auto burger = GenerateBurgerPiece({ 16 * LevelSettings::Scale,73 * LevelSettings::Scale }, { 112,49 }, scene);
 	scene.Add(burger);
 
 	auto pepper = GeneratePeter({8 * LevelSettings::Scale, 44 * LevelSettings::Scale});
 	auto pepComp = pepper->GetComponent<PeterPepperComp>();
-	pepComp->AddLevelHeight(44 * LevelSettings::Scale);
-	pepComp->AddLevelHeight(76 * LevelSettings::Scale);
-	LevelSettings::m_LevelHeights.push_back(44 * LevelSettings::Scale);
 	scene.Add(pepper);
 
 	auto hotdog = GenerateHotdog({ 80 * LevelSettings::Scale, 44 * LevelSettings::Scale }, pepper);

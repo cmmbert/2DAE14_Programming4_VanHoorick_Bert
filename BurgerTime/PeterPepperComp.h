@@ -13,7 +13,6 @@ private:
 	bool m_IsTouchingTopLadder{};
 	bool m_IsTouchingBlock{};
 	bool m_IsTouchingLadder{};
-	std::vector<int> m_LevelHeights{};
 	bool IsOnFloor();
 	bool CanClimbUp() { return m_IsTouchingLadder; }
 	bool CanClimbDown() { return (m_IsTouchingLadder || m_IsTouchingTopLadder) && !m_IsTouchingBlock; }
@@ -37,8 +36,7 @@ public:
 	void TryRun(int direction);
 	void Update() override;
 	void OnCollision(dae::GameObject* other) override;
-
-	void AddLevelHeight(int newHeight);
+	
 	int m_LivesLeft{ 3 };
 
 };

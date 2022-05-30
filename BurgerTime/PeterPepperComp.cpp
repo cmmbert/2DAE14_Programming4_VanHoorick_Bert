@@ -15,7 +15,7 @@
 bool PeterPepperComp::IsOnFloor()
 {
 	int deviation = 10;
-	for (int levelHeight : m_LevelHeights)
+	for (int levelHeight : LevelSettings::m_LevelHeights)
 	{
 		if (abs(levelHeight - m_pGameObject->GetWorldPosition().y) <= deviation)
 		{
@@ -112,10 +112,5 @@ void PeterPepperComp::OnCollision(dae::GameObject* other)
 		if(block->IsBlockingDirection(Direction::Left))
 			m_IsTouchingLeftBlock = true;
 	}
-}
-
-void PeterPepperComp::AddLevelHeight(int newHeight)
-{
-	m_LevelHeights.push_back(newHeight);
 }
 
