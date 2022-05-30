@@ -34,7 +34,7 @@ public:
 	void StartClimbAnim(int direction);
 	void TryClimb(int direction);
 	void StartRunAnim(int direction);
-	void Run(int direction);
+	void TryRun(int direction);
 	void Update() override;
 	void OnCollision(dae::GameObject* other) override;
 

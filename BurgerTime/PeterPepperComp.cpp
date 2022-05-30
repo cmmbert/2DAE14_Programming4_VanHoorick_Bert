@@ -19,7 +19,7 @@ bool PeterPepperComp::IsOnFloor()
 	{
 		if (abs(levelHeight - m_pGameObject->GetWorldPosition().y) <= deviation)
 		{
-			m_pGameObject->SetPosition(m_pGameObject->GetPosition().x, levelHeight);
+			m_pGameObject->SetPosition(m_pGameObject->GetPosition().x, (float)levelHeight);
 			return true;
 		}
 	}
@@ -65,7 +65,7 @@ void PeterPepperComp::StartRunAnim(int direction)
 	text->m_Flipped = direction == 1;
 }
 
-void PeterPepperComp::Run(int direction)
+void PeterPepperComp::TryRun(int direction)
 {
 	if (!IsOnFloor()) return;
 	if (direction == 1 && !CanMoveRight()) return;

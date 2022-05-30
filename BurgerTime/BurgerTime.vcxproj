@@ -162,6 +162,7 @@
     <ClCompile Include="EnemyComponent.cpp" />
     <ClCompile Include="LadderComp.cpp" />
     <ClCompile Include="LadderTop.cpp" />
+    <ClCompile Include="LevelSettings.cpp" />
     <ClCompile Include="LivesLeftComp.cpp" />
     <ClCompile Include="PeterCommands.cpp" />
     <ClCompile Include="PeterPepperComp.cpp" />

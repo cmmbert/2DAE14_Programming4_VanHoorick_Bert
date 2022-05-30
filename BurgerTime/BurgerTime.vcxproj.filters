@@ -60,6 +60,9 @@
     <ClCompile Include="BlockComp.cpp">
       <Filter>Source Files\Level</Filter>
     </ClCompile>
+    <ClCompile Include="LevelSettings.cpp">
+      <Filter>Source Files\Level</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BurgerPiece.h">
@@ -93,7 +96,7 @@
       <Filter>Source Files\Level</Filter>
     </ClInclude>
     <ClInclude Include="LevelSettings.h">
-      <Filter>Header Files</Filter>
+      <Filter>Source Files\Level</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

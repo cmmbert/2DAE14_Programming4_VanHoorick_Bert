@@ -1,5 +1,5 @@
 #include "MiniginPCH.h"
-#define _DEBUGRENDERING 1; //1 for debug collision boxes etc
+#define _DEBUGRENDERING 0; //1 for debug collision boxes etc
 
 #if _DEBUG
 // ReSharper disable once CppUnusedIncludeDirective
@@ -23,7 +23,7 @@
 #include "Scene.h"
 
 std::shared_ptr<dae::GameObject> GeneratePeter(glm::ivec2 pos);
-std::shared_ptr<dae::GameObject> GenerateHotdog(glm::ivec2 pos);
+std::shared_ptr<dae::GameObject> GenerateHotdog(glm::ivec2 pos, std::shared_ptr < dae::GameObject> target);
 std::shared_ptr<dae::GameObject> GenerateBlockingField(Direction direction);
 std::shared_ptr<dae::GameObject> GenerateLadder(glm::ivec2 pos, glm::ivec2 scale, dae::Scene& scene);
 std::shared_ptr<dae::GameObject> GenerateFloorDark(glm::ivec2 pos);
@@ -98,16 +98,20 @@ int main(int, char* []) {
 	auto pepComp = pepper->GetComponent<PeterPepperComp>();
 	pepComp->AddLevelHeight(44 * LevelSettings::Scale);
 	pepComp->AddLevelHeight(76 * LevelSettings::Scale);
+	LevelSettings::m_LevelHeights.push_back(44 * LevelSettings::Scale);
 	scene.Add(pepper);
+
+	auto hotdog = GenerateHotdog({ 80 * LevelSettings::Scale, 44 * LevelSettings::Scale }, pepper);
+	scene.Add(hotdog);
 
 	engine.Run();
 	return 0;
 }
 
-std::shared_ptr<dae::GameObject> GenerateHotdog(glm::ivec2 pos)
+std::shared_ptr<dae::GameObject> GenerateHotdog(glm::ivec2 pos, std::shared_ptr < dae::GameObject> target)
 {
 	auto hotdog = std::make_shared<dae::GameObject>();
-	auto enemy = std::make_shared<EnemyComponent>(hotdog.get());
+	auto enemy = std::make_shared<EnemyComponent>(hotdog.get(), target);
 	auto texture = std::make_shared<dae::TextureComponent>(hotdog.get(), "Burgertime/spritesheet.png", glm::vec4{ 32,32,16,16 });
 	texture->m_Flipped = true;
 	auto animComp = std::make_shared<AnimationComponent>(hotdog.get(), texture, 0.2f);
@@ -262,7 +266,7 @@ void ConstructTestScene(dae::Scene& scene)
 	auto pepper = GeneratePeter(glm::ivec2{ 42 * LevelSettings::Scale,8 * LevelSettings::Scale });
 	scene.Add(pepper);
 
-	auto hotdog = GenerateHotdog({ 8 * LevelSettings::Scale, 8 * LevelSettings::Scale });
+	auto hotdog = GenerateHotdog({ 8 * LevelSettings::Scale, 8 * LevelSettings::Scale }, pepper);
 	scene.Add(hotdog);
 }
 

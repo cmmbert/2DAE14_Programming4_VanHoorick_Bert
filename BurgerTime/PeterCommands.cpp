@@ -7,7 +7,7 @@ LateralMovementCommand::LateralMovementCommand(std::shared_ptr<PeterPepperComp> 
 
 void LateralMovementCommand::Execute()
 {
-	m_pPepper->Run(m_Direction);
+	m_pPepper->TryRun(m_Direction);
 }
 
 void LateralMovementCommand::FirstExecute()
