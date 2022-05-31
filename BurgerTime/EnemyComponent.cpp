@@ -26,6 +26,9 @@ void EnemyComponent::ChangeDirection()
 	std::cout << "New dir: ";
 	const auto targetPos = m_Target->GetPosition();
 	const auto pos = m_pGameObject->GetPosition();
+
+	auto anim = m_pGameObject->GetComponent<AnimationComponent>();
+	auto text = m_pGameObject->GetComponent<dae::TextureComponent>();
 	if(CanClimbUp() && targetPos.y > pos.y)
 	{
 		m_CurrentChaseDir = { 0,1 };
@@ -39,11 +42,16 @@ void EnemyComponent::ChangeDirection()
 	if(targetPos.x < pos.x)
 	{
 		m_CurrentChaseDir = { -1 ,0 };
+		anim->SetCurrentAnimation("run");
+		text->m_Flipped = false;
 		return;
 	}
 	if(targetPos.x > pos.x)
 	{
 		m_CurrentChaseDir = { 1 ,0 };
+		anim->SetCurrentAnimation("run");
+		text->m_Flipped = true;
+
 		return;
 	}
 }
@@ -80,8 +88,6 @@ void EnemyComponent::Run(int direction)
 	auto pos = m_pGameObject->GetPosition();
 	m_pGameObject->SetPosition(pos.x + m_Speed * GlobalTime::GetInstance().GetElapsed() * direction, pos.y);
 
-	auto anim = m_pGameObject->GetComponent<AnimationComponent>();
-	anim->SetCurrentAnimation("run");
 }
 
 void EnemyComponent::OnCollision(dae::GameObject* other)

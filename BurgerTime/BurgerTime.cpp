@@ -119,8 +119,8 @@ int main(int, char* []) {
 	auto pepComp = pepper->GetComponent<PeterPepperComp>();
 	scene.Add(pepper);
 
-	/*auto hotdog = GenerateHotdog({ 80 * LevelSettings::Scale, 44 * LevelSettings::Scale }, pepper);
-	scene.Add(hotdog);*/
+	auto hotdog = GenerateHotdog({ 80 * LevelSettings::Scale, 44 * LevelSettings::Scale }, pepper);
+	scene.Add(hotdog);
 
 	engine.Run();
 	return 0;
