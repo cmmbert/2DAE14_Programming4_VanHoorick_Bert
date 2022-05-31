@@ -9,19 +9,32 @@ void CollisionManager::RegisterCollider(Collider* collider)
 void CollisionManager::UnregisterCollider(Collider* collider)
 {
 	if (m_Tags.size() == 0) return;
-	auto& col = m_Tags[collider->GetTag().GetName()];
-	col.erase(std::remove(col.begin(), col.end(), collider), col.end());
+	auto tagName = collider->GetTag().GetName();
+	auto idx = std::find(m_Tags[tagName].begin(), m_Tags[tagName].end(), collider);
+	m_DeletedTags[tagName].push_back(static_cast<int>(std::distance(m_Tags[tagName].begin(), idx)));
 }
 
 void CollisionManager::Update()
 {
 	for (auto& tag : m_Tags)
 	{
-		for (auto coll : tag.second)
+		for (int i = 0; i < tag.second.size(); ++i)
 		{
-			for (auto second : tag.second)
+			auto coll = tag.second[i];
+			for (int j = 0; j < tag.second.size(); ++j)
 			{
+				bool valid = true;
+				for (int d = 0; d < m_DeletedTags[tag.first].size(); ++d)
+				{
+					if (m_DeletedTags[tag.first][d] == j) valid = false;
+					if (m_DeletedTags[tag.first][d] == i) valid = false;
+				}
+				if (!valid) continue;
+
+				auto second = tag.second[j];
 				if (coll == second) continue;
+				
+
 				auto box1TL = (glm::ivec2)coll->GetGameObject()->GetWorldPosition();
 				box1TL.y += coll->GetGameObject()->GetTransform().GetSize().y;
 
@@ -41,6 +54,16 @@ void CollisionManager::Update()
 			}
 		}
 	}
+
+	for (auto& deletedTag : m_DeletedTags)
+	{
+		for (auto delIdx : deletedTag.second)
+		{
+			m_Tags[deletedTag.first].erase(m_Tags[deletedTag.first].begin() + delIdx);
+		}
+
+	}
+	m_DeletedTags.clear();
 }
 
 bool CollisionManager::BoxCollision(glm::ivec2 box1TL, glm::ivec2 box1BR, glm::ivec2 box2TL, glm::ivec2 box2BR)

@@ -15,6 +15,13 @@ namespace dae
 
 		void AddComponent(const std::shared_ptr<BaseComponent>& comp);
 		template <typename T> T* GetComponent() const;
+		template <typename T> bool RemoveComponent();
+		template <typename T> std::vector<std::shared_ptr<BaseComponent>>::const_iterator GetComponentIdx() const;
+
+		bool RemoveComponent(std::shared_ptr<dae::BaseComponent> comp);
+
+
+
 		void SetParent(GameObject* parent);
 		GameObject* GetParent() { return m_Parent; }
 		void AddToChildren(const std::shared_ptr<GameObject>& newChild);
@@ -56,4 +63,31 @@ namespace dae
 		}
 		return nullptr;
 	}
+
+	template <typename T>
+	std::vector<std::shared_ptr<BaseComponent>>::const_iterator GameObject::GetComponentIdx() const
+	{
+		return std::find_if(m_pComponents.begin(), m_pComponents.end(),
+			[](std::shared_ptr<BaseComponent> component)
+			{
+				T* rtrn = dynamic_cast<T*>(component.get());
+				if ((rtrn != nullptr)) return true;
+				return false;
+			});
+	}
+
+	template <typename T>
+	bool GameObject::RemoveComponent()
+	{
+		std::vector<std::shared_ptr<BaseComponent>>::const_iterator compIdx = GetComponentIdx<T>();
+		m_pComponents.erase(compIdx);
+		//auto res = std::find_if(m_pComponents.begin(), m_pComponents.end(), 
+			//[](std::shared_ptr<BaseComponent> c) {c.get() == compPtr; });
+		//std::find(m_pComponents.begin(), m_pComponents.end(), item) != m_pComponents.end()
+		//if (comp == nullptr) return false;
+		//m_pComponents.erase(std::remove(m_pComponents.begin(), m_pComponents.end(), comp), m_pComponents.end());
+		return true;
+	}
+	
+	
 }

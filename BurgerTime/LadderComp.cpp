@@ -22,7 +22,7 @@ void LadderComp::RecalculateSize()
 		auto step = std::make_shared<dae::GameObject>();
 		auto texture = std::make_shared<dae::TextureComponent>(step.get(), "Burgertime/spritesheet.png", glm::vec4{ 202,156,16,2 });
 		step->SetParent(m_pGameObject);
-		step->SetPosition(0, i * m_StepSize.y);
+		step->SetPosition(0, i * static_cast<int>(m_StepSize.y));
 		step->AddComponent(texture);
 		step->SetSize(m_StepSize.x, m_StepSize.y);
 		m_SceneRef.Add(step);

@@ -16,6 +16,8 @@ class BurgerPiece : public dae::BaseComponent
 	bool m_ShardsSteppedOn[4]{};
 	bool m_IsFalling{};
 	float m_FallingSpeed{ 100 };
+	int m_MinFallDistance{ 8 * LevelSettings::Scale };
+	int m_LastHeight{};
 public:
 	BurgerPiece(dae::GameObject* gameObject, int shardSize = 8*LevelSettings::Scale);
 	void GenerateShards(glm::ivec2 texSrc, dae::Scene& sceneRef);
@@ -24,5 +26,6 @@ public:
 	void Update() override;
 	void Render() const override;
 	void FallDown();
+	void OnCollision(dae::GameObject* other) override;
 };
 

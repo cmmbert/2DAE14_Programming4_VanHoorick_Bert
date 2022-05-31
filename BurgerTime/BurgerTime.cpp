@@ -1,5 +1,5 @@
 #include "MiniginPCH.h"
-#define _DEBUGRENDERING 0; //1 for debug collision boxes etc
+#define _DEBUGRENDERING 1; //1 for debug collision boxes etc
 
 #if _DEBUG
 // ReSharper disable once CppUnusedIncludeDirective
@@ -45,7 +45,7 @@ int main(int, char* []) {
 	left->SetSize(1, 1000);
 	scene.Add(left);
 	auto right = GenerateBlockingField(Direction::Right);
-	right->SetPosition(dae::Renderer::GetInstance().ScreenSize().x, 0);
+	right->SetPosition(static_cast<float>(dae::Renderer::GetInstance().ScreenSize().x), 0);
 	right->SetSize(1, 1000);
 	scene.Add(right);
 
@@ -121,8 +121,8 @@ int main(int, char* []) {
 	auto pepComp = pepper->GetComponent<PeterPepperComp>();
 	scene.Add(pepper);
 
-	auto hotdog = GenerateHotdog({ 80 * LevelSettings::Scale, 44 * LevelSettings::Scale }, pepper);
-	scene.Add(hotdog);
+	//auto hotdog = GenerateHotdog({ 80 * LevelSettings::Scale, 44 * LevelSettings::Scale }, pepper);
+	//scene.Add(hotdog);
 
 	engine.Run();
 	return 0;
@@ -236,6 +236,12 @@ std::shared_ptr<dae::GameObject> GenerateFloorDark(glm::ivec2 pos)
 	floor->AddComponent(texture);
 	floor->SetSize(32 * LevelSettings::Scale, 3 * LevelSettings::Scale);
 	floor->SetPosition(pos);
+
+	auto block = std::make_shared<BlockComp>(floor.get(), (int)Direction::Down);
+	floor->AddComponent(block);
+	auto fallingBurgerColl = std::make_shared<BoxColliderComp>(floor.get(), "fallingBurger");
+	floor->AddComponent(fallingBurgerColl);
+
 	return floor;
 }
 
@@ -303,6 +309,7 @@ std::shared_ptr<dae::GameObject> GenerateBurgerPiece(glm::ivec2 pos, glm::ivec2 
 	auto burgerComp = std::make_shared<BurgerPiece>(burger.get());
 	burger->AddComponent(burgerComp);
 	burger->SetPosition(pos);
+	burger->SetSize(32 * LevelSettings::Scale, 8 * LevelSettings::Scale);
 	burgerComp->GenerateShards(texCoord, scene);
 	return burger;
 }

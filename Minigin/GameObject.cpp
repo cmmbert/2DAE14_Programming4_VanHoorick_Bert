@@ -29,6 +29,12 @@ void GameObject::AddComponent(const std::shared_ptr<BaseComponent>& comp)
 	comp->SetGameObject(this);
 }
 
+bool GameObject::RemoveComponent(std::shared_ptr<dae::BaseComponent> comp)
+{
+	m_pComponents.erase(std::remove(m_pComponents.begin(), m_pComponents.end(), comp), m_pComponents.end());
+	return true;
+}
+
 void GameObject::SetParent(GameObject* parent)
 {
 	m_Parent = parent;

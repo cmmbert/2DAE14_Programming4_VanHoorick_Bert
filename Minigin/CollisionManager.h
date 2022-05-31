@@ -8,11 +8,8 @@ class CollisionManager : public dae::Singleton<CollisionManager>
 {
 private:
 	std::map<std::string, std::vector<Collider*>> m_Tags{};
+	std::map<std::string, std::vector<int>> m_DeletedTags{};
 public:
-	CollisionManager()
-	{
-		auto test = 5;
-	}
 	void RegisterCollider(Collider* collider);
 	void UnregisterCollider(Collider* collider);
 	void Update();
