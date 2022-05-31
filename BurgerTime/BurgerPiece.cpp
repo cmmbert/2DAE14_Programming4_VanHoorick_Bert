@@ -79,8 +79,6 @@ void BurgerPiece::FallDown()
 	{
 		shard->Reset();
 	}
-	auto fallingBurgerColl = std::make_shared<BoxColliderComp>(m_pGameObject, "fallingBurger");
-	m_pGameObject->AddComponent(fallingBurgerColl);
 }
 
 void BurgerPiece::OnCollision(dae::GameObject* other)
@@ -88,6 +86,10 @@ void BurgerPiece::OnCollision(dae::GameObject* other)
 	if(other->GetComponent<BlockComp>() && (m_LastHeight - m_pGameObject->GetPosition().y) > m_MinFallDistance)
 	{
 		m_IsFalling = false;
-		m_pGameObject->RemoveComponent<BoxColliderComp>();
+		//m_pGameObject->RemoveComponent<BoxColliderComp>();
+	}
+	if(other->GetComponent<BurgerPiece>())
+	{
+		FallDown();
 	}
 }
