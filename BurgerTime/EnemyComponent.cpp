@@ -79,6 +79,9 @@ void EnemyComponent::Run(int direction)
 	if (!IsOnFloor()) return;
 	auto pos = m_pGameObject->GetPosition();
 	m_pGameObject->SetPosition(pos.x + m_Speed * GlobalTime::GetInstance().GetElapsed() * direction, pos.y);
+
+	auto anim = m_pGameObject->GetComponent<AnimationComponent>();
+	anim->SetCurrentAnimation("run");
 }
 
 void EnemyComponent::OnCollision(dae::GameObject* other)

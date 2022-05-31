@@ -1,5 +1,5 @@
 #include "MiniginPCH.h"
-#define _DEBUGRENDERING 1; //1 for debug collision boxes etc
+#define _DEBUGRENDERING 0; //1 for debug collision boxes etc
 
 #if _DEBUG
 // ReSharper disable once CppUnusedIncludeDirective
@@ -85,9 +85,9 @@ int main(int, char* []) {
 	LevelSettings::m_LevelHeights.insert(76 * LevelSettings::Scale);
 
 	std::shared_ptr<dae::GameObject> ladder{};
-	ladder = GenerateLadder({ 0,42 * LevelSettings::Scale }, {16*LevelSettings::Scale, 82*LevelSettings::Scale}, scene);
+	ladder = GenerateLadder({ 0,42 * LevelSettings::Scale }, {16*LevelSettings::Scale, 80*LevelSettings::Scale}, scene);
 	scene.Add(ladder);
-	ladder = GenerateLadder({ 192 * LevelSettings::Scale, 42 * LevelSettings::Scale }, {16*LevelSettings::Scale, 34*LevelSettings::Scale}, scene);
+	ladder = GenerateLadder({ 192 * LevelSettings::Scale, 42 * LevelSettings::Scale }, {16*LevelSettings::Scale, 32*LevelSettings::Scale}, scene);
 	scene.Add(ladder);
 
 	floor = GenerateFloorLight({ 0, 41 * LevelSettings::Scale });
@@ -119,8 +119,8 @@ int main(int, char* []) {
 	auto pepComp = pepper->GetComponent<PeterPepperComp>();
 	scene.Add(pepper);
 
-	auto hotdog = GenerateHotdog({ 80 * LevelSettings::Scale, 44 * LevelSettings::Scale }, pepper);
-	scene.Add(hotdog);
+	/*auto hotdog = GenerateHotdog({ 80 * LevelSettings::Scale, 44 * LevelSettings::Scale }, pepper);
+	scene.Add(hotdog);*/
 
 	engine.Run();
 	return 0;
@@ -161,17 +161,19 @@ std::shared_ptr<dae::GameObject> GeneratePeter(glm::ivec2 pos)
 	pepper->AddComponent(coll);
 	coll = std::make_shared<BoxColliderComp>(pepper.get(), "block");
 	pepper->AddComponent(coll);
-	auto texture = std::make_shared<dae::TextureComponent>(pepper.get(), "Burgertime/spritesheet.png", glm::vec4{ 0,0,16,16 });
+	auto texture = std::make_shared<dae::TextureComponent>(pepper.get(), "Burgertime/spritesheet.png", glm::vec4{ 16,0,16,16 });
 	auto pepComp = std::make_shared<PeterPepperComp>(pepper.get());
 	pepper->AddComponent(pepComp);
 	auto animComp = std::make_shared<AnimationComponent>(pepper.get(), texture, 0.2f);
 	animComp->AddAnimationFrame("run", { 48, 0 });
 	animComp->AddAnimationFrame("run", { 64, 0 });
 	animComp->AddAnimationFrame("run", { 80, 0 });
-	animComp->SetCurrentAnimation("run");
 	animComp->AddAnimationFrame("climbup", { 96, 0 });
 	animComp->AddAnimationFrame("climbup", { 112, 0 });
 	animComp->AddAnimationFrame("climbup", { 128, 0 });
+	animComp->AddAnimationFrame("climbdown", { 0, 0 });
+	animComp->AddAnimationFrame("climbdown", { 16, 0 });
+	animComp->AddAnimationFrame("climbdown", { 32, 0 });
 
 	pepper->AddComponent(animComp);
 	pepper->SetSize(16 * LevelSettings::Scale, 16 * LevelSettings::Scale);
@@ -206,7 +208,7 @@ std::shared_ptr<dae::GameObject> GenerateBlockingField(Direction direction)
 std::shared_ptr<dae::GameObject> GenerateLadder(glm::ivec2 pos, glm::ivec2 scale, dae::Scene& scene)
 {
 	auto ladder = std::make_shared<dae::GameObject>();
-	ladder->SetSize(scale.x, scale.y);
+	ladder->SetSize(scale.x, scale.y + 2 * LevelSettings::Scale);
 	ladder->SetPosition(pos);
 	auto coll = std::make_shared<BoxColliderComp>(ladder.get(), "ladder");
 	ladder->AddComponent(coll);

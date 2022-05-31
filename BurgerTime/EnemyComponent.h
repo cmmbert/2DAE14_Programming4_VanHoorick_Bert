@@ -9,7 +9,7 @@
 class EnemyComponent final : public dae::BaseComponent 
 {
 	bool m_IsDead{};
-	float m_RespawnTime{1};
+	float m_RespawnTime{10};
 	float m_TimeDead{0};
 	std::shared_ptr<dae::GameObject> m_Target;
 	bool m_IsTouchingLadder;

@@ -44,13 +44,18 @@ void PeterPepperComp::StartClimbAnim(int direction)
 {
 	if (!CanClimbUp() && !CanClimbDown()) return;
 	auto anim = m_pGameObject->GetComponent<AnimationComponent>();
-	anim->SetCurrentAnimation("climbup");
+	if(direction == 1)
+		anim->SetCurrentAnimation("climbup");
+	else
+		anim->SetCurrentAnimation("climbdown");
+
 }
 
 void PeterPepperComp::TryClimb(int direction)
 {
 	if(CanClimbDown() && direction == -1 || CanClimbUp() && direction == 1)
 	{
+		m_HasRecievedInputThisFrame = true;
 		auto pos = m_pGameObject->GetPosition();
 		m_pGameObject->SetPosition(pos.x, pos.y + m_Speed * GlobalTime::GetInstance().GetElapsed() * direction);
 	}
@@ -59,25 +64,29 @@ void PeterPepperComp::TryClimb(int direction)
 void PeterPepperComp::StartRunAnim(int direction)
 {
 	if (!IsOnFloor()) return;
-	auto text = m_pGameObject->GetComponent<dae::TextureComponent>();
 	auto anim = m_pGameObject->GetComponent<AnimationComponent>();
 	anim->SetCurrentAnimation("run");
+	auto text = m_pGameObject->GetComponent<dae::TextureComponent>();
 	text->m_Flipped = direction == 1;
 }
 
 void PeterPepperComp::TryRun(int direction)
 {
 	if (!IsOnFloor()) return;
+	m_HasRecievedInputThisFrame = true;
 	if (direction == 1 && !CanMoveRight()) return;
 	if (direction == -1 && !CanMoveLeft()) return;
 	auto pos = m_pGameObject->GetPosition();
 	m_pGameObject->SetPosition(pos.x + m_Speed * GlobalTime::GetInstance().GetElapsed() * direction, pos.y);
+	
 }
 
 void PeterPepperComp::Update()
 {
+	auto anim = m_pGameObject->GetComponent<AnimationComponent>();
 
-
+	m_HasRecievedInputThisFrame ? anim->ContinueAnimation() : anim->StopAnimation();
+	m_HasRecievedInputThisFrame = false;
 	m_IsTouchingLadder = false;
 	m_IsTouchingTopLadder = false;
 	m_IsTouchingBlock = false;

@@ -20,6 +20,8 @@ private:
 	bool CanMoveLeft() { return !m_IsTouchingLeftBlock; }
 	bool m_IsTouchingRightBlock{};
 	bool CanMoveRight() { return !m_IsTouchingRightBlock; }
+
+	bool m_HasRecievedInputThisFrame{ };
 public:
 	PeterPepperComp() = delete;
 	PeterPepperComp(dae::GameObject* gameObject);

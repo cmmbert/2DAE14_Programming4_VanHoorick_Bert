@@ -14,15 +14,21 @@ void AnimationComponent::AddAnimationFrame(const std::string& animName, glm::ive
 
 void AnimationComponent::SetCurrentAnimation(const std::string& animName)
 {
+	if (m_CurrentAnimation == animName) return;
 	m_Paused = false;
 	m_CurrentAnimation = animName;
-	m_CurrentFrame = 0;
-	m_TimeSinceLastFrame = 0;
+	m_CurrentFrame = m_Animations[m_CurrentAnimation].size();
+	m_TimeSinceLastFrame = 1000;
 }
 
 void AnimationComponent::SetAnimationSpeed(float timeBetweenFrames)
 {
 	m_TimeBetweenFrames = timeBetweenFrames;
+}
+
+void AnimationComponent::ContinueAnimation()
+{
+	m_Paused = false;
 }
 
 void AnimationComponent::StopAnimation()
