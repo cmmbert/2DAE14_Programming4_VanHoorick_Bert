@@ -35,10 +35,15 @@ void BurgerPiece::GenerateShards(glm::ivec2 texSrc, dae::Scene& sceneRef)
 
 void BurgerPiece::OnSteppedOn(int shardIdx)
 {
+	bool allPieces{true};
 	for (auto shard : m_pShards)
 	{
-		if (!shard->m_SteppedOn) return;
+		if (!shard->m_SteppedOn)
+			allPieces = false;
+		else
+			shard->IncrementNudge();
 	}
+	if (!allPieces) return;
 	//If we get this far it means all shards are stepped on
 	FallDown();
 }
@@ -65,10 +70,15 @@ void BurgerPiece::Render() const
 void BurgerPiece::FallDown()
 {
 	if (m_IsFalling) return;
+	auto pos = m_pGameObject->GetPosition();
+	m_pGameObject->SetPosition(pos.x, pos.y - 20);
 	m_LastHeight = m_pGameObject->GetPosition().y;
 	std::cout << m_LastHeight << "\n";
 	m_IsFalling = true;
-
+	for (auto shard : m_pShards)
+	{
+		shard->Reset();
+	}
 	auto fallingBurgerColl = std::make_shared<BoxColliderComp>(m_pGameObject, "fallingBurger");
 	m_pGameObject->AddComponent(fallingBurgerColl);
 }
@@ -77,10 +87,6 @@ void BurgerPiece::OnCollision(dae::GameObject* other)
 {
 	if(other->GetComponent<BlockComp>() && (m_LastHeight - m_pGameObject->GetPosition().y) > m_MinFallDistance)
 	{
-		for (auto shard : m_pShards)
-		{
-			shard->m_SteppedOn = false;
-		}
 		m_IsFalling = false;
 		m_pGameObject->RemoveComponent<BoxColliderComp>();
 	}

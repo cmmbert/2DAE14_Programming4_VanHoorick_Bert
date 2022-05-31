@@ -18,7 +18,7 @@ void BurgerShardComp::Update()
 	if(m_SteppedOn)
 	{
 		auto pos = m_pGameObject->GetPosition();
-		pos.y = static_cast<float>(m_Nudge);
+		pos.y = static_cast<float>(m_Nudge * m_NudgeMultiplier);
 		m_pGameObject->SetPosition(pos);
 	}
 	else
@@ -41,6 +41,17 @@ void BurgerShardComp::OnCollision(dae::GameObject* other)
 		m_SteppedOn = true;
 		m_BurgerPiece->OnSteppedOn(m_Index);
 	}
+}
+
+void BurgerShardComp::Reset()
+{
+	m_SteppedOn = false;
+	m_NudgeMultiplier = 1;
+}
+
+void BurgerShardComp::IncrementNudge()
+{
+	++m_NudgeMultiplier;
 }
 
 
