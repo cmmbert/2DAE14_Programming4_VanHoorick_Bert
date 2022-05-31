@@ -89,6 +89,8 @@ int main(int, char* []) {
 	scene.Add(ladder);
 	ladder = GenerateLadder({ 192 * LevelSettings::Scale, 42 * LevelSettings::Scale }, {16*LevelSettings::Scale, 32*LevelSettings::Scale}, scene);
 	scene.Add(ladder);
+	ladder = GenerateLadder({ 48 * LevelSettings::Scale, 42 * LevelSettings::Scale }, {16*LevelSettings::Scale, 146 *LevelSettings::Scale}, scene);
+	scene.Add(ladder);
 
 	floor = GenerateFloorLight({ 0, 41 * LevelSettings::Scale });
 	scene.Add(floor);
