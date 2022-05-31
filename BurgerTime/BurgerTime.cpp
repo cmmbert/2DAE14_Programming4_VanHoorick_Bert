@@ -148,7 +148,9 @@ std::shared_ptr<dae::GameObject> GenerateHotdog(glm::ivec2 pos, std::shared_ptr 
 	hotdog->AddComponent(texture);
 	hotdog->AddComponent(animComp);
 
-	auto collision = std::make_shared<BoxColliderComp>(hotdog.get(), "burgerPiece");
+	auto collision = std::make_shared<BoxColliderComp>(hotdog.get(), "fallingBurger");
+	hotdog->AddComponent(collision);
+	collision = std::make_shared<BoxColliderComp>(hotdog.get(), "ladder");
 	hotdog->AddComponent(collision);
 
 	return hotdog;

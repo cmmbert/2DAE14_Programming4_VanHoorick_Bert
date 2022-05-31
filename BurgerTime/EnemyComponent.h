@@ -12,9 +12,9 @@ class EnemyComponent final : public dae::BaseComponent
 	float m_RespawnTime{10};
 	float m_TimeDead{0};
 	std::shared_ptr<dae::GameObject> m_Target;
-	bool m_IsTouchingLadder;
-	bool m_IsTouchingTopLadder;
-	bool m_IsTouchingBlock;
+	bool m_IsTouchingLadder{};
+	bool m_IsTouchingTopLadder{};
+	bool m_IsTouchingBlock{};
 	int m_Speed{30 * LevelSettings::Scale };
 	bool CanClimbUp() { return m_IsTouchingLadder; }
 	bool CanClimbDown() { return (m_IsTouchingLadder || m_IsTouchingTopLadder) && !m_IsTouchingBlock; }
@@ -28,6 +28,7 @@ public:
 	EnemyComponent(dae::GameObject* gameObject, std::shared_ptr<dae::GameObject> target);
 
 	bool IsOnFloor();
+	void Climb(int direction);
 	void ChaseTarget();
 
 

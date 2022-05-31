@@ -10,7 +10,8 @@
 
 bool EnemyComponent::CanChangeDirection()
 {
-	int deviation = 10;
+	if (!IsOnFloor()) return false;
+	int deviation = 1;
 	for (int levelWidth : LevelSettings::m_LevelLadderCrossPoints)
 	{
 		if (abs(levelWidth - m_pGameObject->GetWorldPosition().x) <= deviation)
@@ -29,15 +30,19 @@ void EnemyComponent::ChangeDirection()
 
 	auto anim = m_pGameObject->GetComponent<AnimationComponent>();
 	auto text = m_pGameObject->GetComponent<dae::TextureComponent>();
-	if(CanClimbUp() && targetPos.y > pos.y)
+	int deviation = 1;
+	if(abs(targetPos.y - pos.y) > deviation)
 	{
-		m_CurrentChaseDir = { 0,1 };
-		return;
-	}
-	if(CanClimbDown() && targetPos.y < pos.y)
-	{
-		m_CurrentChaseDir = { 0,-1 };
-		return;
+		if(CanClimbUp() && targetPos.y > pos.y)
+		{
+			m_CurrentChaseDir = { 0,1 };
+			return;
+		}
+		if(CanClimbDown() && targetPos.y < pos.y)
+		{
+			m_CurrentChaseDir = { 0,-1 };
+			return;
+		}
 	}
 	if(targetPos.x < pos.x)
 	{
@@ -62,7 +67,7 @@ EnemyComponent::EnemyComponent(dae::GameObject* gameObject, std::shared_ptr<dae:
 
 bool EnemyComponent::IsOnFloor()
 {
-	int deviation = 10;
+	int deviation = 1;
 	for (int levelHeight : LevelSettings::m_LevelHeights)
 	{
 		if (abs(levelHeight - m_pGameObject->GetWorldPosition().y) <= deviation)
@@ -74,11 +79,21 @@ bool EnemyComponent::IsOnFloor()
 	return false;
 }
 
+void EnemyComponent::Climb(int direction)
+{
+	auto pos = m_pGameObject->GetPosition();
+	m_pGameObject->SetPosition(pos.x, pos.y + m_Speed * GlobalTime::GetInstance().GetElapsed() * direction);
+}
+
 void EnemyComponent::ChaseTarget()
 {
 	if(m_CurrentChaseDir.x != 0)
 	{
 		Run(m_CurrentChaseDir.x);
+	}
+	else
+	{
+		Climb(m_CurrentChaseDir.y);
 	}
 }
 
