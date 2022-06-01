@@ -163,6 +163,7 @@
     <ClCompile Include="EnemyComponent.cpp" />
     <ClCompile Include="LadderComp.cpp" />
     <ClCompile Include="LadderTop.cpp" />
+    <ClCompile Include="LevelGen.cpp" />
     <ClCompile Include="LevelSettings.cpp" />
     <ClCompile Include="LivesLeftComp.cpp" />
     <ClCompile Include="PeterCommands.cpp" />
@@ -177,6 +178,7 @@
     <ClInclude Include="EnemyComponent.h" />
     <ClInclude Include="LadderComp.h" />
     <ClInclude Include="LadderTop.h" />
+    <ClInclude Include="LevelGen.h" />
     <ClInclude Include="LevelSettings.h" />
     <ClInclude Include="LivesLeftComp.h" />
     <ClInclude Include="PeterCommands.h" />
