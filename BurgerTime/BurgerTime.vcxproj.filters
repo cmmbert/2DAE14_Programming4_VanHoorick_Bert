@@ -63,6 +63,9 @@
     <ClCompile Include="LevelSettings.cpp">
       <Filter>Source Files\Level</Filter>
     </ClCompile>
+    <ClCompile Include="BurgerTray.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BurgerPiece.h">
@@ -97,6 +100,9 @@
     </ClInclude>
     <ClInclude Include="LevelSettings.h">
       <Filter>Source Files\Level</Filter>
+    </ClInclude>
+    <ClInclude Include="BurgerTray.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

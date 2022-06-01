@@ -12,6 +12,7 @@
 #include "BlockComp.h"
 #include "BoxColliderComp.h"
 #include "BurgerPiece.h"
+#include "BurgerTray.h"
 #include "EnemyComponent.h"
 #include "GameObject.h"
 #include "InputManager.h"
@@ -29,6 +30,7 @@ std::shared_ptr<dae::GameObject> GenerateLadder(glm::ivec2 pos, glm::ivec2 scale
 std::shared_ptr<dae::GameObject> GenerateFloorDark(glm::ivec2 pos);
 std::shared_ptr<dae::GameObject> GenerateFloorLight(glm::ivec2 pos);
 std::shared_ptr<dae::GameObject> GenerateBurgerPiece(glm::ivec2 pos, glm::ivec2 texCoord, dae::Scene& scene);
+std::shared_ptr<dae::GameObject> GenerateBurgerTray(glm::ivec2 pos, dae::Scene& scene, int partsNeeded);
 void ConstructTestScene(dae::Scene& scene);
 
 
@@ -89,8 +91,8 @@ int main(int, char* []) {
 	scene.Add(ladder);
 	ladder = GenerateLadder({ 192 * LevelSettings::Scale, 42 * LevelSettings::Scale }, {16*LevelSettings::Scale, 32*LevelSettings::Scale}, scene);
 	scene.Add(ladder);
-	ladder = GenerateLadder({ 48 * LevelSettings::Scale, 42 * LevelSettings::Scale }, {16*LevelSettings::Scale, 146 *LevelSettings::Scale}, scene);
-	scene.Add(ladder);
+	//ladder = GenerateLadder({ 48 * LevelSettings::Scale, 42 * LevelSettings::Scale }, {16*LevelSettings::Scale, 146 *LevelSettings::Scale}, scene);
+	//scene.Add(ladder);
 
 	floor = GenerateFloorLight({ 0, 41 * LevelSettings::Scale });
 	scene.Add(floor);
@@ -116,16 +118,20 @@ int main(int, char* []) {
 
 	auto burger = GenerateBurgerPiece({ 16 * LevelSettings::Scale,121 * LevelSettings::Scale }, { 112,49 }, scene);
 	scene.Add(burger);
-	burger = GenerateBurgerPiece({ 16 * LevelSettings::Scale,73 * LevelSettings::Scale }, { 112,89 }, scene);
+	burger = GenerateBurgerPiece({ 16 * LevelSettings::Scale,73 * LevelSettings::Scale }, { 112,73 }, scene);
+	scene.Add(burger);
+	burger = GenerateBurgerPiece({ 16 * LevelSettings::Scale,41 * LevelSettings::Scale }, { 112, 57 }, scene);
 	scene.Add(burger);
 
 	auto pepper = GeneratePeter({8 * LevelSettings::Scale, 44 * LevelSettings::Scale});
 	auto pepComp = pepper->GetComponent<PeterPepperComp>();
 	scene.Add(pepper);
 
-	auto hotdog = GenerateHotdog({ 80 * LevelSettings::Scale, 44 * LevelSettings::Scale }, pepper);
+	auto hotdog = GenerateHotdog({ 192 * LevelSettings::Scale, 44 * LevelSettings::Scale }, pepper);
 	scene.Add(hotdog);
 
+	auto tray = GenerateBurgerTray({ 13 * LevelSettings::Scale,5 * LevelSettings::Scale }, scene, 4);
+	scene.Add(tray);
 	engine.Run();
 	return 0;
 }
@@ -316,4 +322,26 @@ std::shared_ptr<dae::GameObject> GenerateBurgerPiece(glm::ivec2 pos, glm::ivec2 
 	auto fallingBurgerColl = std::make_shared<BoxColliderComp>(burger.get(), "fallingBurger");
 	burger->AddComponent(fallingBurgerColl);
 	return burger;
+}
+
+std::shared_ptr<dae::GameObject> GenerateBurgerTray(glm::ivec2 pos, dae::Scene& scene, int partsNeeded)
+{
+	auto tray = std::make_shared<dae::GameObject>();
+	tray->SetPosition(pos);
+	tray->SetSize(38 * LevelSettings::Scale, 6 * LevelSettings::Scale);
+	auto txtr = std::make_shared<dae::TextureComponent>(tray.get(), "Burgertime/spritesheet.png", glm::vec4{ 202,162,38,6 });
+	tray->AddComponent(txtr);
+
+	auto collGo = std::make_shared<dae::GameObject>();
+	collGo->SetParent(tray.get());
+	collGo->SetSize(38 * LevelSettings::Scale, 1);
+	collGo->SetPosition({ 0,0 });
+	auto trayComp = std::make_shared<BurgerTray>(collGo.get(), partsNeeded);
+	collGo->AddComponent(trayComp);
+	auto coll = std::make_shared<BoxColliderComp>(collGo.get(), "fallingBurger");
+	collGo->AddComponent(coll);
+
+	scene.Add(collGo);
+
+	return tray;
 }

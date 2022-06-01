@@ -3,6 +3,7 @@
 #include "BlockComp.h"
 #include "BoxColliderComp.h"
 #include "BurgerShardComp.h"
+#include "BurgerTray.h"
 #include "GameObject.h"
 #include "GlobalTime.h"
 
@@ -83,10 +84,14 @@ void BurgerPiece::FallDown()
 
 void BurgerPiece::OnCollision(dae::GameObject* other)
 {
+	if(other->GetComponent<BurgerTray>())
+	{
+		m_IsFalling = false;
+		return;
+	}
 	if(other->GetComponent<BlockComp>() && (m_LastHeight - m_pGameObject->GetPosition().y) > m_MinFallDistance)
 	{
 		m_IsFalling = false;
-		//m_pGameObject->RemoveComponent<BoxColliderComp>();
 	}
 	if(other->GetComponent<BurgerPiece>())
 	{
