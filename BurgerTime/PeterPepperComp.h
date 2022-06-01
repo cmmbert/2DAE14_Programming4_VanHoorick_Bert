@@ -22,6 +22,8 @@ private:
 	bool CanMoveRight() { return !m_IsTouchingRightBlock; }
 
 	bool m_HasRecievedInputThisFrame{ };
+
+	int m_CurrentLadderXPos{};
 public:
 	PeterPepperComp() = delete;
 	PeterPepperComp(dae::GameObject* gameObject);

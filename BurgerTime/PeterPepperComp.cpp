@@ -57,7 +57,7 @@ void PeterPepperComp::TryClimb(int direction)
 	{
 		m_HasRecievedInputThisFrame = true;
 		auto pos = m_pGameObject->GetPosition();
-		m_pGameObject->SetPosition(pos.x, pos.y + m_Speed * GlobalTime::GetInstance().GetElapsed() * direction);
+		m_pGameObject->SetPosition(m_CurrentLadderXPos, pos.y + m_Speed * GlobalTime::GetInstance().GetElapsed() * direction);
 	}
 }
 
@@ -100,7 +100,10 @@ void PeterPepperComp::OnCollision(dae::GameObject* other)
 	{
 		int deviation = 5;
 		if (abs(other->GetWorldPosition().x - m_pGameObject->GetWorldPosition().x) <= deviation)
+		{
 			m_IsTouchingLadder = true;
+			m_CurrentLadderXPos = other->GetWorldPosition().x;
+		}
 	}
 	if (other->GetComponent<LadderTop>())
 	{
@@ -108,6 +111,7 @@ void PeterPepperComp::OnCollision(dae::GameObject* other)
 		if(abs(other->GetWorldPosition().x - m_pGameObject->GetWorldPosition().x) <= deviation)
 		{
 			m_IsTouchingTopLadder = true;
+			m_CurrentLadderXPos = other->GetWorldPosition().x;
 		}
 	}
 	if (auto block = other->GetComponent<BlockComp>())
