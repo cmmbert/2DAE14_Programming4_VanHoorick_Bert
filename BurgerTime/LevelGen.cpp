@@ -1,11 +1,20 @@
 #include "LevelGen.h"
 
+#include <fstream>
+
 #include "BurgerPiece.h"
 #include "BurgerTray.h"
 #include "InputManager.h"
 #include "LadderComp.h"
 #include "PeterCommands.h"
 #include "PeterPepperComp.h"
+#include "ResourceManager.h"
+#include "rapidjson/document.h"
+#include "rapidjson/filereadstream.h"
+#include "rapidjson/istreamwrapper.h"
+#include "rapidjson/error/en.h"
+#include "ResourceManager.h"
+
 
 std::shared_ptr<dae::GameObject> LevelGen::GenerateHotdog(glm::ivec2 spawnPoint,
                                                           std::shared_ptr<dae::GameObject> target)
@@ -172,4 +181,136 @@ std::shared_ptr<dae::GameObject> LevelGen::GenerateBurgerTray(glm::ivec2 pos, da
 	scene.Add(collGo);
 
 	return tray;
+}
+
+void LevelGen::ReadLevelFromFile(const std::string& filePath, dae::Scene& scene)
+{
+	using namespace rapidjson;
+	const auto fullPath = dae::ResourceManager::GetInstance().GetBasePath() + filePath;
+
+
+	std::ifstream ifs(dae::ResourceManager::GetInstance().GetBasePath() + filePath);
+	if (!ifs.is_open()) std::cout << "ni open";
+	IStreamWrapper isw(ifs);
+
+	Document d;
+	ParseResult ok = d.ParseStream(isw);
+	if (!ok) {
+		std::cout << GetParseError_En(ok.Code());
+	}
+	
+	//Floors
+	const Value& a = d["floors"];
+	assert(a.IsArray());
+	for (SizeType i = 0; i < a.Size(); ++i)
+	{
+		std::string type = a[i]["type"].GetString();
+		auto x = a[i]["x"].GetInt();
+		auto y = a[i]["y"].GetInt();
+		glm::ivec2 pos = { x * LevelSettings::Scale, y * LevelSettings::Scale };
+
+		std::shared_ptr<dae::GameObject> floor;
+		if(type == "light")
+			floor = GenerateFloorLight({ pos });
+		else
+			floor = GenerateFloorDark({ pos });
+		scene.Add(floor);
+		LevelSettings::m_LevelHeights.insert((y+3) * LevelSettings::Scale);
+
+	}
+
+	//Ladders
+	const Value& l = d["ladders"];
+	assert(l.IsArray());
+	for (SizeType i = 0; i < l.Size(); ++i)
+	{
+		auto x = l[i]["x"].GetInt();
+		auto y = l[i]["y"].GetInt();
+		auto height = l[i]["height"].GetInt();
+		glm::ivec2 pos = { x * LevelSettings::Scale, y * LevelSettings::Scale };
+		glm::ivec2 scale = { 16 * LevelSettings::Scale, height * LevelSettings::Scale };
+
+		std::shared_ptr<dae::GameObject> ladder;
+		ladder = GenerateLadder(pos, scale, scene);
+		scene.Add(ladder);
+	}
+
+	//Burger pieces
+	const Value& b = d["burgers"];
+	assert(b.IsArray());
+	for (SizeType i = 0; i < b.Size(); ++i)
+	{
+		auto x = b[i]["x"].GetInt();
+		auto y = b[i]["y"].GetInt();
+		glm::ivec2 pos = { x * LevelSettings::Scale, y * LevelSettings::Scale };
+		auto texx = b[i]["texturex"].GetInt();
+		auto texy = b[i]["texturey"].GetInt();
+		glm::ivec2 texturepos = { texx, texy};
+
+		std::shared_ptr<dae::GameObject> burgerPiece;
+		burgerPiece = GenerateBurgerPiece(pos, texturepos, scene);
+		scene.Add(burgerPiece);
+
+	}
+
+	//Blocking fields
+	const Value& blocks = d["blockings"];
+	assert(blocks.IsArray());
+	for (SizeType i = 0; i < blocks.Size(); ++i)
+	{
+		auto x = blocks[i]["x"].GetInt();
+		auto y = blocks[i]["y"].GetInt();
+		glm::ivec2 pos = { x * LevelSettings::Scale, y * LevelSettings::Scale };
+		auto w = blocks[i]["w"].GetInt();
+		auto h = blocks[i]["h"].GetInt();
+		glm::ivec2 scale = { w * LevelSettings::Scale, h * LevelSettings::Scale };
+
+		auto dir = blocks[i]["dir"].GetInt();
+		std::shared_ptr<dae::GameObject> blockingField;
+		blockingField = GenerateBlockingField(static_cast<Direction>(dir));
+		blockingField->SetPosition(pos);
+		blockingField->SetSize(scale.x, scale.y);
+
+		scene.Add(blockingField);
+
+	}
+
+
+	//Peter Pepper
+	const Value& pep = d["peterpos"];
+	auto x = pep["x"].GetInt();
+	auto y = pep["y"].GetInt();
+	glm::ivec2 peterpos = { x * LevelSettings::Scale, y * LevelSettings::Scale };
+	auto pepper = GeneratePeter(peterpos);
+	scene.Add(pepper);
+
+
+
+	const Value& enemies = d["enemies"];
+
+	const Value& hotdogs = enemies["hotdogs"];
+	for (SizeType i = 0; i < hotdogs.Size(); ++i)
+	{
+		auto x = hotdogs[i]["x"].GetInt();
+		auto y = hotdogs[i]["y"].GetInt();
+		glm::ivec2 pos = { x * LevelSettings::Scale, y * LevelSettings::Scale };
+
+		auto hotdog = GenerateHotdog(pos, pepper);
+		scene.Add(hotdog);
+	}
+
+
+	const Value& trays = d["trays"];
+	for (SizeType i = 0; i < trays.Size(); ++i)
+	{
+		auto x = trays[i]["x"].GetInt();
+		auto y = trays[i]["y"].GetInt();
+		glm::ivec2 pos = { x * LevelSettings::Scale, y * LevelSettings::Scale };
+
+		auto piecesNeeded = trays[i]["piecesNeeded"].GetInt();
+
+		auto tray = GenerateBurgerTray(pos, scene, piecesNeeded);
+		scene.Add(tray);
+	}
+
 }

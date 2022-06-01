@@ -22,7 +22,7 @@ public:
 	static std::shared_ptr<dae::GameObject> GenerateBurgerPiece(glm::ivec2 pos, glm::ivec2 texCoord, dae::Scene& scene);
 	static std::shared_ptr<dae::GameObject> GenerateBurgerTray(glm::ivec2 pos, dae::Scene& scene, int partsNeeded);
 
-
+	static void ReadLevelFromFile(const std::string& filePath, dae::Scene& scene);
 
 };
 

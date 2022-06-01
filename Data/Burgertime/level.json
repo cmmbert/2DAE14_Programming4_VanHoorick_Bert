@@ -1,0 +1,91 @@
+{
+  "floors": [
+    {
+      "type": "light",
+      "x": 0,
+      "y": 41
+    },
+    {
+      "type": "dark",
+      "x": 16,
+      "y": 41
+    },
+    {
+      "type": "light",
+      "x": 48,
+      "y": 41
+    },
+    {
+      "type": "dark",
+      "x": 64,
+      "y": 41
+    },
+
+    {
+      "type": "light",
+      "x": 0,
+      "y": 121
+    },
+    {
+      "type": "dark",
+      "x": 16,
+      "y": 121
+    },
+    {
+      "type": "light",
+      "x": 48,
+      "y": 121
+    }
+  ],
+  "ladders": [
+    {
+      "x": 0,
+      "y": 42,
+      "height": 80
+    },
+    {
+      "x": 192,
+      "y": 42,
+      "height": 32
+    }
+  ],
+  "burgers": [
+    {
+      "x": 16,
+      "y": 121,
+      "texturex": 112,
+      "texturey": 49
+    }
+  ],
+  
+  "blockings": [
+    {
+      "x": 64,
+      "y": 121,
+      "w": 1,
+      "h": 16,
+      "dir": 32768
+    }
+  ],
+
+  "peterpos": {
+    "x": 8,
+    "y": 44
+  },
+
+  "enemies": {
+    "hotdogs": [
+      {
+        "x": 192,
+        "y": 44
+      }
+    ]
+  },
+  "trays": [
+    {
+      "x": 13,
+      "y": 5,
+      "piecesNeeded": 4
+    }
+  ]
+}
