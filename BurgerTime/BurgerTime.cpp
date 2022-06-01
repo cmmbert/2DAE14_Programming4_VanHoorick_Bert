@@ -150,6 +150,10 @@ std::shared_ptr<dae::GameObject> GenerateHotdog(glm::ivec2 spawnPoint, std::shar
 	animComp->AddAnimationFrame("death", { 16, 48 });
 	animComp->AddAnimationFrame("death", { 32, 48 });
 	animComp->AddAnimationFrame("death", { 48, 48 });
+	animComp->AddAnimationFrame("climbup", { 64, 32 });
+	animComp->AddAnimationFrame("climbup", { 80, 32 });
+	animComp->AddAnimationFrame("climbdown", { 0, 32 });
+	animComp->AddAnimationFrame("climbdown", { 16, 32 });
 	hotdog->SetSize(16 * LevelSettings::Scale, 16 * LevelSettings::Scale);
 	hotdog->SetPosition(spawnPoint);
 	hotdog->AddComponent(enemy);

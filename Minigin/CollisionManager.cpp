@@ -8,7 +8,7 @@ void CollisionManager::RegisterCollider(Collider* collider)
 
 void CollisionManager::UnregisterCollider(Collider* collider)
 {
-	if (m_Tags.size() == 0) return;
+	if (m_Tags.size() == 0 || m_IsDestructed) return;
 	auto tagName = collider->GetTag().GetName();
 	auto idx = std::find(m_Tags[tagName].begin(), m_Tags[tagName].end(), collider);
 	m_DeletedTags[tagName].push_back(static_cast<int>(std::distance(m_Tags[tagName].begin(), idx)));

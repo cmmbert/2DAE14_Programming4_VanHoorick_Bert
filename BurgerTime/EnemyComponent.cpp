@@ -34,11 +34,13 @@ void EnemyComponent::ChangeDirection()
 	{
 		if(CanClimbUp() && targetPos.y > pos.y)
 		{
+			anim->SetCurrentAnimation("climbup");
 			m_CurrentChaseDir = { 0,1 };
 			return;
 		}
 		if(CanClimbDown() && targetPos.y < pos.y)
 		{
+			anim->SetCurrentAnimation("climbdown");
 			m_CurrentChaseDir = { 0,-1 };
 			return;
 		}
