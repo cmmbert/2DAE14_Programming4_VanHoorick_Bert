@@ -24,7 +24,6 @@ bool EnemyComponent::CanChangeDirection()
 
 void EnemyComponent::ChangeDirection()
 {
-	std::cout << "New dir: ";
 	const auto targetPos = m_Target->GetPosition();
 	const auto pos = m_pGameObject->GetPosition();
 
@@ -61,7 +60,8 @@ void EnemyComponent::ChangeDirection()
 	}
 }
 
-EnemyComponent::EnemyComponent(dae::GameObject* gameObject, std::shared_ptr<dae::GameObject> target): BaseComponent(gameObject), m_Target(target)
+EnemyComponent::EnemyComponent(dae::GameObject* gameObject, std::shared_ptr<dae::GameObject> target, glm::ivec2 spawnPoint)
+	: BaseComponent(gameObject), m_Target(target), m_SpawnPoint(spawnPoint)
 {
 }
 
@@ -144,7 +144,10 @@ void EnemyComponent::Respawn()
 {
 	m_IsDead = false;
 	m_TimeDead = 0;
+	m_pGameObject->SetPosition(m_SpawnPoint);
 
+	auto anim = m_pGameObject->GetComponent<AnimationComponent>();
+	anim->SetCurrentAnimation("run");
 }
 
 void EnemyComponent::Update()
@@ -152,6 +155,10 @@ void EnemyComponent::Update()
 	if(m_IsDead)
 	{
 		m_TimeDead += GlobalTime::GetInstance().GetElapsed();
+		if(m_TimeDead > m_DeathAnimTime)
+		{
+			m_pGameObject->SetPosition({ -1000,-1000 });
+		}
 		if(m_TimeDead > m_RespawnTime)
 		{
 			Respawn();
@@ -163,7 +170,6 @@ void EnemyComponent::Update()
 		if(CanChangeDirection())
 		{
 			ChangeDirection();
-			std::cout << m_CurrentChaseDir.x << ";" << m_CurrentChaseDir.y << "\n";
 		}
 		ChaseTarget();
 	}

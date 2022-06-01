@@ -1,5 +1,5 @@
 #include "MiniginPCH.h"
-#define _DEBUGRENDERING 1; //1 for debug collision boxes etc
+#define _DEBUGRENDERING 1 //1 for debug collision boxes etc
 
 #if _DEBUG
 // ReSharper disable once CppUnusedIncludeDirective
@@ -24,7 +24,7 @@
 #include "Scene.h"
 
 std::shared_ptr<dae::GameObject> GeneratePeter(glm::ivec2 pos);
-std::shared_ptr<dae::GameObject> GenerateHotdog(glm::ivec2 pos, std::shared_ptr < dae::GameObject> target);
+std::shared_ptr<dae::GameObject> GenerateHotdog(glm::ivec2 spawnPoint, std::shared_ptr < dae::GameObject> target);
 std::shared_ptr<dae::GameObject> GenerateBlockingField(Direction direction);
 std::shared_ptr<dae::GameObject> GenerateLadder(glm::ivec2 pos, glm::ivec2 scale, dae::Scene& scene);
 std::shared_ptr<dae::GameObject> GenerateFloorDark(glm::ivec2 pos);
@@ -136,10 +136,10 @@ int main(int, char* []) {
 	return 0;
 }
 
-std::shared_ptr<dae::GameObject> GenerateHotdog(glm::ivec2 pos, std::shared_ptr < dae::GameObject> target)
+std::shared_ptr<dae::GameObject> GenerateHotdog(glm::ivec2 spawnPoint, std::shared_ptr < dae::GameObject> target)
 {
 	auto hotdog = std::make_shared<dae::GameObject>();
-	auto enemy = std::make_shared<EnemyComponent>(hotdog.get(), target);
+	auto enemy = std::make_shared<EnemyComponent>(hotdog.get(), target, spawnPoint);
 	auto texture = std::make_shared<dae::TextureComponent>(hotdog.get(), "Burgertime/spritesheet.png", glm::vec4{ 32,32,16,16 });
 	texture->m_Flipped = true;
 	auto animComp = std::make_shared<AnimationComponent>(hotdog.get(), texture, 0.2f);
@@ -151,7 +151,7 @@ std::shared_ptr<dae::GameObject> GenerateHotdog(glm::ivec2 pos, std::shared_ptr 
 	animComp->AddAnimationFrame("death", { 32, 48 });
 	animComp->AddAnimationFrame("death", { 48, 48 });
 	hotdog->SetSize(16 * LevelSettings::Scale, 16 * LevelSettings::Scale);
-	hotdog->SetPosition(pos);
+	hotdog->SetPosition(spawnPoint);
 	hotdog->AddComponent(enemy);
 	hotdog->AddComponent(texture);
 	hotdog->AddComponent(animComp);
