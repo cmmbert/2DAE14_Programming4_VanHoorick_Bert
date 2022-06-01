@@ -2,11 +2,11 @@
 
 #include "AnimationComponent.h"
 #include "BlockComp.h"
-#include "BurgerShardComp.h"
 #include "GameObject.h"
 #include "GlobalTime.h"
 #include "LadderComp.h"
 #include "LadderTop.h"
+#include "BurgerPiece.h"
 
 bool EnemyComponent::CanChangeDirection()
 {
@@ -107,8 +107,9 @@ void EnemyComponent::Run(int direction)
 
 void EnemyComponent::OnCollision(dae::GameObject* other)
 {
-	if(!m_IsDead && other->GetComponent<BurgerShardComp>())
+	if (auto burger = other->GetComponent<BurgerPiece>())
 	{
+		if (m_IsDead || !burger->IsFalling()) return;
 		OnDeath();
 	}
 	if (other->GetComponent<LadderComp>())

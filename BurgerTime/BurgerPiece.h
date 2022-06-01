@@ -27,5 +27,7 @@ public:
 	void Render() const override;
 	void FallDown();
 	void OnCollision(dae::GameObject* other) override;
+
+	bool IsFalling() const { return m_IsFalling; }
 };
 
