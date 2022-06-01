@@ -45,16 +45,33 @@ void EnemyComponent::ChangeDirection()
 	}
 	if(targetPos.x < pos.x)
 	{
-		m_CurrentChaseDir = { -1 ,0 };
 		anim->SetCurrentAnimation("run");
-		text->m_Flipped = false;
+		if (CanMoveLeft())
+		{
+			m_CurrentChaseDir = { -1 ,0 };
+			text->m_Flipped = false;
+		}
+		else
+		{
+			m_CurrentChaseDir = { 1,0 };
+			text->m_Flipped = true;
+		}
+
 		return;
 	}
 	if(targetPos.x > pos.x)
 	{
-		m_CurrentChaseDir = { 1 ,0 };
 		anim->SetCurrentAnimation("run");
-		text->m_Flipped = true;
+		if(CanMoveRight())
+		{
+			m_CurrentChaseDir = { 1 ,0 };
+			text->m_Flipped = true;
+		}
+		else
+		{
+			m_CurrentChaseDir = { -1 ,0 };
+			text->m_Flipped = false;
+		}
 
 		return;
 	}
@@ -130,6 +147,10 @@ void EnemyComponent::OnCollision(dae::GameObject* other)
 	{
 		if (block->IsBlockingDirection(Direction::Down))
 			m_IsTouchingBlock = true;
+		if (block->IsBlockingDirection(Direction::Right))
+			m_IsTouchingRightBlock = true;
+		if (block->IsBlockingDirection(Direction::Left))
+			m_IsTouchingLeftBlock = true;
 	}
 }
 

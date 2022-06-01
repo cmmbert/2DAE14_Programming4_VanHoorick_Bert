@@ -19,6 +19,10 @@ class EnemyComponent final : public dae::BaseComponent
 	int m_Speed{30 * LevelSettings::Scale };
 	bool CanClimbUp() { return m_IsTouchingLadder; }
 	bool CanClimbDown() { return (m_IsTouchingLadder || m_IsTouchingTopLadder) && !m_IsTouchingBlock; }
+	bool m_IsTouchingLeftBlock{};
+	bool CanMoveLeft() { return !m_IsTouchingLeftBlock; }
+	bool m_IsTouchingRightBlock{};
+	bool CanMoveRight() { return !m_IsTouchingRightBlock; }
 	glm::ivec2 m_SpawnPoint{};
 	glm::ivec2 m_CurrentChaseDir{};
 
