@@ -8,7 +8,7 @@
 #include "GameObject.h"
 #include "Scene.h"
 #include "TextureComponent.h"
-#define _DEBUGRENDERING 1 //1 for debug collision boxes etc
+#define _DEBUGRENDERING 0 //1 for debug collision boxes etc
 
 class LevelGen
 {
