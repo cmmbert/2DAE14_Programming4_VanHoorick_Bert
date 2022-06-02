@@ -161,6 +161,7 @@
     <ClCompile Include="BurgerTime.cpp" />
     <ClCompile Include="BurgerTray.cpp" />
     <ClCompile Include="EnemyComponent.cpp" />
+    <ClCompile Include="FloorComp.cpp" />
     <ClCompile Include="LadderComp.cpp" />
     <ClCompile Include="LadderTop.cpp" />
     <ClCompile Include="LevelGen.cpp" />
@@ -176,6 +177,7 @@
     <ClInclude Include="BurgerShardComp.h" />
     <ClInclude Include="BurgerTray.h" />
     <ClInclude Include="EnemyComponent.h" />
+    <ClInclude Include="FloorComp.h" />
     <ClInclude Include="LadderComp.h" />
     <ClInclude Include="LadderTop.h" />
     <ClInclude Include="LevelGen.h" />

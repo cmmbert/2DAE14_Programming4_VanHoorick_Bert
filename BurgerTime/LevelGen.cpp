@@ -4,6 +4,7 @@
 
 #include "BurgerPiece.h"
 #include "BurgerTray.h"
+#include "FloorComp.h"
 #include "InputManager.h"
 #include "LadderComp.h"
 #include "PeterCommands.h"
@@ -44,6 +45,10 @@ std::shared_ptr<dae::GameObject> LevelGen::GenerateHotdog(glm::ivec2 spawnPoint,
 	auto collision = std::make_shared<BoxColliderComp>(hotdog.get(), "fallingBurger");
 	hotdog->AddComponent(collision);
 	collision = std::make_shared<BoxColliderComp>(hotdog.get(), "ladder");
+	hotdog->AddComponent(collision);
+	collision = std::make_shared<BoxColliderComp>(hotdog.get(), "floor");
+	hotdog->AddComponent(collision);
+	collision = std::make_shared<BoxColliderComp>(hotdog.get(), "block");
 	hotdog->AddComponent(collision);
 
 	return hotdog;
@@ -126,29 +131,53 @@ std::shared_ptr<dae::GameObject> LevelGen::GenerateLadder(glm::ivec2 pos, glm::i
 	return ladder;
 }
 
-std::shared_ptr<dae::GameObject> LevelGen::GenerateFloorDark(glm::ivec2 pos)
+std::shared_ptr<dae::GameObject> LevelGen::GenerateFloorDark(glm::ivec2 pos, dae::Scene& scene)
 {
 	auto floor = std::make_shared<dae::GameObject>();
 	auto texture = std::make_shared<dae::TextureComponent>(floor.get(), "Burgertime/spritesheet.png", glm::vec4{ 202,141,32,3 });
 	floor->AddComponent(texture);
 	floor->SetSize(32 * LevelSettings::Scale, 3 * LevelSettings::Scale);
 	floor->SetPosition(pos);
-
-	auto block = std::make_shared<BlockComp>(floor.get(), (int)Direction::Down);
-	floor->AddComponent(block);
+	
 	auto fallingBurgerColl = std::make_shared<BoxColliderComp>(floor.get(), "fallingBurger");
 	floor->AddComponent(fallingBurgerColl);
+
+
+	auto floorColl = std::make_shared<dae::GameObject>();
+	floorColl->SetParent(floor.get());
+	floorColl->SetSize(32 * LevelSettings::Scale, 5 * LevelSettings::Scale);
+	floorColl->SetPosition({ 0,0 });
+
+	auto floorComp = std::make_shared<FloorComp>(floorColl.get());
+	floorColl->AddComponent(floorComp);
+	auto floorCollComp = std::make_shared<BoxColliderComp>(floorColl.get(), "floor");
+	floorColl->AddComponent(floorCollComp);
+	scene.Add(floorColl);
 
 	return floor;
 }
 
-std::shared_ptr<dae::GameObject> LevelGen::GenerateFloorLight(glm::ivec2 pos)
+std::shared_ptr<dae::GameObject> LevelGen::GenerateFloorLight(glm::ivec2 pos, dae::Scene& scene)
 {
 	auto floor = std::make_shared<dae::GameObject>();
 	auto texture = std::make_shared<dae::TextureComponent>(floor.get(), "Burgertime/spritesheet.png", glm::vec4{ 202,147,16,3 });
 	floor->AddComponent(texture);
 	floor->SetSize(16 * LevelSettings::Scale, 3 * LevelSettings::Scale);
 	floor->SetPosition(pos);
+
+
+	auto floorColl = std::make_shared<dae::GameObject>();
+	floorColl->SetParent(floor.get());
+	floorColl->SetSize(16 * LevelSettings::Scale, 5 * LevelSettings::Scale);
+	floorColl->SetPosition({0,0});
+
+	auto floorComp = std::make_shared<FloorComp>(floorColl.get());
+	floorColl->AddComponent(floorComp);
+	auto floorCollComp = std::make_shared<BoxColliderComp>(floorColl.get(), "floor");
+	floorColl->AddComponent(floorCollComp);
+
+	scene.Add(floorColl);
+
 	return floor;
 }
 
@@ -215,9 +244,9 @@ void LevelGen::ReadLevelFromFile(const std::string& filePath, dae::Scene& scene)
 
 		std::shared_ptr<dae::GameObject> floor;
 		if(type == "light")
-			floor = GenerateFloorLight({ pos });
+			floor = GenerateFloorLight({ pos }, scene);
 		else
-			floor = GenerateFloorDark({ pos });
+			floor = GenerateFloorDark({ pos }, scene);
 		scene.Add(floor);
 		LevelSettings::m_LevelHeights.insert((y+3) * LevelSettings::Scale);
 

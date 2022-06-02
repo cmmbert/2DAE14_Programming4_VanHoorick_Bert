@@ -7,10 +7,11 @@
 #include "LadderComp.h"
 #include "LadderTop.h"
 #include "BurgerPiece.h"
+#include "FloorComp.h"
 
 bool EnemyComponent::CanChangeDirection()
 {
-	if (!IsOnFloor()) return false;
+	if (!IsOnFloor() || !m_IsTouchingLadder || m_TimeSinceLastDirChange < m_DirChangeCd) return false;
 	int deviation = 1;
 	for (int levelWidth : LevelSettings::m_LevelLadderCrossPoints)
 	{
@@ -22,7 +23,15 @@ bool EnemyComponent::CanChangeDirection()
 	return false;
 }
 
-void EnemyComponent::ChangeDirection()
+
+
+void EnemyComponent::ChangeDirection(glm::ivec2 newDir)
+{
+	m_CurrentChaseDir = newDir;
+	m_TimeSinceLastDirChange = 0;
+}
+
+void EnemyComponent::CalculateNewDir()
 {
 	const auto targetPos = m_Target->GetPosition();
 	const auto pos = m_pGameObject->GetPosition();
@@ -35,13 +44,13 @@ void EnemyComponent::ChangeDirection()
 		if(CanClimbUp() && targetPos.y > pos.y)
 		{
 			anim->SetCurrentAnimation("climbup");
-			m_CurrentChaseDir = { 0,1 };
+			ChangeDirection({ 0,1 });
 			return;
 		}
 		if(CanClimbDown() && targetPos.y < pos.y)
 		{
 			anim->SetCurrentAnimation("climbdown");
-			m_CurrentChaseDir = { 0,-1 };
+			ChangeDirection({ 0,-1 });
 			return;
 		}
 	}
@@ -50,13 +59,14 @@ void EnemyComponent::ChangeDirection()
 		anim->SetCurrentAnimation("run");
 		if (CanMoveLeft())
 		{
-			m_CurrentChaseDir = { -1 ,0 };
+			ChangeDirection({ -1 ,0 });
 			text->m_Flipped = false;
 		}
 		else
 		{
-			m_CurrentChaseDir = { 1,0 };
-			text->m_Flipped = true;
+			if (CanClimbDown()) ChangeDirection({ 0,-1 });
+			if (CanClimbUp()) ChangeDirection({ 0,1 });
+			if (CanMoveRight()) { ChangeDirection({ 1,0 }); text->m_Flipped = true; }
 		}
 
 		return;
@@ -66,13 +76,15 @@ void EnemyComponent::ChangeDirection()
 		anim->SetCurrentAnimation("run");
 		if(CanMoveRight())
 		{
-			m_CurrentChaseDir = { 1 ,0 };
+			ChangeDirection({ 1 ,0 });
 			text->m_Flipped = true;
 		}
 		else
 		{
-			m_CurrentChaseDir = { -1 ,0 };
-			text->m_Flipped = false;
+			if (CanClimbDown()) ChangeDirection({ 0,-1 });
+			if (CanClimbUp()) ChangeDirection({ 0,1 });
+			if (CanMoveLeft()) { ChangeDirection({ -1,0 }); text->m_Flipped = false; }
+			
 		}
 
 		return;
@@ -86,6 +98,7 @@ EnemyComponent::EnemyComponent(dae::GameObject* gameObject, std::shared_ptr<dae:
 
 bool EnemyComponent::IsOnFloor()
 {
+	if (!m_IsTouchingFloor) return false; //cannot be on floor if not touching it 
 	int deviation = 1;
 	for (int levelHeight : LevelSettings::m_LevelHeights)
 	{
@@ -154,6 +167,10 @@ void EnemyComponent::OnCollision(dae::GameObject* other)
 		if (block->IsBlockingDirection(Direction::Left))
 			m_IsTouchingLeftBlock = true;
 	}
+	if(other->GetComponent<FloorComp>())
+	{
+		m_IsTouchingFloor = true;
+	}
 }
 
 void EnemyComponent::OnDeath()
@@ -189,10 +206,11 @@ void EnemyComponent::Update()
 	}
 	else
 	{
-		if (m_CurrentChaseDir == glm::ivec2{ 0,0 }) ChangeDirection(); //Invalid direction, so get a new one
+		m_TimeSinceLastDirChange += GlobalTime::GetInstance().GetElapsed();
+		if (m_CurrentChaseDir == glm::ivec2{ 0,0 }) CalculateNewDir(); //Invalid direction, so get a new one
 		if(CanChangeDirection())
 		{
-			ChangeDirection();
+			CalculateNewDir();
 		}
 		ChaseTarget();
 	}
@@ -201,5 +219,6 @@ void EnemyComponent::Update()
 	m_IsTouchingBlock = false;
 	m_IsTouchingLadder = false;
 	m_IsTouchingTopLadder = false;
+	m_IsTouchingFloor = false;
 }
 

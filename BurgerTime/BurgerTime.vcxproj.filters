@@ -72,6 +72,9 @@
     <ClCompile Include="LevelGen.cpp">
       <Filter>Source Files\Level</Filter>
     </ClCompile>
+    <ClCompile Include="FloorComp.cpp">
+      <Filter>Source Files\Level</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BurgerPiece.h">
@@ -226,6 +229,9 @@
     </ClInclude>
     <ClInclude Include="rapidjson\writer.h">
       <Filter>Header Files\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="FloorComp.h">
+      <Filter>Source Files\Level</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
