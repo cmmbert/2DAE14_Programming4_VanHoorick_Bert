@@ -11,6 +11,7 @@ namespace dae
 	public:
 		void Add(const std::shared_ptr<SceneObject>& object);
 		void Destroy(const std::shared_ptr<SceneObject>& object);
+		void Destroy(SceneObject* object);
 
 		void Update();
 		void Render() const;

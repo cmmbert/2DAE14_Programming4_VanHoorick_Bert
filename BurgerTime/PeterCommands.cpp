@@ -15,7 +15,8 @@ void LateralMovementCommand::FirstExecute()
 	m_pPepper->StartRunAnim(m_Direction);
 }
 
-VerticalMovementCommand::VerticalMovementCommand(std::shared_ptr<PeterPepperComp> pepperComp, int direction) : m_pPepper(pepperComp), m_Direction(direction)
+VerticalMovementCommand::VerticalMovementCommand(std::shared_ptr<PeterPepperComp> pepperComp, int direction) :
+	m_pPepper(std::move(pepperComp)), m_Direction(direction)
 {
 }
 
@@ -27,4 +28,17 @@ void VerticalMovementCommand::Execute()
 void VerticalMovementCommand::FirstExecute()
 {
 	m_pPepper->StartClimbAnim(m_Direction);
+}
+
+ThrowSaltCommand::ThrowSaltCommand(std::shared_ptr<PeterPepperComp> pepperComp): m_pPepper(std::move(pepperComp))
+{
+}
+
+void ThrowSaltCommand::FirstExecute()
+{
+	m_pPepper->ThrowSalt();
+}
+
+void ThrowSaltCommand::Execute()
+{
 }

@@ -12,6 +12,10 @@ class EnemyComponent final : public dae::BaseComponent
 	float m_DeathAnimTime{ 0.6f };
 	float m_RespawnTime{10};
 	float m_TimeDead{0};
+	float m_SaltStunTime{ 4 };
+	float m_SaltStunTimeLeft{};
+
+
 	std::shared_ptr<dae::GameObject> m_Target;
 	bool m_IsTouchingLadder{};
 	bool m_IsTouchingTopLadder{};

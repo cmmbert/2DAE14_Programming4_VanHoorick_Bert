@@ -24,6 +24,7 @@ private:
 	bool m_HasRecievedInputThisFrame{ };
 
 	int m_CurrentLadderXPos{};
+	std::shared_ptr<dae::GameObject> m_SaltGo;
 public:
 	PeterPepperComp() = delete;
 	PeterPepperComp(dae::GameObject* gameObject);
@@ -33,7 +34,7 @@ public:
 	PeterPepperComp& operator=(const PeterPepperComp& other) = delete;
 	PeterPepperComp& operator=(PeterPepperComp&& other) noexcept = delete;
 
-
+	void ThrowSalt();
 	void StartClimbAnim(int direction);
 	void TryClimb(int direction);
 	void StartRunAnim(int direction);

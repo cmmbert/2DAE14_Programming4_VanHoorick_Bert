@@ -9,8 +9,10 @@
 #include <AnimationComponent.h>
 
 #include "BlockComp.h"
+#include "BoxColliderComp.h"
 #include "LadderComp.h"
 #include "LadderTop.h"
+#include "SaltComp.h"
 
 bool PeterPepperComp::IsOnFloor()
 {
@@ -29,6 +31,25 @@ bool PeterPepperComp::IsOnFloor()
 PeterPepperComp::PeterPepperComp(dae::GameObject* gameObject) : BaseComponent(gameObject)
 {
 	//AddObserver(PlayerObserver());
+	auto salt = std::make_shared<dae::GameObject>();
+	salt->SetSize(16 * LevelSettings::Scale, 16 * LevelSettings::Scale);
+	salt->SetPosition({-1000,-1000});
+	auto texture = std::make_shared<dae::TextureComponent>(salt.get(), "Burgertime/spritesheet.png", glm::vec4{ 187,17,16,16 });
+	salt->AddComponent(texture);
+	auto anim = std::make_shared<AnimationComponent>(salt.get(), texture, 0.1f);
+	salt->AddComponent(anim);
+	anim->AddAnimationFrame("spray", { 187,17 });
+	anim->AddAnimationFrame("spray", { 203,17 });
+	anim->AddAnimationFrame("spray", { 219,17 });
+	anim->AddAnimationFrame("spray", { 235,17 });
+	anim->SetCurrentAnimation("spray");
+	auto& scene = dae::SceneManager::GetInstance().GetCurrentScene();
+	auto saltComp = std::make_shared<SaltComp>(salt.get(), scene);
+	salt->AddComponent(saltComp);
+	auto coll = std::make_shared<BoxColliderComp>(salt.get(), "salt");
+	salt->AddComponent(coll);
+	scene.Add(salt);
+	m_SaltGo = salt;
 }
 
 void PeterPepperComp::OnDeath()
@@ -38,6 +59,15 @@ void PeterPepperComp::OnDeath()
 	
 	std::cout << "PlayerDied, lives left: " << m_LivesLeft << "\n";
 	NotifyAllObservers(*m_pGameObject, eEvent::PepperDied);
+}
+
+void PeterPepperComp::ThrowSalt()
+{
+	auto pos = glm::ivec2{ 16* LevelSettings::Scale,0 };
+	pos.x += m_pGameObject->GetPosition().x;
+	pos.y += m_pGameObject->GetPosition().y;
+	m_SaltGo->SetPosition(pos);
+	m_SaltGo->GetComponent<SaltComp>()->Reset();
 }
 
 void PeterPepperComp::StartClimbAnim(int direction)

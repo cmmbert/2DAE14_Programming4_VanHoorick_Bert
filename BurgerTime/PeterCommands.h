@@ -34,5 +34,16 @@ private:
 	int m_Direction;
 };
 
+class ThrowSaltCommand : public dae::Command
+{
+	std::shared_ptr<PeterPepperComp> m_pPepper{};
+
+public:
+	ThrowSaltCommand(std::shared_ptr<PeterPepperComp> pepperComp);
+	void Execute() override;
+	void FirstExecute() override;
+};
+
+
 
 

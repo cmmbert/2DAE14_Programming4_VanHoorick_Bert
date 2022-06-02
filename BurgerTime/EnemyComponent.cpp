@@ -8,6 +8,7 @@
 #include "LadderTop.h"
 #include "BurgerPiece.h"
 #include "FloorComp.h"
+#include "SaltComp.h"
 
 bool EnemyComponent::CanMoveLeft()
 {
@@ -177,6 +178,12 @@ void EnemyComponent::OnCollision(dae::GameObject* other)
 	{
 		m_IsTouchingFloor = true;
 	}
+	if(other->GetComponent<SaltComp>())
+	{
+		m_SaltStunTimeLeft = m_SaltStunTime;
+		auto anim = m_pGameObject->GetComponent<AnimationComponent>();
+		anim->SetCurrentAnimation("salted");
+	}
 }
 
 void EnemyComponent::OnDeath()
@@ -212,15 +219,27 @@ void EnemyComponent::Update()
 	}
 	else
 	{
-		m_TimeSinceLastDirChange += GlobalTime::GetInstance().GetElapsed();
-		if (m_CurrentChaseDir == glm::ivec2{ 0,0 }) CalculateNewDir(); //Invalid direction, so get a new one
-		if (m_IsTouchingLeftBlock || m_IsTouchingRightBlock) 
-			CalculateNewDir();
-		if(CanChangeDirection())
+		if(m_SaltStunTimeLeft > 0)
 		{
-			CalculateNewDir();
+			m_SaltStunTimeLeft -= GlobalTime::GetInstance().GetElapsed();
+			if (m_SaltStunTimeLeft < 0)
+			{
+				auto anim = m_pGameObject->GetComponent<AnimationComponent>();
+				anim->SetCurrentAnimation("run");
+			}
 		}
-		ChaseTarget();
+		else
+		{
+			m_TimeSinceLastDirChange += GlobalTime::GetInstance().GetElapsed();
+			if (m_CurrentChaseDir == glm::ivec2{ 0,0 }) CalculateNewDir(); //Invalid direction, so get a new one
+			if (m_IsTouchingLeftBlock || m_IsTouchingRightBlock) 
+				CalculateNewDir();
+			if(CanChangeDirection())
+			{
+				CalculateNewDir();
+			}
+			ChaseTarget();
+		}
 	}
 
 

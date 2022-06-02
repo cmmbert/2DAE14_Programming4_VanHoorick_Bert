@@ -21,6 +21,18 @@ void Scene::Destroy(const std::shared_ptr<SceneObject>& object)
 	m_Objects.erase(std::remove(m_Objects.begin(), m_Objects.end(), object), m_Objects.end());
 }
 
+void Scene::Destroy(SceneObject* object)
+{
+	for (int i = 0; i < m_Objects.size(); ++i)
+	{
+		if (m_Objects[i].get() == object)
+		{
+			Destroy(m_Objects[i]);
+			return;
+		}
+	}
+}
+
 void Scene::Update()
 {
 	for(auto& object : m_Objects)

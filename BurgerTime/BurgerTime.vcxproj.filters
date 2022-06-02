@@ -28,6 +28,9 @@
     <Filter Include="Header Files\rapidjson">
       <UniqueIdentifier>{bd62715f-f2f8-455e-b1a1-d7e249cfc8e2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Salt">
+      <UniqueIdentifier>{ab9df3f9-8eb0-49f4-8796-a62c65c89fa3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BurgerTime.cpp">
@@ -74,6 +77,9 @@
     </ClCompile>
     <ClCompile Include="FloorComp.cpp">
       <Filter>Source Files\Level</Filter>
+    </ClCompile>
+    <ClCompile Include="SaltComp.cpp">
+      <Filter>Source Files\Salt</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -232,6 +238,9 @@
     </ClInclude>
     <ClInclude Include="FloorComp.h">
       <Filter>Source Files\Level</Filter>
+    </ClInclude>
+    <ClInclude Include="SaltComp.h">
+      <Filter>Source Files\Salt</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

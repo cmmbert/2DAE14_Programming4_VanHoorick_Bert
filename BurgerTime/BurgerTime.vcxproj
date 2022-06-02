@@ -170,6 +170,7 @@
     <ClCompile Include="PeterCommands.cpp" />
     <ClCompile Include="PeterPepperComp.cpp" />
     <ClCompile Include="PlayerObserver.cpp" />
+    <ClCompile Include="SaltComp.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BlockComp.h" />
@@ -224,6 +225,7 @@
     <ClInclude Include="rapidjson\stringbuffer.h" />
     <ClInclude Include="rapidjson\uri.h" />
     <ClInclude Include="rapidjson\writer.h" />
+    <ClInclude Include="SaltComp.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

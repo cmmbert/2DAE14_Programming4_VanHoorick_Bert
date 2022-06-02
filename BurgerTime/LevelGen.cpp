@@ -33,6 +33,8 @@ std::shared_ptr<dae::GameObject> LevelGen::GenerateEnemy(glm::ivec2 spawnPoint, 
 	enemy->AddComponent(collision);
 	collision = std::make_shared<BoxColliderComp>(enemy.get(), "block");
 	enemy->AddComponent(collision);
+	collision = std::make_shared<BoxColliderComp>(enemy.get(), "salt");
+	enemy->AddComponent(collision);
 
 	return enemy;
 }
@@ -55,6 +57,8 @@ std::shared_ptr<dae::GameObject> LevelGen::GenerateHotdog(glm::ivec2 spawnPoint,
 	animComp->AddAnimationFrame("climbup", { 80, 32 });
 	animComp->AddAnimationFrame("climbdown", { 0, 32 });
 	animComp->AddAnimationFrame("climbdown", { 16, 32 });
+	animComp->AddAnimationFrame("salted", { 64, 48 });
+	animComp->AddAnimationFrame("salted", { 80, 48 });
 	hotdog->SetPosition(spawnPoint);
 	hotdog->AddComponent(texture);
 	hotdog->AddComponent(animComp);
@@ -79,6 +83,8 @@ std::shared_ptr<dae::GameObject> LevelGen::GenerateEgg(glm::ivec2 spawnPoint, st
 	animComp->AddAnimationFrame("climbup", { 80, 96 });
 	animComp->AddAnimationFrame("climbdown", { 0, 96 });
 	animComp->AddAnimationFrame("climbdown", { 16, 96 });
+	animComp->AddAnimationFrame("salted", { 64, 112 });
+	animComp->AddAnimationFrame("salted", { 80, 112 });
 	egg->SetPosition(spawnPoint);
 	egg->AddComponent(texture);
 	egg->AddComponent(animComp);
@@ -119,6 +125,7 @@ std::shared_ptr<dae::GameObject> LevelGen::GeneratePeter(glm::ivec2 pos)
 	input.AddOrChangeCommand(eControllerButton::DpadLeft, std::make_shared<LateralMovementCommand>(pepComp, -1));
 	input.AddOrChangeCommand(eControllerButton::DpadUp, std::make_shared<VerticalMovementCommand>(pepComp, 1));
 	input.AddOrChangeCommand(eControllerButton::DpadDown, std::make_shared<VerticalMovementCommand>(pepComp, -1));
+	input.AddOrChangeCommand(eControllerButton::ButtonY, std::make_shared<ThrowSaltCommand>(pepComp));
 	return pepper;
 }
 
