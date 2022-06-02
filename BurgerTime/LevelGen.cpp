@@ -231,7 +231,15 @@ void LevelGen::ReadLevelFromFile(const std::string& filePath, dae::Scene& scene)
 	if (!ok) {
 		std::cout << GetParseError_En(ok.Code());
 	}
-	
+
+	//boundaries
+
+	auto right = GenerateBlockingField(Direction::Right);
+	right->SetPosition(207*LevelSettings::Scale, 0);
+	right->SetSize(1, 1000);
+	scene.Add(right);
+
+
 	//Floors
 	const Value& a = d["floors"];
 	assert(a.IsArray());

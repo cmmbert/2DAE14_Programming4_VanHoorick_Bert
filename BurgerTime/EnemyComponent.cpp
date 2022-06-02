@@ -28,6 +28,7 @@ bool EnemyComponent::CanChangeDirection()
 void EnemyComponent::ChangeDirection(glm::ivec2 newDir)
 {
 	m_CurrentChaseDir = newDir;
+	std::cout << m_CurrentChaseDir.x << ";" << m_CurrentChaseDir.y << "\n";
 	m_TimeSinceLastDirChange = 0;
 }
 
@@ -208,6 +209,7 @@ void EnemyComponent::Update()
 	{
 		m_TimeSinceLastDirChange += GlobalTime::GetInstance().GetElapsed();
 		if (m_CurrentChaseDir == glm::ivec2{ 0,0 }) CalculateNewDir(); //Invalid direction, so get a new one
+
 		if(CanChangeDirection())
 		{
 			CalculateNewDir();
@@ -220,5 +222,7 @@ void EnemyComponent::Update()
 	m_IsTouchingLadder = false;
 	m_IsTouchingTopLadder = false;
 	m_IsTouchingFloor = false;
+	m_IsTouchingLeftBlock = false;
+	m_IsTouchingRightBlock = false;
 }
 
