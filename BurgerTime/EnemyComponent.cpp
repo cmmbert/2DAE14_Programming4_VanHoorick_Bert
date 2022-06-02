@@ -214,7 +214,8 @@ void EnemyComponent::Update()
 	{
 		m_TimeSinceLastDirChange += GlobalTime::GetInstance().GetElapsed();
 		if (m_CurrentChaseDir == glm::ivec2{ 0,0 }) CalculateNewDir(); //Invalid direction, so get a new one
-
+		if (m_IsTouchingLeftBlock || m_IsTouchingRightBlock) 
+			CalculateNewDir();
 		if(CanChangeDirection())
 		{
 			CalculateNewDir();
