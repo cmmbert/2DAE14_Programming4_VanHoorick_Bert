@@ -17,11 +17,30 @@
 #include "ResourceManager.h"
 
 
+std::shared_ptr<dae::GameObject> LevelGen::GenerateEnemy(glm::ivec2 spawnPoint, std::shared_ptr<dae::GameObject> target)
+{
+	auto enemy = std::make_shared<dae::GameObject>();
+	enemy->SetSize(16 * LevelSettings::Scale, 16 * LevelSettings::Scale);
+
+	auto enemyComp = std::make_shared<EnemyComponent>(enemy.get(), target, spawnPoint);
+	enemy->AddComponent(enemyComp);
+
+	auto collision = std::make_shared<BoxColliderComp>(enemy.get(), "fallingBurger");
+	enemy->AddComponent(collision);
+	collision = std::make_shared<BoxColliderComp>(enemy.get(), "ladder");
+	enemy->AddComponent(collision);
+	collision = std::make_shared<BoxColliderComp>(enemy.get(), "floor");
+	enemy->AddComponent(collision);
+	collision = std::make_shared<BoxColliderComp>(enemy.get(), "block");
+	enemy->AddComponent(collision);
+
+	return enemy;
+}
+
 std::shared_ptr<dae::GameObject> LevelGen::GenerateHotdog(glm::ivec2 spawnPoint,
                                                           std::shared_ptr<dae::GameObject> target)
 {
-	auto hotdog = std::make_shared<dae::GameObject>();
-	auto enemy = std::make_shared<EnemyComponent>(hotdog.get(), target, spawnPoint);
+	auto hotdog = GenerateEnemy(spawnPoint, target);
 	auto texture = std::make_shared<dae::TextureComponent>(hotdog.get(), "Burgertime/spritesheet.png", glm::vec4{ 32,32,16,16 });
 	texture->m_Flipped = true;
 	auto animComp = std::make_shared<AnimationComponent>(hotdog.get(), texture, 0.2f);
@@ -36,23 +55,36 @@ std::shared_ptr<dae::GameObject> LevelGen::GenerateHotdog(glm::ivec2 spawnPoint,
 	animComp->AddAnimationFrame("climbup", { 80, 32 });
 	animComp->AddAnimationFrame("climbdown", { 0, 32 });
 	animComp->AddAnimationFrame("climbdown", { 16, 32 });
-	hotdog->SetSize(16 * LevelSettings::Scale, 16 * LevelSettings::Scale);
 	hotdog->SetPosition(spawnPoint);
-	hotdog->AddComponent(enemy);
 	hotdog->AddComponent(texture);
 	hotdog->AddComponent(animComp);
 
-	auto collision = std::make_shared<BoxColliderComp>(hotdog.get(), "fallingBurger");
-	hotdog->AddComponent(collision);
-	collision = std::make_shared<BoxColliderComp>(hotdog.get(), "ladder");
-	hotdog->AddComponent(collision);
-	collision = std::make_shared<BoxColliderComp>(hotdog.get(), "floor");
-	hotdog->AddComponent(collision);
-	collision = std::make_shared<BoxColliderComp>(hotdog.get(), "block");
-	hotdog->AddComponent(collision);
-
 	return hotdog;
 }
+
+std::shared_ptr<dae::GameObject> LevelGen::GenerateEgg(glm::ivec2 spawnPoint, std::shared_ptr<dae::GameObject> target)
+{
+	auto egg = GenerateEnemy(spawnPoint, target);
+	auto texture = std::make_shared<dae::TextureComponent>(egg.get(), "Burgertime/spritesheet.png", glm::vec4{ 32,96,16,16 });
+	texture->m_Flipped = true;
+	auto animComp = std::make_shared<AnimationComponent>(egg.get(), texture, 0.2f);
+	animComp->AddAnimationFrame("run", { 32, 96 });
+	animComp->AddAnimationFrame("run", { 48, 96 });
+	animComp->SetCurrentAnimation("run");
+	animComp->AddAnimationFrame("death", { 0, 112 });
+	animComp->AddAnimationFrame("death", { 16, 112 });
+	animComp->AddAnimationFrame("death", { 32, 112 });
+	animComp->AddAnimationFrame("death", { 48, 112 });
+	animComp->AddAnimationFrame("climbup", { 64, 96 });
+	animComp->AddAnimationFrame("climbup", { 80, 96 });
+	animComp->AddAnimationFrame("climbdown", { 0, 96 });
+	animComp->AddAnimationFrame("climbdown", { 16, 96 });
+	egg->SetPosition(spawnPoint);
+	egg->AddComponent(texture);
+	egg->AddComponent(animComp);
+	return egg;
+}
+
 
 std::shared_ptr<dae::GameObject> LevelGen::GeneratePeter(glm::ivec2 pos)
 {
@@ -340,6 +372,18 @@ void LevelGen::ReadLevelFromFile(const std::string& filePath, dae::Scene& scene)
 		auto hotdog = GenerateHotdog(pos, pepper);
 		scene.Add(hotdog);
 	}
+	
+	const Value& eggs = enemies["eggs"];
+	for (SizeType i = 0; i < eggs.Size(); ++i)
+	{
+		auto x = eggs[i]["x"].GetInt();
+		auto y = eggs[i]["y"].GetInt();
+		glm::ivec2 pos = { x * LevelSettings::Scale, y * LevelSettings::Scale };
+
+		auto hotdog = GenerateEgg(pos, pepper);
+		scene.Add(hotdog);
+	}
+
 
 
 	const Value& trays = d["trays"];
