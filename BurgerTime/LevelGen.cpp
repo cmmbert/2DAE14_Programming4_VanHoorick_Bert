@@ -118,6 +118,10 @@ std::shared_ptr<dae::GameObject> LevelGen::GenerateLadder(glm::ivec2 pos, glm::i
 
 	LevelSettings::m_LevelLadderCrossPoints.insert(pos.x);
 
+	auto block = GenerateBlockingField(Direction::Down);
+	block->SetPosition(pos);
+	block->SetSize(scale.x, 5);
+	scene.Add(block);
 
 	return ladder;
 }
