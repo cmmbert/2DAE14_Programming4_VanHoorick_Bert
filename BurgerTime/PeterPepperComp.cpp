@@ -36,7 +36,7 @@ PeterPepperComp::PeterPepperComp(dae::GameObject* gameObject) : BaseComponent(ga
 	salt->SetPosition({-1000,-1000});
 	auto texture = std::make_shared<dae::TextureComponent>(salt.get(), "Burgertime/spritesheet.png", glm::vec4{ 187,17,16,16 });
 	salt->AddComponent(texture);
-	auto anim = std::make_shared<AnimationComponent>(salt.get(), texture, 0.1f);
+	auto anim = std::make_shared<AnimationComponent>(salt.get(), texture, 0.2f);
 	salt->AddComponent(anim);
 	anim->AddAnimationFrame("spray", { 187,17 });
 	anim->AddAnimationFrame("spray", { 203,17 });
@@ -68,6 +68,7 @@ void PeterPepperComp::ThrowSalt()
 	pos.y += m_pGameObject->GetPosition().y;
 	m_SaltGo->SetPosition(pos);
 	m_SaltGo->GetComponent<SaltComp>()->Reset();
+	m_pGameObject->GetComponent<AnimationComponent>()->Reset();
 }
 
 void PeterPepperComp::StartClimbAnim(int direction)

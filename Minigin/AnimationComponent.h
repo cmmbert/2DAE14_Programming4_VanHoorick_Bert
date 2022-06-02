@@ -24,5 +24,6 @@ public:
 	void ContinueAnimation();
 	void StopAnimation();
 	void Update() override;
+	void Reset();
 };
 

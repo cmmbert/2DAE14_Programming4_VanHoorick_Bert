@@ -53,3 +53,9 @@ void AnimationComponent::Update()
 	}
 }
 
+void AnimationComponent::Reset()
+{
+	m_CurrentFrame = m_Animations[m_CurrentAnimation].size();
+	m_TimeSinceLastFrame = 10000;
+}
+
