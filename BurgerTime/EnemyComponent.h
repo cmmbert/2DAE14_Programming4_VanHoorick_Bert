@@ -20,7 +20,7 @@ class EnemyComponent final : public dae::BaseComponent
 	bool CanClimbUp() { return m_IsTouchingLadder && m_CurrentChaseDir.y != -1; }
 	bool CanClimbDown() { return (m_IsTouchingLadder || m_IsTouchingTopLadder) && !m_IsTouchingBlock && m_CurrentChaseDir.y != 1; }
 	bool m_IsTouchingLeftBlock{};
-	bool CanMoveLeft() { return !m_IsTouchingLeftBlock && m_CurrentChaseDir.x != 1; }
+	bool CanMoveLeft();
 	bool m_IsTouchingRightBlock{};
 	bool CanMoveRight() { return !m_IsTouchingRightBlock && m_CurrentChaseDir.x != -1; }
 	glm::ivec2 m_SpawnPoint{};

@@ -9,6 +9,11 @@
 #include "BurgerPiece.h"
 #include "FloorComp.h"
 
+bool EnemyComponent::CanMoveLeft()
+{
+	return !m_IsTouchingLeftBlock && m_CurrentChaseDir.x != 1;
+}
+
 bool EnemyComponent::CanChangeDirection()
 {
 	if (!IsOnFloor() || !m_IsTouchingLadder || m_TimeSinceLastDirChange < m_DirChangeCd) return false;
