@@ -105,7 +105,7 @@ EnemyComponent::EnemyComponent(dae::GameObject* gameObject, std::shared_ptr<dae:
 bool EnemyComponent::IsOnFloor()
 {
 	if (!m_IsTouchingFloor) return false; //cannot be on floor if not touching it 
-	int deviation = 1;
+	int deviation = 2;
 	for (int levelHeight : LevelSettings::m_LevelHeights)
 	{
 		if (abs(levelHeight - m_pGameObject->GetWorldPosition().y) <= deviation)

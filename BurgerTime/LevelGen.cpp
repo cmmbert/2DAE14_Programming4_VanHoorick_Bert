@@ -141,7 +141,8 @@ std::shared_ptr<dae::GameObject> LevelGen::GenerateFloorDark(glm::ivec2 pos, dae
 	
 	auto fallingBurgerColl = std::make_shared<BoxColliderComp>(floor.get(), "fallingBurger");
 	floor->AddComponent(fallingBurgerColl);
-
+	auto block = std::make_shared<BlockComp>(floor.get(), (int)Direction::Down);
+	floor->AddComponent(block);
 
 	auto floorColl = std::make_shared<dae::GameObject>();
 	floorColl->SetParent(floor.get());
