@@ -313,4 +313,8 @@ void LevelGen::ReadLevelFromFile(const std::string& filePath, dae::Scene& scene)
 		scene.Add(tray);
 	}
 
+
+
+
+	ifs.close();
 }
