@@ -92,7 +92,7 @@ std::shared_ptr<dae::GameObject> LevelGen::GenerateEgg(glm::ivec2 spawnPoint, st
 }
 
 
-std::shared_ptr<dae::GameObject> LevelGen::GeneratePeter(glm::ivec2 pos)
+std::shared_ptr<dae::GameObject> LevelGen::GeneratePeter(glm::ivec2 pos, bool usesKeyboard)
 {
 	auto pepper = std::make_shared<dae::GameObject>();
 	auto coll = std::make_shared<BoxColliderComp>(pepper.get(), "ladder");
@@ -121,11 +121,24 @@ std::shared_ptr<dae::GameObject> LevelGen::GeneratePeter(glm::ivec2 pos)
 	pepper->AddComponent(texture);
 
 	auto& input = dae::InputManager::GetInstance();
-	input.AddOrChangeCommand(eControllerButton::DpadRight, std::make_shared<LateralMovementCommand>(pepComp, 1));
-	input.AddOrChangeCommand(eControllerButton::DpadLeft, std::make_shared<LateralMovementCommand>(pepComp, -1));
-	input.AddOrChangeCommand(eControllerButton::DpadUp, std::make_shared<VerticalMovementCommand>(pepComp, 1));
-	input.AddOrChangeCommand(eControllerButton::DpadDown, std::make_shared<VerticalMovementCommand>(pepComp, -1));
-	input.AddOrChangeCommand(eControllerButton::ButtonY, std::make_shared<ThrowSaltCommand>(pepComp));
+	if(usesKeyboard)
+	{
+		input.AddOrChangeCommand(eKeyboardButton::D, std::make_shared<LateralMovementCommand>(pepComp, 1));
+		input.AddOrChangeCommand(eKeyboardButton::A, std::make_shared<LateralMovementCommand>(pepComp, -1));
+		input.AddOrChangeCommand(eKeyboardButton::Q, std::make_shared<LateralMovementCommand>(pepComp, -1));
+		input.AddOrChangeCommand(eKeyboardButton::W, std::make_shared<VerticalMovementCommand>(pepComp, 1));
+		input.AddOrChangeCommand(eKeyboardButton::Z, std::make_shared<VerticalMovementCommand>(pepComp, 1));
+		input.AddOrChangeCommand(eKeyboardButton::S, std::make_shared<VerticalMovementCommand>(pepComp, -1));
+		input.AddOrChangeCommand(eKeyboardButton::E, std::make_shared<ThrowSaltCommand>(pepComp));
+	}
+	else
+	{
+		input.AddOrChangeCommand(eControllerButton::DpadRight, std::make_shared<LateralMovementCommand>(pepComp, 1));
+		input.AddOrChangeCommand(eControllerButton::DpadLeft, std::make_shared<LateralMovementCommand>(pepComp, -1));
+		input.AddOrChangeCommand(eControllerButton::DpadUp, std::make_shared<VerticalMovementCommand>(pepComp, 1));
+		input.AddOrChangeCommand(eControllerButton::DpadDown, std::make_shared<VerticalMovementCommand>(pepComp, -1));
+		input.AddOrChangeCommand(eControllerButton::ButtonY, std::make_shared<ThrowSaltCommand>(pepComp));		
+	}
 	return pepper;
 }
 
@@ -358,13 +371,30 @@ void LevelGen::ReadLevelFromFile(const std::string& filePath, dae::Scene& scene)
 
 
 	//Peter Pepper
-	const Value& pep = d["peterpos"];
+	const Value& pep = d["peter"];
 	auto x = pep["x"].GetInt();
 	auto y = pep["y"].GetInt();
 	glm::ivec2 peterpos = { x * LevelSettings::Scale, y * LevelSettings::Scale };
-	auto pepper = GeneratePeter(peterpos);
-	scene.Add(pepper);
 
+	auto usesKeyboard = pep["keyboard"].GetBool();
+	auto pepper = GeneratePeter(peterpos, usesKeyboard);
+	scene.Add(pepper);
+	
+
+	auto msSalt = std::make_shared<dae::GameObject>();
+	bool msSaltExists = d.HasMember("mrssalt");
+	if(msSaltExists)
+	{
+		const Value& salt = d["mrssalt"];
+		x = salt["x"].GetInt();
+		y = salt["y"].GetInt();
+		glm::ivec2 pos = { x * LevelSettings::Scale, y * LevelSettings::Scale };
+
+		usesKeyboard = salt["keyboard"].GetBool();
+		msSalt = GeneratePeter(pos, usesKeyboard);
+		scene.Add(msSalt);
+	}
+	
 
 
 	const Value& enemies = d["enemies"];
@@ -376,7 +406,9 @@ void LevelGen::ReadLevelFromFile(const std::string& filePath, dae::Scene& scene)
 		auto y = hotdogs[i]["y"].GetInt();
 		glm::ivec2 pos = { x * LevelSettings::Scale, y * LevelSettings::Scale };
 
-		auto hotdog = GenerateHotdog(pos, pepper);
+		auto target = pepper;
+		if(msSaltExists) target = i % 2 ? pepper : msSalt;
+		auto hotdog = GenerateHotdog(pos, target);
 		scene.Add(hotdog);
 	}
 	

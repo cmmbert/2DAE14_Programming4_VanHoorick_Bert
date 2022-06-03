@@ -21,4 +21,23 @@ enum class eControllerButton
 	RightShoulder = 0x0200,
 
 };
+enum class eKeyboardButton
+{
+	Shift = 0x10,
+	Control = 0x11,
+
+	A = 0x41,
+	B = 0x42,
+	C = 0x43,
+	D = 0x44,
+	E = 0x45,
+	F = 0x46,
+	//..
+	Q = 0x51,
+	S = 0x53,
+	W = 0x57,
+	Z = 0x5A
+	//etc...
+
+};
 

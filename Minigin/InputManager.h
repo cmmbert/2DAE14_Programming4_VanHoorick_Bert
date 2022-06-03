@@ -18,15 +18,20 @@ namespace dae
 		bool IsPressed(const eControllerButton& buttonMask) const;
 		bool IsPressedThisFrame(const eControllerButton& buttonMask) const;
 		void AddOrChangeCommand(eControllerButton button, std::shared_ptr<Command> command);
+		void AddOrChangeCommand(eKeyboardButton button, std::shared_ptr<Command> command);
 		void RemoveCommand(eControllerButton button);
+		void RemoveCommand(eKeyboardButton button);
 	private:
 		class impl;
 		std::unique_ptr<impl> m_pImpl;
 		int m_ButtonsPressedThisFrame{};
 		int m_ButtonsReleasedThisFrame{};
 		int m_ButtonsPressed{};
-		std::map<eControllerButton, std::shared_ptr<Command>> m_CommandMap{};
+		std::map<eControllerButton, std::shared_ptr<Command>> m_ControllerCommandMap{};
+		BYTE m_PrevKeyboardState[256];
+		BYTE m_CurrentKeyboardState[256];
 
+		std::map<eKeyboardButton, std::shared_ptr<Command>> m_KeyCommandMap{};
 	};
 
 }

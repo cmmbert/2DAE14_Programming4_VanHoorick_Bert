@@ -162,9 +162,6 @@
     <ClInclude Include="Command.h">
       <Filter>Header Files\Core\Commands</Filter>
     </ClInclude>
-    <ClInclude Include="ClimbCommand.h">
-      <Filter>Header Files\Core\Commands</Filter>
-    </ClInclude>
     <ClInclude Include="CollisionManager.h">
       <Filter>Header Files\Collision</Filter>
     </ClInclude>
@@ -279,9 +276,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Command.cpp">
-      <Filter>Source Files\Core\Commands</Filter>
-    </ClCompile>
-    <ClCompile Include="ClimbCommand.cpp">
       <Filter>Source Files\Core\Commands</Filter>
     </ClCompile>
     <ClCompile Include="CollisionManager.cpp">

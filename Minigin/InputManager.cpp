@@ -4,8 +4,7 @@
 #include "InputManager.h"
 #include <XInput.h>
 
-#include "ClimbCommand.h"
-
+#include <strsafe.h>
 
 class dae::InputManager::impl
 {
@@ -22,20 +21,44 @@ dae::InputManager::InputManager()
 
 dae::InputManager::~InputManager() = default;
 
+
+
+
 bool dae::InputManager::Update()
 {
 	SDL_Event e;
 	while (SDL_PollEvent(&e)) {
+
 		if (e.type == SDL_QUIT) {
 			return false;
 		}
 		if (e.type == SDL_KEYDOWN) {
-
+		}
+		if (e.type == SDL_KEYUP) {
 		}
 		if (e.type == SDL_MOUSEBUTTONDOWN) {
 
 		}
 	}
+	
+	memcpy(m_PrevKeyboardState, m_CurrentKeyboardState, sizeof(BYTE[256]));
+	GetKeyboardState(m_CurrentKeyboardState);
+
+	for (auto& keyCommand : m_KeyCommandMap)
+	{
+		if(m_CurrentKeyboardState[static_cast<int>(keyCommand.first)] & 0xF0)
+		{
+			if(m_PrevKeyboardState[static_cast<int>(keyCommand.first)] & 0xF0)
+			{
+				keyCommand.second->Execute();
+			}
+			else
+			{
+				keyCommand.second->FirstExecute();
+			}
+		}
+	}
+
 
 
 	CopyMemory(&m_pImpl->previousState, &m_pImpl->currentState, sizeof(XINPUT_STATE));
@@ -47,16 +70,15 @@ bool dae::InputManager::Update()
 	m_ButtonsReleasedThisFrame = buttonChanges & (~m_pImpl->currentState.Gamepad.wButtons);
 	m_ButtonsPressed = m_pImpl->currentState.Gamepad.wButtons;
 
-	for (auto& command : m_CommandMap)
+	for (auto& command : m_ControllerCommandMap)
 	{
 		if (IsPressed(command.first))
 			command.second->Execute();
 		if (IsPressedThisFrame(command.first))
 			command.second->FirstExecute();
 	}
-
-	if (IsPressed(eControllerButton::ButtonB)) return false;
-	return true; //TODO implement button to stop game
+	
+	return true;
 }
 
 bool dae::InputManager::IsPressed(const eControllerButton& buttonMask) const
@@ -71,11 +93,21 @@ bool dae::InputManager::IsPressedThisFrame(const eControllerButton& buttonMask) 
 
 void dae::InputManager::AddOrChangeCommand(eControllerButton button, std::shared_ptr<Command> command)
 {
-	m_CommandMap[button] = command;
+	m_ControllerCommandMap[button] = command;
+}
+
+void dae::InputManager::AddOrChangeCommand(eKeyboardButton button, std::shared_ptr<Command> command)
+{
+	m_KeyCommandMap[button] = command;
 }
 
 void dae::InputManager::RemoveCommand(eControllerButton button)
 {
-	m_CommandMap.erase(button);
+	m_ControllerCommandMap.erase(button);
+}
+
+void dae::InputManager::RemoveCommand(eKeyboardButton button)
+{
+	m_KeyCommandMap.erase(button);
 }
 
