@@ -28,6 +28,7 @@ private:
 	std::shared_ptr<dae::GameObject> m_SaltGo;
 
 	glm::ivec2 m_LastDir{1,0};
+	size_t m_SaltsLeft{ 5 };
 public:
 	PeterPepperComp() = delete;
 	PeterPepperComp(dae::GameObject* gameObject);

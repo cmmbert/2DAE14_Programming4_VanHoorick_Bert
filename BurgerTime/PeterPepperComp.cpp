@@ -72,7 +72,8 @@ void PeterPepperComp::OnDeath()
 
 void PeterPepperComp::ThrowSalt()
 {
-
+	if (m_SaltsLeft == 0) return;
+	--m_SaltsLeft;
 	m_SaltGo->GetComponent<SaltComp>()->Reset();
 	m_pGameObject->GetComponent<AnimationComponent>()->Reset();
 	auto anim = m_SaltGo->GetComponent<AnimationComponent>();
