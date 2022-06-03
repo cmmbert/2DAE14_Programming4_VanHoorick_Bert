@@ -91,7 +91,19 @@ void BurgerPiece::OnCollision(dae::GameObject* other)
 	}
 	if(other->GetComponent<BlockComp>() && (m_LastHeight - m_pGameObject->GetPosition().y) > m_MinFallDistance)
 	{
-		m_IsFalling = false;
+		if(m_IsFalling)
+		{
+			auto pos = m_pGameObject->GetPosition();
+			auto otherPos = other->GetPosition();
+			auto deviation = 1;
+			auto distance = sqrt(pow(otherPos.x - pos.x, 2) + pow(otherPos.y - pos.y, 2));
+			if(distance < deviation)
+			{
+				m_IsFalling = false;
+				m_pGameObject->SetPosition(otherPos);
+			}
+
+		}
 	}
 	if(other->GetComponent<BurgerPiece>())
 	{
