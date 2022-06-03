@@ -2,6 +2,7 @@
 #include "BaseComponent.h"
 #include "LevelSettings.h"
 #include "Subject.h"
+#include "glm/vec2.hpp"
 
 class PeterPepperComp : public dae::BaseComponent, public Subject
 {
@@ -25,6 +26,8 @@ private:
 
 	int m_CurrentLadderXPos{};
 	std::shared_ptr<dae::GameObject> m_SaltGo;
+
+	glm::ivec2 m_LastDir{1,0};
 public:
 	PeterPepperComp() = delete;
 	PeterPepperComp(dae::GameObject* gameObject);

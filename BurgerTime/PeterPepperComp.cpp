@@ -34,15 +34,24 @@ PeterPepperComp::PeterPepperComp(dae::GameObject* gameObject) : BaseComponent(ga
 	auto salt = std::make_shared<dae::GameObject>();
 	salt->SetSize(16 * LevelSettings::Scale, 16 * LevelSettings::Scale);
 	salt->SetPosition({-1000,-1000});
-	auto texture = std::make_shared<dae::TextureComponent>(salt.get(), "Burgertime/spritesheet.png", glm::vec4{ 187,17,16,16 });
+	auto texture = std::make_shared<dae::TextureComponent>(salt.get(), "Burgertime/spritesheet.png", glm::vec4{ 187,16,16,16 });
 	salt->AddComponent(texture);
 	auto anim = std::make_shared<AnimationComponent>(salt.get(), texture, 0.2f);
 	salt->AddComponent(anim);
-	anim->AddAnimationFrame("spray", { 187,17 });
-	anim->AddAnimationFrame("spray", { 203,17 });
-	anim->AddAnimationFrame("spray", { 219,17 });
-	anim->AddAnimationFrame("spray", { 235,17 });
-	anim->SetCurrentAnimation("spray");
+	anim->AddAnimationFrame("spray", { 187,16 });
+	anim->AddAnimationFrame("spray", { 203,16 });
+	anim->AddAnimationFrame("spray", { 219,16 });
+	anim->AddAnimationFrame("spray", { 235,16 });
+
+	anim->AddAnimationFrame("sprayDown", { 187,32 });
+	anim->AddAnimationFrame("sprayDown", { 203,32 });
+	anim->AddAnimationFrame("sprayDown", { 219,32 });
+	anim->AddAnimationFrame("sprayDown", { 235,32 });
+
+	anim->AddAnimationFrame("sprayUp", { 187,48 });
+	anim->AddAnimationFrame("sprayUp", { 203,48 });
+	anim->AddAnimationFrame("sprayUp", { 219,48 });
+	anim->AddAnimationFrame("sprayUp", { 235,48 });
 	auto& scene = dae::SceneManager::GetInstance().GetCurrentScene();
 	auto saltComp = std::make_shared<SaltComp>(salt.get(), scene);
 	salt->AddComponent(saltComp);
@@ -63,12 +72,34 @@ void PeterPepperComp::OnDeath()
 
 void PeterPepperComp::ThrowSalt()
 {
-	auto pos = glm::ivec2{ 16* LevelSettings::Scale,0 };
-	pos.x += m_pGameObject->GetPosition().x;
-	pos.y += m_pGameObject->GetPosition().y;
-	m_SaltGo->SetPosition(pos);
+
 	m_SaltGo->GetComponent<SaltComp>()->Reset();
 	m_pGameObject->GetComponent<AnimationComponent>()->Reset();
+	auto anim = m_SaltGo->GetComponent<AnimationComponent>();
+	auto texture = m_SaltGo->GetComponent<dae::TextureComponent>();
+	texture->m_Flipped = false;
+	anim->SetCurrentAnimation("spray");
+
+
+	auto posOffset = glm::ivec2{ 16 * LevelSettings::Scale,16 * LevelSettings::Scale };
+	posOffset *= m_LastDir;
+	posOffset.x += m_pGameObject->GetPosition().x;
+	posOffset.y += m_pGameObject->GetPosition().y;
+	m_SaltGo->SetPosition(posOffset);
+	if(m_LastDir == glm::ivec2{ -1,0 })
+	{
+		anim->SetCurrentAnimation("spray");
+		texture->m_Flipped = true;
+	}
+	else if(m_LastDir == glm::ivec2{ 0,-1 })
+	{
+		anim->SetCurrentAnimation("sprayDown");
+	}
+	else if (m_LastDir == glm::ivec2{ 0,1 })
+	{
+		anim->SetCurrentAnimation("sprayUp");
+	}
+
 }
 
 void PeterPepperComp::StartClimbAnim(int direction)
@@ -79,12 +110,13 @@ void PeterPepperComp::StartClimbAnim(int direction)
 		anim->SetCurrentAnimation("climbup");
 	else
 		anim->SetCurrentAnimation("climbdown");
+	m_LastDir = { 0, direction };
 
 }
 
 void PeterPepperComp::TryClimb(int direction)
 {
-	if(CanClimbDown() && direction == -1 || CanClimbUp() && direction == 1)
+	if(CanClimbDown() && direction == -1 || CanClimbUp() && direction == 1 && m_LastDir == glm::ivec2{0, direction})
 	{
 		m_HasRecievedInputThisFrame = true;
 		auto pos = m_pGameObject->GetPosition();
@@ -99,11 +131,12 @@ void PeterPepperComp::StartRunAnim(int direction)
 	anim->SetCurrentAnimation("run");
 	auto text = m_pGameObject->GetComponent<dae::TextureComponent>();
 	text->m_Flipped = direction == 1;
+	m_LastDir = { direction, 0 };
 }
 
 void PeterPepperComp::TryRun(int direction)
 {
-	if (!IsOnFloor()) return;
+	if (!IsOnFloor() || m_LastDir != glm::ivec2{ direction, 0 }) return;
 	m_HasRecievedInputThisFrame = true;
 	if (direction == 1 && !CanMoveRight()) return;
 	if (direction == -1 && !CanMoveLeft()) return;
