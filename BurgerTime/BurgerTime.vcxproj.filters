@@ -242,5 +242,8 @@
     <ClInclude Include="SaltComp.h">
       <Filter>Source Files\Salt</Filter>
     </ClInclude>
+    <ClInclude Include="BurgerBlock.h">
+      <Filter>Source Files\Level</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

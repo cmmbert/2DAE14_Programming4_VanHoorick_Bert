@@ -2,6 +2,7 @@
 
 #include <fstream>
 
+#include "BurgerBlock.h"
 #include "BurgerPiece.h"
 #include "BurgerTray.h"
 #include "FloorComp.h"
@@ -193,7 +194,7 @@ std::shared_ptr<dae::GameObject> LevelGen::GenerateFloorDark(glm::ivec2 pos, dae
 	
 	auto fallingBurgerColl = std::make_shared<BoxColliderComp>(floor.get(), "fallingBurger");
 	floor->AddComponent(fallingBurgerColl);
-	auto block = std::make_shared<BlockComp>(floor.get(), (int)Direction::Down);
+	auto block = std::make_shared<BurgerBlock>(floor.get());
 	floor->AddComponent(block);
 
 	auto floorColl = std::make_shared<dae::GameObject>();
@@ -288,7 +289,7 @@ void LevelGen::ReadLevelFromFile(const std::string& filePath, dae::Scene& scene)
 	//boundaries
 
 	auto right = GenerateBlockingField(Direction::Right);
-	right->SetPosition(207*LevelSettings::Scale, 0);
+	right->SetPosition(208*LevelSettings::Scale, 0);
 	right->SetSize(1, 1000);
 	scene.Add(right);
 

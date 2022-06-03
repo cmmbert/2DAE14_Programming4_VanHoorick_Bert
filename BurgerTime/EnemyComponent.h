@@ -22,7 +22,7 @@ class EnemyComponent final : public dae::BaseComponent
 	bool m_IsTouchingBlock{};
 	int m_Speed{30 * LevelSettings::Scale };
 	bool CanClimbUp() { return m_IsTouchingLadder && m_CurrentChaseDir.y != -1; }
-	bool CanClimbDown() { return (m_IsTouchingLadder || m_IsTouchingTopLadder) && !m_IsTouchingBlock && m_CurrentChaseDir.y != 1; }
+	bool CanClimbDown();
 	bool m_IsTouchingLeftBlock{};
 	bool CanMoveLeft();
 	bool m_IsTouchingRightBlock{};
@@ -34,6 +34,7 @@ class EnemyComponent final : public dae::BaseComponent
 	float m_TimeSinceLastDirChange{};
 	float m_DirChangeCd{ 1 };
 	bool CanChangeDirection();
+	void SetRandomDirection();
 	void CalculateNewDir();
 	void ChangeDirection(glm::ivec2 newDir);
 public:

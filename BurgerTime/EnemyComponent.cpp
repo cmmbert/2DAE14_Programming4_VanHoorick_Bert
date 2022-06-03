@@ -10,6 +10,16 @@
 #include "FloorComp.h"
 #include "SaltComp.h"
 
+
+bool EnemyComponent::CanClimbDown()
+{
+	return (m_IsTouchingLadder || m_IsTouchingTopLadder) && !m_IsTouchingBlock && m_CurrentChaseDir.y != 1;
+}
+
+//{
+//  "x": -10,
+//  "y": 44
+//}
 bool EnemyComponent::CanMoveLeft()
 {
 	return !m_IsTouchingLeftBlock && m_CurrentChaseDir.x != 1;
@@ -29,10 +39,45 @@ bool EnemyComponent::CanChangeDirection()
 	return false;
 }
 
+void EnemyComponent::SetRandomDirection()
+{
+	if (CanClimbDown()) { ChangeDirection({ 0,-1 }); return; }
+	if (CanClimbUp())   {ChangeDirection({  0,1 }); return; };
+	if (CanMoveRight()) {ChangeDirection({  1,0 }); return; };
+	if (CanMoveLeft())  {ChangeDirection({ -1,0 }); return; };
+	
+	ChangeDirection(m_CurrentChaseDir * -1); //Reverse direction in case we cannot change to any valid direction
+}
 
 
 void EnemyComponent::ChangeDirection(glm::ivec2 newDir)
 {
+
+	auto text = m_pGameObject->GetComponent<dae::TextureComponent>();
+	text->m_Flipped = false;
+	auto anim = m_pGameObject->GetComponent<AnimationComponent>();
+
+	if (newDir == glm::ivec2{ 1,0 })
+	{
+		anim->SetCurrentAnimation("run");
+		text->m_Flipped = true;
+	}
+
+	if (newDir == glm::ivec2{ -1,0 })
+	{
+		anim->SetCurrentAnimation("run");
+	}
+
+	if (newDir == glm::ivec2{ 0,1 })
+	{
+		anim->SetCurrentAnimation("climbup");
+	}
+
+	if (newDir == glm::ivec2{ 0,-1 })
+	{
+		anim->SetCurrentAnimation("climbdown");
+	}
+		
 	m_CurrentChaseDir = newDir;
 	std::cout << m_CurrentChaseDir.x << ";" << m_CurrentChaseDir.y << "\n";
 	m_TimeSinceLastDirChange = 0;
@@ -43,55 +88,42 @@ void EnemyComponent::CalculateNewDir()
 	const auto targetPos = m_Target->GetPosition();
 	const auto pos = m_pGameObject->GetPosition();
 
-	auto anim = m_pGameObject->GetComponent<AnimationComponent>();
-	auto text = m_pGameObject->GetComponent<dae::TextureComponent>();
-	int deviation = 1;
+	int deviation = 2;
 	if(abs(targetPos.y - pos.y) > deviation)
 	{
 		if(CanClimbUp() && targetPos.y > pos.y)
 		{
-			anim->SetCurrentAnimation("climbup");
 			ChangeDirection({ 0,1 });
 			return;
 		}
 		if(CanClimbDown() && targetPos.y < pos.y)
 		{
-			anim->SetCurrentAnimation("climbdown");
 			ChangeDirection({ 0,-1 });
 			return;
 		}
 	}
 	if(targetPos.x < pos.x)
 	{
-		anim->SetCurrentAnimation("run");
 		if (CanMoveLeft())
 		{
 			ChangeDirection({ -1 ,0 });
-			text->m_Flipped = false;
 		}
 		else
 		{
-			if (CanClimbDown()) ChangeDirection({ 0,-1 });
-			if (CanClimbUp()) ChangeDirection({ 0,1 });
-			if (CanMoveRight()) { ChangeDirection({ 1,0 }); text->m_Flipped = true; }
+			SetRandomDirection();
 		}
 
 		return;
 	}
 	if(targetPos.x > pos.x)
 	{
-		anim->SetCurrentAnimation("run");
 		if(CanMoveRight())
 		{
 			ChangeDirection({ 1 ,0 });
-			text->m_Flipped = true;
 		}
 		else
 		{
-			if (CanClimbDown()) ChangeDirection({ 0,-1 });
-			if (CanClimbUp()) ChangeDirection({ 0,1 });
-			if (CanMoveLeft()) { ChangeDirection({ -1,0 }); text->m_Flipped = false; }
-			
+			SetRandomDirection();
 		}
 
 		return;
@@ -231,13 +263,20 @@ void EnemyComponent::Update()
 		else
 		{
 			m_TimeSinceLastDirChange += GlobalTime::GetInstance().GetElapsed();
-			if (m_CurrentChaseDir == glm::ivec2{ 0,0 }) CalculateNewDir(); //Invalid direction, so get a new one
-			if (m_IsTouchingLeftBlock || m_IsTouchingRightBlock) 
-				CalculateNewDir();
-			if(CanChangeDirection())
+
+			if (CanChangeDirection())
 			{
 				CalculateNewDir();
 			}
+
+			if (m_CurrentChaseDir == glm::ivec2{ 0,0 }) CalculateNewDir(); //Invalid direction, so get a new one
+			if(!CanMoveRight() && m_CurrentChaseDir == glm::ivec2{1,0}) SetRandomDirection();
+			if(!CanMoveLeft() && m_CurrentChaseDir == glm::ivec2{-1,0}) 
+				SetRandomDirection();
+			if(!CanClimbUp() && m_CurrentChaseDir == glm::ivec2{0,1}) SetRandomDirection();
+			if(!CanClimbDown() && m_CurrentChaseDir == glm::ivec2{0,-1}) SetRandomDirection();
+
+			
 			ChaseTarget();
 		}
 	}

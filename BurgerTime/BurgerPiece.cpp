@@ -2,6 +2,7 @@
 
 #include "BlockComp.h"
 #include "BoxColliderComp.h"
+#include "BurgerBlock.h"
 #include "BurgerShardComp.h"
 #include "BurgerTray.h"
 #include "GameObject.h"
@@ -89,7 +90,7 @@ void BurgerPiece::OnCollision(dae::GameObject* other)
 		m_IsFalling = false;
 		return;
 	}
-	if(other->GetComponent<BlockComp>() && (m_LastHeight - m_pGameObject->GetPosition().y) > m_MinFallDistance)
+	if(other->GetComponent<BurgerBlock>() && (m_LastHeight - m_pGameObject->GetPosition().y) > m_MinFallDistance)
 	{
 		if(m_IsFalling)
 		{
