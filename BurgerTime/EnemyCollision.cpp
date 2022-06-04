@@ -3,6 +3,7 @@
 #include "SaltComp.h"
 #include "GlobalTime.h"
 #include "AnimationComponent.h"
+#include "PeterPepperComp.h"
 
 void EnemyCollision::OnCollision(dae::GameObject* other)
 {
@@ -12,6 +13,11 @@ void EnemyCollision::OnCollision(dae::GameObject* other)
 		m_SaltStunTimeLeft = m_SaltStunTime;
 		auto anim = m_pGameObject->GetComponent<AnimationComponent>();
 		anim->SetCurrentAnimation("salted");
+
+		if(auto player = m_pGameObject->GetComponent<PeterPepperComp>())
+		{
+			player->Disable();
+		}
 	}
 }
 
@@ -24,6 +30,10 @@ void EnemyCollision::Update()
 		{
 			auto anim = m_pGameObject->GetComponent<AnimationComponent>();
 			anim->SetCurrentAnimation("run");
+			if (auto player = m_pGameObject->GetComponent<PeterPepperComp>())
+			{
+				player->Enable();
+			}
 		}
 	}
 }

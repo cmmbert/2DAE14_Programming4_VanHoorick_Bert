@@ -112,7 +112,7 @@ void PeterPepperComp::ThrowSalt()
 
 void PeterPepperComp::StartClimbAnim(int direction)
 {
-	if (m_IsDead) return;
+	if (m_IsDead || m_IsDisabled) return;
 	if (!CanClimbUp() && !CanClimbDown()) return;
 	auto anim = m_pGameObject->GetComponent<AnimationComponent>();
 	if(direction == 1)
@@ -125,7 +125,7 @@ void PeterPepperComp::StartClimbAnim(int direction)
 
 void PeterPepperComp::TryClimb(int direction)
 {
-	if (m_IsDead) return;
+	if (m_IsDead || m_IsDisabled) return;
 	if(CanClimbDown() && direction == -1 || CanClimbUp() && direction == 1 && m_LastDir == glm::ivec2{0, direction} )
 	{
 		m_HasRecievedInputThisFrame = true;
@@ -136,7 +136,7 @@ void PeterPepperComp::TryClimb(int direction)
 
 void PeterPepperComp::StartRunAnim(int direction)
 {
-	if (!IsOnFloor() || m_IsDead) return;
+	if (!IsOnFloor() || m_IsDead || m_IsDisabled) return;
 	auto anim = m_pGameObject->GetComponent<AnimationComponent>();
 	anim->SetCurrentAnimation("run");
 	auto text = m_pGameObject->GetComponent<dae::TextureComponent>();
@@ -146,7 +146,7 @@ void PeterPepperComp::StartRunAnim(int direction)
 
 void PeterPepperComp::TryRun(int direction)
 {
-	if (!IsOnFloor() || m_LastDir != glm::ivec2{ direction, 0 } || m_IsDead) return;
+	if (!IsOnFloor() || m_LastDir != glm::ivec2{ direction, 0 } || m_IsDead || m_IsDisabled) return;
 	m_HasRecievedInputThisFrame = true;
 	if (direction == 1 && !CanMoveRight()) return;
 	if (direction == -1 && !CanMoveLeft()) return;
@@ -158,21 +158,24 @@ void PeterPepperComp::TryRun(int direction)
 void PeterPepperComp::Update()
 {
 	auto anim = m_pGameObject->GetComponent<AnimationComponent>();
-	if(!m_IsDead)
-		m_HasRecievedInputThisFrame ? anim->ContinueAnimation() : anim->StopAnimation();
-	else
+	if(!m_IsDisabled)
 	{
-		m_TimeSincePlayerDied += GlobalTime::GetInstance().GetElapsed();
-		if(m_TimeSincePlayerDied > m_TimeBeforeRespawn)
+		if(!m_IsDead)
+			m_HasRecievedInputThisFrame ? anim->ContinueAnimation() : anim->StopAnimation();
+		else
 		{
-			if (m_LivesLeft > 0)
+			m_TimeSincePlayerDied += GlobalTime::GetInstance().GetElapsed();
+			if(m_TimeSincePlayerDied > m_TimeBeforeRespawn)
 			{
-				--m_LivesLeft;
-				GameManager::GetInstance().Reset();
-			}
-			else
-			{
-				GameManager::GetInstance().GameOver();
+				if (m_LivesLeft > 0)
+				{
+					--m_LivesLeft;
+					GameManager::GetInstance().Reset();
+				}
+				else
+				{
+					GameManager::GetInstance().GameOver();
+				}
 			}
 		}
 	}

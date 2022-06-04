@@ -171,6 +171,8 @@ std::shared_ptr<dae::GameObject> LevelGen::GeneratePlayerHotdog(glm::ivec2 pos, 
 	hotdog->AddComponent(coll);
 	coll = std::make_shared<BoxColliderComp>(hotdog.get(), "block");
 	hotdog->AddComponent(coll);
+	coll = std::make_shared<BoxColliderComp>(hotdog.get(), "salt");
+	hotdog->AddComponent(coll);
 	auto texture = std::make_shared<dae::TextureComponent>(hotdog.get(), "Burgertime/spritesheet.png", glm::vec4{ 16,32,16,16 });
 	hotdog->AddComponent(texture);
 	auto pepComp = std::make_shared<PeterPepperComp>(hotdog.get());
@@ -504,30 +506,30 @@ void LevelGen::ReadLevelFromFile(const std::string& filePath, dae::Scene& scene)
 	const Value& enemies = d["enemies"];
 
 	//Hotdogs
-	const Value& hotdogs = enemies["hotdogs"];
-	for (SizeType i = 0; i < hotdogs.Size(); ++i)
-	{
-		auto x = hotdogs[i]["x"].GetInt();
-		auto y = hotdogs[i]["y"].GetInt();
-		glm::ivec2 pos = { x * LevelSettings::Scale, y * LevelSettings::Scale };
+	//const Value& hotdogs = enemies["hotdogs"];
+	//for (SizeType i = 0; i < hotdogs.Size(); ++i)
+	//{
+	//	auto x = hotdogs[i]["x"].GetInt();
+	//	auto y = hotdogs[i]["y"].GetInt();
+	//	glm::ivec2 pos = { x * LevelSettings::Scale, y * LevelSettings::Scale };
 
-		auto target = pepper;
-		if(LevelSettings::GameMode == GameMode::Coop) target = i % 2 ? pepper : msSalt;
-		auto hotdog = GenerateHotdog(pos, target);
-		scene.Add(hotdog);
-	}
+	//	auto target = pepper;
+	//	if(LevelSettings::GameMode == GameMode::Coop) target = i % 2 ? pepper : msSalt;
+	//	auto hotdog = GenerateHotdog(pos, target);
+	//	scene.Add(hotdog);
+	//}
 
-	//Eggs
-	const Value& eggs = enemies["eggs"];
-	for (SizeType i = 0; i < eggs.Size(); ++i)
-	{
-		auto x = eggs[i]["x"].GetInt();
-		auto y = eggs[i]["y"].GetInt();
-		glm::ivec2 pos = { x * LevelSettings::Scale, y * LevelSettings::Scale };
+	////Eggs
+	//const Value& eggs = enemies["eggs"];
+	//for (SizeType i = 0; i < eggs.Size(); ++i)
+	//{
+	//	auto x = eggs[i]["x"].GetInt();
+	//	auto y = eggs[i]["y"].GetInt();
+	//	glm::ivec2 pos = { x * LevelSettings::Scale, y * LevelSettings::Scale };
 
-		auto hotdog = GenerateEgg(pos, pepper);
-		scene.Add(hotdog);
-	}
+	//	auto hotdog = GenerateEgg(pos, pepper);
+	//	scene.Add(hotdog);
+	//}
 
 
 	//Burgertrays

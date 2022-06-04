@@ -28,6 +28,7 @@ private:
 	std::shared_ptr<dae::GameObject> m_SaltGo;
 	int m_LivesLeft{ 0 };
 	bool m_IsDead{};
+	bool m_IsDisabled{};
 	glm::ivec2 m_LastDir{1,0};
 	size_t m_SaltsLeft{ 5 };
 
@@ -51,5 +52,7 @@ public:
 	void OnCollision(dae::GameObject* other) override;
 	void Reset();
 
+	void Disable() { m_IsDisabled = true; };
+	void Enable() { m_IsDisabled = false; };
 };
 
