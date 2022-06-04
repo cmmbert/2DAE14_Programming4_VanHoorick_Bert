@@ -143,6 +143,60 @@ std::shared_ptr<dae::GameObject> LevelGen::GeneratePeter(glm::ivec2 pos, bool us
 	return pepper;
 }
 
+std::shared_ptr<dae::GameObject> LevelGen::GeneratePlayerHotdog(glm::ivec2 pos, bool usesKeyboard)
+{
+	auto hotdog = std::make_shared<dae::GameObject>();
+	auto coll = std::make_shared<BoxColliderComp>(hotdog.get(), "ladder");
+	hotdog->AddComponent(coll);
+	coll = std::make_shared<BoxColliderComp>(hotdog.get(), "block");
+	hotdog->AddComponent(coll);
+	auto texture = std::make_shared<dae::TextureComponent>(hotdog.get(), "Burgertime/spritesheet.png", glm::vec4{ 16,32,16,16 });
+	hotdog->AddComponent(texture);
+	auto pepComp = std::make_shared<PeterPepperComp>(hotdog.get());
+	hotdog->AddComponent(pepComp);
+
+
+	hotdog->SetSize(16 * LevelSettings::Scale, 16 * LevelSettings::Scale);
+	hotdog->SetPosition(pos);
+
+	auto animComp = std::make_shared<AnimationComponent>(hotdog.get(), texture, 0.2f);
+	animComp->AddAnimationFrame("run", { 32, 32 });
+	animComp->AddAnimationFrame("run", { 48, 32 });
+	animComp->SetCurrentAnimation("run");
+	animComp->AddAnimationFrame("death", { 0, 48 });
+	animComp->AddAnimationFrame("death", { 16, 48 });
+	animComp->AddAnimationFrame("death", { 32, 48 });
+	animComp->AddAnimationFrame("death", { 48, 48 });
+	animComp->AddAnimationFrame("climbup", { 64, 32 });
+	animComp->AddAnimationFrame("climbup", { 80, 32 });
+	animComp->AddAnimationFrame("climbdown", { 0, 32 });
+	animComp->AddAnimationFrame("climbdown", { 16, 32 });
+	animComp->AddAnimationFrame("salted", { 64, 48 });
+	animComp->AddAnimationFrame("salted", { 80, 48 });
+
+	hotdog->AddComponent(animComp);
+
+
+	auto& input = dae::InputManager::GetInstance();
+	if (usesKeyboard)
+	{
+		input.AddOrChangeCommand(eKeyboardButton::D, std::make_shared<LateralMovementCommand>(pepComp, 1));
+		input.AddOrChangeCommand(eKeyboardButton::A, std::make_shared<LateralMovementCommand>(pepComp, -1));
+		input.AddOrChangeCommand(eKeyboardButton::Q, std::make_shared<LateralMovementCommand>(pepComp, -1));
+		input.AddOrChangeCommand(eKeyboardButton::W, std::make_shared<VerticalMovementCommand>(pepComp, 1));
+		input.AddOrChangeCommand(eKeyboardButton::Z, std::make_shared<VerticalMovementCommand>(pepComp, 1));
+		input.AddOrChangeCommand(eKeyboardButton::S, std::make_shared<VerticalMovementCommand>(pepComp, -1));
+	}
+	else
+	{
+		input.AddOrChangeCommand(eControllerButton::DpadRight, std::make_shared<LateralMovementCommand>(pepComp, 1));
+		input.AddOrChangeCommand(eControllerButton::DpadLeft, std::make_shared<LateralMovementCommand>(pepComp, -1));
+		input.AddOrChangeCommand(eControllerButton::DpadUp, std::make_shared<VerticalMovementCommand>(pepComp, 1));
+		input.AddOrChangeCommand(eControllerButton::DpadDown, std::make_shared<VerticalMovementCommand>(pepComp, -1));
+	}
+	return hotdog;
+}
+
 std::shared_ptr<dae::GameObject> LevelGen::GenerateBlockingField(Direction direction)
 {
 	auto block = std::make_shared<dae::GameObject>();
@@ -402,7 +456,26 @@ void LevelGen::ReadLevelFromFile(const std::string& filePath, dae::Scene& scene)
 			std::cout << "No ms salt found in level file.\n";
 		}
 	}
-	
+
+
+	//Player Hotdog
+	if (LevelSettings::GameMode == GameMode::Versus)
+	{
+		
+		if (d.HasMember("mrssalt"))
+		{
+			auto playerHotdog = std::make_shared<dae::GameObject>();
+			const Value& salt = d["mrssalt"];
+			x = salt["x"].GetInt();
+			y = salt["y"].GetInt();
+			glm::ivec2 pos = { x * LevelSettings::Scale, y * LevelSettings::Scale };
+
+			usesKeyboard = salt["keyboard"].GetBool();
+			playerHotdog = GeneratePlayerHotdog(pos, usesKeyboard);
+			scene.Add(playerHotdog);
+		}
+	}
+
 
 	//Enemies
 	const Value& enemies = d["enemies"];
