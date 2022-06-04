@@ -26,7 +26,7 @@ private:
 
 	int m_CurrentLadderXPos{};
 	std::shared_ptr<dae::GameObject> m_SaltGo;
-	int m_LivesLeft{ 3 };
+	int m_LivesLeft{ 0 };
 	bool m_IsDead{};
 	glm::ivec2 m_LastDir{1,0};
 	size_t m_SaltsLeft{ 5 };

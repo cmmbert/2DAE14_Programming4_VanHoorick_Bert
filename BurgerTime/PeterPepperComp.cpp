@@ -66,8 +66,6 @@ PeterPepperComp::PeterPepperComp(dae::GameObject* gameObject) : BaseComponent(ga
 
 void PeterPepperComp::OnDeath()
 {
-	if (m_LivesLeft > 0) 
-		--m_LivesLeft;
 	m_IsDead = true;
 	std::cout << "PlayerDied, lives left: " << m_LivesLeft << "\n";
 	NotifyAllObservers(*m_pGameObject, eEvent::PepperDied);
@@ -167,7 +165,15 @@ void PeterPepperComp::Update()
 		m_TimeSincePlayerDied += GlobalTime::GetInstance().GetElapsed();
 		if(m_TimeSincePlayerDied > m_TimeBeforeRespawn)
 		{
-			GameManager::GetInstance().Reset();
+			if (m_LivesLeft > 0)
+			{
+				--m_LivesLeft;
+				GameManager::GetInstance().Reset();
+			}
+			else
+			{
+				GameManager::GetInstance().GameOver();
+			}
 		}
 	}
 	m_HasRecievedInputThisFrame = false;
