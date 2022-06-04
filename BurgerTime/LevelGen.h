@@ -17,6 +17,7 @@ class LevelGen
 public:
 	static std::shared_ptr<dae::GameObject> GenerateHotdog(glm::ivec2 spawnPoint, std::shared_ptr < dae::GameObject> target);
 	static std::shared_ptr<dae::GameObject> GenerateEgg(glm::ivec2 spawnPoint, std::shared_ptr < dae::GameObject> target);
+	static std::shared_ptr<dae::GameObject> GeneratePickle(glm::ivec2 spawnPoint, std::shared_ptr < dae::GameObject> target);
 	static std::shared_ptr<dae::GameObject> GeneratePeter(glm::ivec2 pos, bool usesKeyboard);
 	static std::shared_ptr<dae::GameObject> GeneratePlayerHotdog(glm::ivec2 pos, bool usesKeyboard);
 	static std::shared_ptr<dae::GameObject> GenerateBlockingField(Direction direction);

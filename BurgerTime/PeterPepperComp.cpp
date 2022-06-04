@@ -73,6 +73,7 @@ void PeterPepperComp::OnDeath()
 	auto anim = m_pGameObject->GetComponent<AnimationComponent>();
 	anim->SetCurrentAnimation("death");
 	anim->ContinueAnimation();
+	anim->SetAnimationSpeed(0.2f);
 	m_TimeSincePlayerDied = 0;
 }
 
@@ -81,9 +82,14 @@ void PeterPepperComp::ThrowSalt()
 	if (m_IsDead) return;
 	if (m_SaltsLeft == 0) return;
 		--m_SaltsLeft;
+
+	auto pepTexture = m_pGameObject->GetComponent<dae::TextureComponent>();
+	pepTexture->SetSrcRect({ 16,16,16,16 });
+	pepTexture->m_Flipped = false;
+
 	m_SaltGo->GetComponent<SaltComp>()->Reset();
-	m_pGameObject->GetComponent<AnimationComponent>()->Reset();
 	auto anim = m_SaltGo->GetComponent<AnimationComponent>();
+	anim->Reset();
 	auto texture = m_SaltGo->GetComponent<dae::TextureComponent>();
 	texture->m_Flipped = false;
 	anim->SetCurrentAnimation("spray");
@@ -98,13 +104,16 @@ void PeterPepperComp::ThrowSalt()
 	{
 		anim->SetCurrentAnimation("spray");
 		texture->m_Flipped = true;
+		pepTexture->m_Flipped = true;
 	}
 	else if(m_LastDir == glm::ivec2{ 0,-1 })
 	{
+		pepTexture->SetSrcRect({ 0,16,16,16 });
 		anim->SetCurrentAnimation("sprayDown");
 	}
 	else if (m_LastDir == glm::ivec2{ 0,1 })
 	{
+		pepTexture->SetSrcRect({ 32,16,16,16 });
 		anim->SetCurrentAnimation("sprayUp");
 	}
 
@@ -235,5 +244,7 @@ void PeterPepperComp::OnCollision(dae::GameObject* other)
 void PeterPepperComp::Reset()
 {
 	m_IsDead = false;
+	auto anim = m_pGameObject->GetComponent<AnimationComponent>();
+	anim->SetAnimationSpeed(0.08f);
 }
 

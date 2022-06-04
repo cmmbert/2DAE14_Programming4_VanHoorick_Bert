@@ -57,7 +57,7 @@ std::shared_ptr<dae::GameObject> LevelGen::GenerateHotdog(glm::ivec2 spawnPoint,
 	auto hotdog = GenerateEnemy(spawnPoint, target);
 	auto texture = std::make_shared<dae::TextureComponent>(hotdog.get(), "Burgertime/spritesheet.png", glm::vec4{ 32,32,16,16 });
 	texture->m_Flipped = true;
-	auto animComp = std::make_shared<AnimationComponent>(hotdog.get(), texture, 0.2f);
+	auto animComp = std::make_shared<AnimationComponent>(hotdog.get(), texture, 0.08f);
 	animComp->AddAnimationFrame("run", { 32, 32 });
 	animComp->AddAnimationFrame("run", { 48, 32 });
 	animComp->SetCurrentAnimation("run");
@@ -70,6 +70,8 @@ std::shared_ptr<dae::GameObject> LevelGen::GenerateHotdog(glm::ivec2 spawnPoint,
 	animComp->AddAnimationFrame("climbdown", { 0, 32 });
 	animComp->AddAnimationFrame("climbdown", { 16, 32 });
 	animComp->AddAnimationFrame("salted", { 64, 48 });
+	animComp->AddAnimationFrame("salted", { 64, 48 });
+	animComp->AddAnimationFrame("salted", { 80, 48 });
 	animComp->AddAnimationFrame("salted", { 80, 48 });
 	hotdog->SetPosition(spawnPoint);
 	hotdog->AddComponent(texture);
@@ -83,7 +85,7 @@ std::shared_ptr<dae::GameObject> LevelGen::GenerateEgg(glm::ivec2 spawnPoint, st
 	auto egg = GenerateEnemy(spawnPoint, target);
 	auto texture = std::make_shared<dae::TextureComponent>(egg.get(), "Burgertime/spritesheet.png", glm::vec4{ 32,96,16,16 });
 	texture->m_Flipped = true;
-	auto animComp = std::make_shared<AnimationComponent>(egg.get(), texture, 0.2f);
+	auto animComp = std::make_shared<AnimationComponent>(egg.get(), texture, 0.08f);
 	animComp->AddAnimationFrame("run", { 32, 96 });
 	animComp->AddAnimationFrame("run", { 48, 96 });
 	animComp->SetCurrentAnimation("run");
@@ -96,11 +98,41 @@ std::shared_ptr<dae::GameObject> LevelGen::GenerateEgg(glm::ivec2 spawnPoint, st
 	animComp->AddAnimationFrame("climbdown", { 0, 96 });
 	animComp->AddAnimationFrame("climbdown", { 16, 96 });
 	animComp->AddAnimationFrame("salted", { 64, 112 });
+	animComp->AddAnimationFrame("salted", { 64, 112 });
+	animComp->AddAnimationFrame("salted", { 80, 112 });
 	animComp->AddAnimationFrame("salted", { 80, 112 });
 	egg->SetPosition(spawnPoint);
 	egg->AddComponent(texture);
 	egg->AddComponent(animComp);
 	return egg;
+}
+
+std::shared_ptr<dae::GameObject> LevelGen::GeneratePickle(glm::ivec2 spawnPoint,
+	std::shared_ptr<dae::GameObject> target)
+{
+	auto pickle = GenerateEnemy(spawnPoint, target);
+	auto texture = std::make_shared<dae::TextureComponent>(pickle.get(), "Burgertime/spritesheet.png", glm::vec4{ 32,64,16,16 });
+	texture->m_Flipped = true;
+	auto animComp = std::make_shared<AnimationComponent>(pickle.get(), texture, 0.08f);
+	animComp->AddAnimationFrame("run", { 32, 64 });
+	animComp->AddAnimationFrame("run", { 48, 64 });
+	animComp->SetCurrentAnimation("run");
+	animComp->AddAnimationFrame("death", { 0, 80 });
+	animComp->AddAnimationFrame("death", { 16, 80 });
+	animComp->AddAnimationFrame("death", { 32, 80 });
+	animComp->AddAnimationFrame("death", { 48, 80 });
+	animComp->AddAnimationFrame("climbup", { 64, 64 });
+	animComp->AddAnimationFrame("climbup", { 80, 64 });
+	animComp->AddAnimationFrame("climbdown", { 0, 64 });
+	animComp->AddAnimationFrame("climbdown", { 16, 64 });
+	animComp->AddAnimationFrame("salted", { 64, 80 });
+	animComp->AddAnimationFrame("salted", { 64, 80 });
+	animComp->AddAnimationFrame("salted", { 80, 80 });
+	animComp->AddAnimationFrame("salted", { 80, 80 });
+	pickle->SetPosition(spawnPoint);
+	pickle->AddComponent(texture);
+	pickle->AddComponent(animComp);
+	return pickle;
 }
 
 
@@ -116,7 +148,7 @@ std::shared_ptr<dae::GameObject> LevelGen::GeneratePeter(glm::ivec2 pos, bool us
 	auto texture = std::make_shared<dae::TextureComponent>(pepper.get(), "Burgertime/spritesheet.png", glm::vec4{ 16,0,16,16 });
 	auto pepComp = std::make_shared<PeterPepperComp>(pepper.get());
 	pepper->AddComponent(pepComp);
-	auto animComp = std::make_shared<AnimationComponent>(pepper.get(), texture, 0.2f);
+	auto animComp = std::make_shared<AnimationComponent>(pepper.get(), texture, 0.08f);
 	animComp->AddAnimationFrame("run", { 48, 0 });
 	animComp->AddAnimationFrame("run", { 64, 0 });
 	animComp->AddAnimationFrame("run", { 80, 0 });
@@ -356,7 +388,7 @@ void LevelGen::ReadLevelFromFile(const std::string& filePath, dae::Scene& scene)
 
 
 	std::ifstream ifs(dae::ResourceManager::GetInstance().GetBasePath() + filePath);
-	if (!ifs.is_open()) std::cout << "ni open";
+	if (!ifs.is_open()) std::cout << "failed to open json file.\n";
 	IStreamWrapper isw(ifs);
 
 	Document d;
@@ -506,30 +538,44 @@ void LevelGen::ReadLevelFromFile(const std::string& filePath, dae::Scene& scene)
 	const Value& enemies = d["enemies"];
 
 	//Hotdogs
-	//const Value& hotdogs = enemies["hotdogs"];
-	//for (SizeType i = 0; i < hotdogs.Size(); ++i)
-	//{
-	//	auto x = hotdogs[i]["x"].GetInt();
-	//	auto y = hotdogs[i]["y"].GetInt();
-	//	glm::ivec2 pos = { x * LevelSettings::Scale, y * LevelSettings::Scale };
+	const Value& hotdogs = enemies["hotdogs"];
+	for (SizeType i = 0; i < hotdogs.Size(); ++i)
+	{
+		auto x = hotdogs[i]["x"].GetInt();
+		auto y = hotdogs[i]["y"].GetInt();
+		glm::ivec2 pos = { x * LevelSettings::Scale, y * LevelSettings::Scale };
 
-	//	auto target = pepper;
-	//	if(LevelSettings::GameMode == GameMode::Coop) target = i % 2 ? pepper : msSalt;
-	//	auto hotdog = GenerateHotdog(pos, target);
-	//	scene.Add(hotdog);
-	//}
+		auto target = pepper;
+		if(LevelSettings::GameMode == GameMode::Coop) target = i % 2 ? pepper : msSalt;
+		auto hotdog = GenerateHotdog(pos, target);
+		scene.Add(hotdog);
+	}
 
-	////Eggs
-	//const Value& eggs = enemies["eggs"];
-	//for (SizeType i = 0; i < eggs.Size(); ++i)
-	//{
-	//	auto x = eggs[i]["x"].GetInt();
-	//	auto y = eggs[i]["y"].GetInt();
-	//	glm::ivec2 pos = { x * LevelSettings::Scale, y * LevelSettings::Scale };
+	//Eggs
+	const Value& eggs = enemies["eggs"];
+	for (SizeType i = 0; i < eggs.Size(); ++i)
+	{
+		auto x = eggs[i]["x"].GetInt();
+		auto y = eggs[i]["y"].GetInt();
+		glm::ivec2 pos = { x * LevelSettings::Scale, y * LevelSettings::Scale };
+		auto target = pepper;
+		if (LevelSettings::GameMode == GameMode::Coop) target = i % 2 ? pepper : msSalt;
+		auto egg = GenerateEgg(pos, target);
+		scene.Add(egg);
+	}
 
-	//	auto hotdog = GenerateEgg(pos, pepper);
-	//	scene.Add(hotdog);
-	//}
+	//Pickles
+	const Value& pickles = enemies["pickles"];
+	for (SizeType i = 0; i < pickles.Size(); ++i)
+	{
+		auto x = pickles[i]["x"].GetInt();
+		auto y = pickles[i]["y"].GetInt();
+		glm::ivec2 pos = { x * LevelSettings::Scale, y * LevelSettings::Scale };
+		auto target = pepper;
+		if (LevelSettings::GameMode == GameMode::Coop) target = i % 2 ? pepper : msSalt;
+		auto pickle = GeneratePickle(pos, target);
+		scene.Add(pickle);
+	}
 
 
 	//Burgertrays

@@ -213,6 +213,7 @@ void EnemyComponent::OnDeath()
 {
 	auto anim = m_pGameObject->GetComponent<AnimationComponent>();
 	anim->SetCurrentAnimation("death");
+	anim->SetAnimationSpeed(0.2f);
 	m_IsDead = true;
 }
 
@@ -224,6 +225,7 @@ void EnemyComponent::Respawn()
 
 	auto anim = m_pGameObject->GetComponent<AnimationComponent>();
 	anim->SetCurrentAnimation("run");
+	anim->SetAnimationSpeed(0.08f);
 }
 
 void EnemyComponent::Update()
