@@ -212,7 +212,14 @@ void PeterPepperComp::OnCollision(dae::GameObject* other)
 	if(other->GetComponent<EnemyCollision>())
 	{
 		if(!m_IsDead)
-			OnDeath();
+		{
+			auto pos = m_pGameObject->GetPosition();
+			auto otherPos = other->GetPosition();
+			auto deviation = 24;
+			auto distance = sqrt(pow(otherPos.x - pos.x, 2) + pow(otherPos.y - pos.y, 2));
+			if (distance < deviation)
+				OnDeath();
+		}
 	}
 }
 
