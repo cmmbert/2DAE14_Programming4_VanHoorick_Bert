@@ -26,13 +26,16 @@ std::shared_ptr<dae::GameObject> LevelGen::GenerateEnemy(glm::ivec2 spawnPoint, 
 	auto enemy = std::make_shared<dae::GameObject>();
 	enemy->SetSize(16 * LevelSettings::Scale, 16 * LevelSettings::Scale);
 
+
+
+	auto playerCol = std::make_shared<EnemyCollision>(enemy.get());
+	enemy->AddComponent(playerCol);
+
 	auto enemyComp = std::make_shared<EnemyComponent>(enemy.get(), target, spawnPoint);
 	enemy->AddComponent(enemyComp);
 
 	EnemyManager::GetInstance().AddEnemyToCollection(enemyComp);
 
-	auto playerCol = std::make_shared<EnemyCollision>(enemy.get());
-	enemy->AddComponent(playerCol);
 
 	auto collision = std::make_shared<BoxColliderComp>(enemy.get(), "fallingBurger");
 	enemy->AddComponent(collision);

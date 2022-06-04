@@ -128,7 +128,7 @@ void EnemyComponent::CalculateNewDir()
 }
 
 EnemyComponent::EnemyComponent(dae::GameObject* gameObject, std::shared_ptr<dae::GameObject> target, glm::ivec2 spawnPoint)
-	: BaseComponent(gameObject), m_Target(target), m_SpawnPoint(spawnPoint)
+	: BaseComponent(gameObject), m_EnemyCollision(m_pGameObject->GetComponent<EnemyCollision>()), m_Target(target), m_SpawnPoint(spawnPoint)
 {
 }
 
@@ -207,12 +207,6 @@ void EnemyComponent::OnCollision(dae::GameObject* other)
 	{
 		m_IsTouchingFloor = true;
 	}
-	if(other->GetComponent<SaltComp>())
-	{
-		m_SaltStunTimeLeft = m_SaltStunTime;
-		auto anim = m_pGameObject->GetComponent<AnimationComponent>();
-		anim->SetCurrentAnimation("salted");
-	}
 }
 
 void EnemyComponent::OnDeath()
@@ -250,16 +244,7 @@ void EnemyComponent::Update()
 	{
 		if(!m_IsStopped)
 		{
-			if(m_SaltStunTimeLeft > 0)
-			{
-				m_SaltStunTimeLeft -= GlobalTime::GetInstance().GetElapsed();
-				if (m_SaltStunTimeLeft < 0)
-				{
-					auto anim = m_pGameObject->GetComponent<AnimationComponent>();
-					anim->SetCurrentAnimation("run");
-				}
-			}
-			else
+			if(!m_EnemyCollision->IsSalted())
 			{
 				m_TimeSinceLastDirChange += GlobalTime::GetInstance().GetElapsed();
 

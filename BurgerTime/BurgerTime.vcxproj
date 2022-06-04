@@ -160,6 +160,7 @@
     <ClCompile Include="BurgerShardComp.cpp" />
     <ClCompile Include="BurgerTime.cpp" />
     <ClCompile Include="BurgerTray.cpp" />
+    <ClCompile Include="EnemyCollision.cpp" />
     <ClCompile Include="EnemyComponent.cpp" />
     <ClCompile Include="EnemyManager.cpp" />
     <ClCompile Include="FloorComp.cpp" />

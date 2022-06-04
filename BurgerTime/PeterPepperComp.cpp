@@ -215,9 +215,9 @@ void PeterPepperComp::OnCollision(dae::GameObject* other)
 		if(block->IsBlockingDirection(Direction::Left))
 			m_IsTouchingLeftBlock = true;
 	}
-	if(other->GetComponent<EnemyCollision>())
+	if(auto enemy = other->GetComponent<EnemyCollision>())
 	{
-		if(!m_IsDead)
+		if(!m_IsDead && !enemy->IsSalted())
 		{
 			auto pos = m_pGameObject->GetPosition();
 			auto otherPos = other->GetPosition();

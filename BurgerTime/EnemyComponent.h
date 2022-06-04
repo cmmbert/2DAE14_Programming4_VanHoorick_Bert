@@ -4,6 +4,7 @@
 #include <glm/vec2.hpp>
 
 #include "BaseComponent.h"
+#include "EnemyCollision.h"
 #include "LevelSettings.h"
 
 class EnemyComponent final : public dae::BaseComponent 
@@ -12,8 +13,6 @@ class EnemyComponent final : public dae::BaseComponent
 	float m_DeathAnimTime{ 0.6f };
 	float m_RespawnTime{10};
 	float m_TimeDead{0};
-	float m_SaltStunTime{ 4 };
-	float m_SaltStunTimeLeft{};
 	bool m_IsStopped{};
 
 	std::shared_ptr<dae::GameObject> m_Target;
@@ -37,6 +36,8 @@ class EnemyComponent final : public dae::BaseComponent
 	void SetRandomDirection();
 	void CalculateNewDir();
 	void ChangeDirection(glm::ivec2 newDir);
+
+	EnemyCollision* m_EnemyCollision;
 public:
 	EnemyComponent() = delete;
 	EnemyComponent(dae::GameObject* gameObject, std::shared_ptr<dae::GameObject> target, glm::ivec2 spawnPoint);
