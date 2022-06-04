@@ -10,7 +10,8 @@ public:
 	void Execute() override{};
 	void FirstExecute() override
 	{
-		m_Button->SelectCurrentMode();
+		if(dae::SceneManager::GetInstance().GetCurrentScene().GetName() == "Menu")
+			m_Button->SelectCurrentMode();
 	}
 };
 
