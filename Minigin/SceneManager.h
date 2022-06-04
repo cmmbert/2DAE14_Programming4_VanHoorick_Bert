@@ -12,6 +12,8 @@ namespace dae
 		void Update();
 		void Render();
 		Scene& GetCurrentScene();
+		void SetActiveScene(const std::string& name, bool newState = true);
+		Scene& GetScene(const std::string& name);
 	private:
 		friend class Singleton<SceneManager>;
 		SceneManager() = default;

@@ -9,6 +9,8 @@
 #endif
 
 
+#include "CoopButton.h"
+#include "SelectModeCommand.h"
 #include "GameObject.h"
 #include "InputManager.h"
 #include "LevelGen.h"
@@ -16,7 +18,10 @@
 #include "Minigin.h"
 #include "Renderer.h"
 #include "Scene.h"
-
+#include "SoloButton.h"
+#include "SwapModeCommand.h"
+#include "LevelSettings.h"
+#include "VersusButton.h"
 
 
 int main(int, char* []) {
@@ -24,8 +29,55 @@ int main(int, char* []) {
 
 	dae::Minigin engine;
 	engine.Initialize();
-	auto& scene = engine.LoadGame();
+	auto& menuScene = dae::SceneManager::GetInstance().CreateScene("Menu");
 
+	std::vector<ModeButton*> buttons{};
+
+	
+	auto buttonSolo = std::make_shared<dae::GameObject>();
+	auto size = glm::ivec2{ 51 * LevelSettings::Scale, 20 * LevelSettings::Scale };
+	buttonSolo->SetSize(size.x, size.y);
+	buttonSolo->SetPosition({ dae::Renderer::GetInstance().ScreenSize().x / 2 - size.x/2 , (dae::Renderer::GetInstance().ScreenSize().y / 2) + 30*LevelSettings::Scale });
+	auto texture = std::make_shared<dae::TextureComponent>(buttonSolo.get(), "Burgertime/menu.png", glm::vec4{ 0,0,51,25 });
+	buttonSolo->AddComponent(texture);
+	auto solo = std::make_shared<SoloButton>(buttonSolo.get(), texture.get());
+	buttonSolo->AddComponent(solo);
+	menuScene.Add(buttonSolo);
+	buttons.push_back(solo.get());
+
+	auto buttonCoop = std::make_shared<dae::GameObject>();
+	size = glm::ivec2{ 74 * LevelSettings::Scale, 25 * LevelSettings::Scale };
+	buttonCoop->SetSize(size.x, size.y);
+	buttonCoop->SetPosition({ dae::Renderer::GetInstance().ScreenSize().x / 2 - size.x/2, dae::Renderer::GetInstance().ScreenSize().y / 2 });
+	texture = std::make_shared<dae::TextureComponent>(buttonCoop.get(), "Burgertime/menu.png", glm::vec4{ 62,0,74,25 });
+	buttonCoop->AddComponent(texture);
+	auto coop = std::make_shared<CoopButton>(buttonCoop.get(), texture.get());
+	buttonCoop->AddComponent(coop);
+	menuScene.Add(buttonCoop);
+	buttons.push_back(coop.get());
+
+	auto buttonVersus = std::make_shared<dae::GameObject>();
+	size = glm::ivec2{ 74 * LevelSettings::Scale, 25 * LevelSettings::Scale };
+	buttonVersus->SetSize(size.x, size.y);
+	buttonVersus->SetPosition({ dae::Renderer::GetInstance().ScreenSize().x / 2 - size.x/2, dae::Renderer::GetInstance().ScreenSize().y / 2 - 30 * LevelSettings::Scale });
+	texture = std::make_shared<dae::TextureComponent>(buttonVersus.get(), "Burgertime/menu.png", glm::vec4{ 141,0,84,25 });
+	buttonVersus->AddComponent(texture);
+	auto versus = std::make_shared<VersusButton>(buttonVersus.get(), texture.get());
+	buttonVersus->AddComponent(versus);
+	menuScene.Add(buttonVersus);
+	buttons.push_back(versus.get());
+
+
+
+	auto menu = std::make_shared<dae::GameObject>();
+	auto select = std::make_shared<SelectModeComp>(menu.get(), buttons);
+	menu->AddComponent(select);
+	input.AddOrChangeCommand(eControllerButton::ButtonA, std::make_shared<SelectModeCommand>(select.get()));
+	input.AddOrChangeCommand(eControllerButton::DpadDown, std::make_shared<SwapModeCommand>(select.get(), 1));
+	input.AddOrChangeCommand(eControllerButton::DpadUp, std::make_shared<SwapModeCommand>(select.get(), -1));
+
+	auto& scene = dae::SceneManager::GetInstance().CreateScene("Level1");
+	scene.m_IsActive = false;
 	auto left = LevelGen::GenerateBlockingField(Direction::Left);
 	left->SetPosition(0, 0);
 	left->SetSize(1, 1000);
@@ -36,87 +88,8 @@ int main(int, char* []) {
 	scene.Add(right);
 	
 
-	LevelGen::ReadLevelFromFile("BurgerTime/level.json", scene);
 
-	//Level 1
-	//std::shared_ptr<dae::GameObject> floor{};
-
-	//floor = LevelGen::GenerateFloorLight({ 0, 121 * LevelSettings::Scale });
-	//scene.Add(floor);
-	//floor = LevelGen::GenerateFloorDark({ 16 * LevelSettings::Scale,121 * LevelSettings::Scale });
-	//scene.Add(floor);
-	//floor = LevelGen::GenerateFloorLight({ 48 * LevelSettings::Scale, 121 * LevelSettings::Scale });
-	//scene.Add(floor);
-	//auto block = LevelGen::GenerateBlockingField(Direction::Right);
-	//block->SetPosition(64 * LevelSettings::Scale, 121 * LevelSettings::Scale);
-	//block->SetSize(1, 16 * LevelSettings::Scale);
-	//scene.Add(block);
-	//LevelSettings::m_LevelHeights.insert(124 * LevelSettings::Scale);
-
-
-	//floor = LevelGen::GenerateFloorLight({ 0, 73 * LevelSettings::Scale });
-	//scene.Add(floor);
-	//floor = LevelGen::GenerateFloorDark({ 16 * LevelSettings::Scale,73 * LevelSettings::Scale });
-	//scene.Add(floor);
-	//floor = LevelGen::GenerateFloorLight({ 48 * LevelSettings::Scale, 73 * LevelSettings::Scale });
-	//scene.Add(floor);
-	//floor = LevelGen::GenerateFloorDark({ 64 * LevelSettings::Scale,73 * LevelSettings::Scale });
-	//scene.Add(floor);
-	//floor = LevelGen::GenerateFloorLight({ 96 * LevelSettings::Scale, 73 * LevelSettings::Scale });
-	//scene.Add(floor);
-	//floor = LevelGen::GenerateFloorDark({ 112 * LevelSettings::Scale,73 * LevelSettings::Scale });
-	//scene.Add(floor);
-	//block = LevelGen::GenerateBlockingField(Direction::Right);
-	//block->SetPosition(144 * LevelSettings::Scale, 73 * LevelSettings::Scale);
-	//block->SetSize(1, 16 * LevelSettings::Scale);
-	//scene.Add(block);
-	//LevelSettings::m_LevelHeights.insert(76 * LevelSettings::Scale);
-
-	//std::shared_ptr<dae::GameObject> ladder{};
-	//ladder = LevelGen::GenerateLadder({ 0,42 * LevelSettings::Scale }, {16*LevelSettings::Scale, 80*LevelSettings::Scale}, scene);
-	//scene.Add(ladder);
-	//ladder = LevelGen::GenerateLadder({ 192 * LevelSettings::Scale, 42 * LevelSettings::Scale }, {16*LevelSettings::Scale, 32*LevelSettings::Scale}, scene);
-	//scene.Add(ladder);
-	////ladder = GenerateLadder({ 48 * LevelSettings::Scale, 42 * LevelSettings::Scale }, {16*LevelSettings::Scale, 146 *LevelSettings::Scale}, scene);
-	////scene.Add(ladder);
-
-	//floor = LevelGen::GenerateFloorLight({ 0, 41 * LevelSettings::Scale });
-	//scene.Add(floor);
-	//floor = LevelGen::GenerateFloorDark({ 16 * LevelSettings::Scale,41 * LevelSettings::Scale });
-	//scene.Add(floor);
-	//floor = LevelGen::GenerateFloorLight({ 48 * LevelSettings::Scale, 41 * LevelSettings::Scale });
-	//scene.Add(floor);
-	//floor = LevelGen::GenerateFloorDark({ 64 * LevelSettings::Scale,41 * LevelSettings::Scale });
-	//scene.Add(floor);
-	//floor = LevelGen::GenerateFloorLight({ 96 * LevelSettings::Scale, 41 * LevelSettings::Scale });
-	//scene.Add(floor);
-	//floor = LevelGen::GenerateFloorDark({ 112 * LevelSettings::Scale,41 * LevelSettings::Scale });
-	//scene.Add(floor);
-	//floor = LevelGen::GenerateFloorLight({ 144 * LevelSettings::Scale, 41 * LevelSettings::Scale });
-	//scene.Add(floor);
-	//floor = LevelGen::GenerateFloorDark({ 160 * LevelSettings::Scale,41 * LevelSettings::Scale });
-	//scene.Add(floor);
-	//floor = LevelGen::GenerateFloorLight({ 192 * LevelSettings::Scale, 41 * LevelSettings::Scale });
-	//scene.Add(floor);
-
-	//LevelSettings::m_LevelHeights.insert(44 * LevelSettings::Scale);
-
-
-	//auto burger = LevelGen::GenerateBurgerPiece({ 16 * LevelSettings::Scale,121 * LevelSettings::Scale }, { 112,49 }, scene);
-	//scene.Add(burger);
-	//burger = LevelGen::GenerateBurgerPiece({ 16 * LevelSettings::Scale,73 * LevelSettings::Scale }, { 112,73 }, scene);
-	//scene.Add(burger);
-	//burger = LevelGen::GenerateBurgerPiece({ 16 * LevelSettings::Scale,41 * LevelSettings::Scale }, { 112, 57 }, scene);
-	//scene.Add(burger);
-
-	//auto pepper = LevelGen::GeneratePeter({8 * LevelSettings::Scale, 44 * LevelSettings::Scale});
-	//scene.Add(pepper);
-
-	//auto hotdog = LevelGen::GenerateHotdog({ 192 * LevelSettings::Scale, 44 * LevelSettings::Scale }, pepper);
-	//scene.Add(hotdog);
-
-	//auto tray = LevelGen::GenerateBurgerTray({ 13 * LevelSettings::Scale,5 * LevelSettings::Scale }, scene, 4);
-	//scene.Add(tray);
+	dae::SceneManager::GetInstance().SetActiveScene("Level1");
 
 	engine.Run();
 	return 0;

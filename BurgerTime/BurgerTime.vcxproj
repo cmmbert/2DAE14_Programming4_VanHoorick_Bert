@@ -171,6 +171,7 @@
     <ClCompile Include="PeterPepperComp.cpp" />
     <ClCompile Include="PlayerObserver.cpp" />
     <ClCompile Include="SaltComp.cpp" />
+    <ClCompile Include="VersusButton.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BlockComp.h" />
@@ -178,6 +179,8 @@
     <ClInclude Include="BurgerPiece.h" />
     <ClInclude Include="BurgerShardComp.h" />
     <ClInclude Include="BurgerTray.h" />
+    <ClInclude Include="CoopButton.h" />
+    <ClInclude Include="SelectModeCommand.h" />
     <ClInclude Include="EnemyComponent.h" />
     <ClInclude Include="FloorComp.h" />
     <ClInclude Include="LadderComp.h" />
@@ -185,6 +188,7 @@
     <ClInclude Include="LevelGen.h" />
     <ClInclude Include="LevelSettings.h" />
     <ClInclude Include="LivesLeftComp.h" />
+    <ClInclude Include="ModeButton.h" />
     <ClInclude Include="PeterCommands.h" />
     <ClInclude Include="PeterPepperComp.h" />
     <ClInclude Include="PlayerObserver.h" />
@@ -227,6 +231,10 @@
     <ClInclude Include="rapidjson\uri.h" />
     <ClInclude Include="rapidjson\writer.h" />
     <ClInclude Include="SaltComp.h" />
+    <ClInclude Include="SelectModeComp.h" />
+    <ClInclude Include="SoloButton.h" />
+    <ClInclude Include="SwapModeCommand.h" />
+    <ClInclude Include="VersusButton.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

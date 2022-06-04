@@ -28,8 +28,6 @@ namespace dae
 		int m_ButtonsReleasedThisFrame{};
 		int m_ButtonsPressed{};
 		std::map<eControllerButton, std::shared_ptr<Command>> m_ControllerCommandMap{};
-		BYTE m_PrevKeyboardState[256];
-		BYTE m_CurrentKeyboardState[256];
 
 		std::map<eKeyboardButton, std::shared_ptr<Command>> m_KeyCommandMap{};
 	};

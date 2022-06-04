@@ -31,6 +31,9 @@
     <Filter Include="Source Files\Salt">
       <UniqueIdentifier>{ab9df3f9-8eb0-49f4-8796-a62c65c89fa3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Menu">
+      <UniqueIdentifier>{57409a87-caff-401e-933a-b64056d2b120}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BurgerTime.cpp">
@@ -80,6 +83,9 @@
     </ClCompile>
     <ClCompile Include="SaltComp.cpp">
       <Filter>Source Files\Salt</Filter>
+    </ClCompile>
+    <ClCompile Include="VersusButton.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -244,6 +250,27 @@
     </ClInclude>
     <ClInclude Include="BurgerBlock.h">
       <Filter>Source Files\Level</Filter>
+    </ClInclude>
+    <ClInclude Include="SelectModeCommand.h">
+      <Filter>Source Files\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="SelectModeComp.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SwapModeCommand.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ModeButton.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SoloButton.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CoopButton.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="VersusButton.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -62,61 +62,6 @@ void dae::Minigin::Initialize()
 	ServiceLocator::RegisterAudioService(SdlAudio);
 }
 
-/**
- * Code constructing the scene world starts here
- */
-dae::Scene& dae::Minigin::LoadGame() const
-{
-	auto& input = InputManager::GetInstance();
-
-	auto& scene = SceneManager::GetInstance().CreateScene("Demo");
-
-
-	return scene;
-	//auto go = std::make_shared<GameObject>();
-	//go->SetPosition(glm::vec2(50, -50));
-	//auto tc = std::make_shared<TextureComponent>("Burgertime/spritesheet.png", 160, 160, glm::ivec4(16,16, 16,16));
-	//go->AddComponent(tc);
-	////scene.Add(go);
-	//input.AddOrChangeCommand(eControllerButton::DpadUp, make_shared<ClimbCommand>(go));
-
-	//go = std::make_shared<GameObject>();
-	//go->SetPosition(glm::ivec2(216, -180));
-	//tc = std::make_shared<TextureComponent>("logo.png");
-	////go->AddComponent(tc);
-	//scene.Add(go);
-
-	//auto font = ResourceManager::GetInstance().LoadFont("Lingua.otf", 36);
-	//go = std::make_shared<GameObject>();
-	//auto textc = std::make_shared<TextComponent>("Programming 4 Assignment", font);
-	//textc->SetPosition(80, 20);
-	////go->AddComponent(textc);
-	//scene.Add(go);
-
-	//go = std::make_shared<GameObject>();
-	//font = ResourceManager::GetInstance().LoadFont("Lingua.otf", 16);
-	//auto fpsComp = std::make_shared<FpsCounterComp>("FPS: ", font);
-	//fpsComp->SetPosition(10, 10);
-	//go->AddComponent(fpsComp);
-
-	//go = std::make_shared<GameObject>();
-	//auto sound = std::make_shared<SoundComponent>(1);
-	//go->AddComponent(sound);
-	//auto sound2 = std::make_shared<SoundComponent>(2);
-	//go->AddComponent(sound2);
-	//auto sound3 = std::make_shared<SoundComponent>(3);
-	//go->AddComponent(sound3);
-	//scene.Add(go);
-	////sound3->Play();
-	//sound->Play(0.1f);
-	////sound2->Play();
-	////DemoScene1(scene);
-
-	//auto anim = std::make_shared<AnimationComponent>();
-	//go->AddComponent(anim);
-
-	//Level1(scene);
-}
 
 void dae::Minigin::Cleanup()
 {

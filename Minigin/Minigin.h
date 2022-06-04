@@ -8,7 +8,6 @@ namespace dae
 	{
 	public:
 		void Initialize();
-		Scene& LoadGame() const;
 		void Cleanup();
 		void FixedUpdate(float fixedTimeStep);
 		void Run();

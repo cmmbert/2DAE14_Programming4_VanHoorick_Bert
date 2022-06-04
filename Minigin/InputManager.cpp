@@ -11,6 +11,9 @@ class dae::InputManager::impl
 public:
 	XINPUT_STATE previousState{};
 	XINPUT_STATE currentState{};
+
+	BYTE m_PrevKeyboardState[256];
+	BYTE m_CurrentKeyboardState[256];
 };
 
 
@@ -41,14 +44,14 @@ bool dae::InputManager::Update()
 		}
 	}
 	
-	memcpy(m_PrevKeyboardState, m_CurrentKeyboardState, sizeof(BYTE[256]));
-	GetKeyboardState(m_CurrentKeyboardState);
+	memcpy(m_pImpl->m_PrevKeyboardState, m_pImpl->m_CurrentKeyboardState, sizeof(BYTE[256]));
+	GetKeyboardState(m_pImpl->m_CurrentKeyboardState);
 
 	for (auto& keyCommand : m_KeyCommandMap)
 	{
-		if(m_CurrentKeyboardState[static_cast<int>(keyCommand.first)] & 0xF0)
+		if(m_pImpl->m_CurrentKeyboardState[static_cast<int>(keyCommand.first)] & 0xF0)
 		{
-			if(m_PrevKeyboardState[static_cast<int>(keyCommand.first)] & 0xF0)
+			if(m_pImpl->m_PrevKeyboardState[static_cast<int>(keyCommand.first)] & 0xF0)
 			{
 				keyCommand.second->Execute();
 			}
