@@ -15,7 +15,7 @@ public:
 		: BaseComponent(gameObject), m_ModeButtons(modeButtons)
 	{
 		m_NrOfOptions = m_ModeButtons.size();
-		m_SelectedOption = m_NrOfOptions;
+		m_SelectedOption = m_NrOfOptions - 1;
 		IncrementSelection(1);
 	}
 	void IncrementSelection(int direction)
