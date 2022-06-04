@@ -26,9 +26,13 @@ private:
 
 	int m_CurrentLadderXPos{};
 	std::shared_ptr<dae::GameObject> m_SaltGo;
-
+	int m_LivesLeft{ 3 };
+	bool m_IsDead{};
 	glm::ivec2 m_LastDir{1,0};
 	size_t m_SaltsLeft{ 5 };
+
+	float m_TimeSincePlayerDied{};
+	float m_TimeBeforeRespawn{ 3 };
 public:
 	PeterPepperComp() = delete;
 	PeterPepperComp(dae::GameObject* gameObject);
@@ -45,8 +49,7 @@ public:
 	void TryRun(int direction);
 	void Update() override;
 	void OnCollision(dae::GameObject* other) override;
-	
-	int m_LivesLeft{ 3 };
+	void Reset();
 
 };
 

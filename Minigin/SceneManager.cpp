@@ -22,7 +22,10 @@ void dae::SceneManager::Render()
 
 dae::Scene& dae::SceneManager::GetCurrentScene()
 {
-	return *m_Scenes[0].get();
+	auto it = std::find_if(m_Scenes.begin(), m_Scenes.end(), [](const std::shared_ptr<Scene>& scene) { return scene->m_IsActive == true; });
+	
+	__int64 idx = std::distance(m_Scenes.begin(), it);
+	return *m_Scenes[idx];
 }
 
 void dae::SceneManager::SetActiveScene(const std::string& name, bool newState)

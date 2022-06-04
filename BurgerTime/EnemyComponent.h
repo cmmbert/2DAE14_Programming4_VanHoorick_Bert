@@ -14,7 +14,7 @@ class EnemyComponent final : public dae::BaseComponent
 	float m_TimeDead{0};
 	float m_SaltStunTime{ 4 };
 	float m_SaltStunTimeLeft{};
-
+	bool m_IsStopped{};
 
 	std::shared_ptr<dae::GameObject> m_Target;
 	bool m_IsTouchingLadder{};
@@ -51,5 +51,7 @@ public:
 	void OnDeath();
 	void Respawn();
 	void Update() override;
+	void Stop() { m_IsStopped = true; }
+	void Reset();
 };
 

@@ -6,7 +6,9 @@
 #include "BurgerPiece.h"
 #include "BurgerTray.h"
 #include "EnemyCollision.h"
+#include "EnemyManager.h"
 #include "FloorComp.h"
+#include "GameManager.h"
 #include "InputManager.h"
 #include "LadderComp.h"
 #include "PeterCommands.h"
@@ -26,7 +28,9 @@ std::shared_ptr<dae::GameObject> LevelGen::GenerateEnemy(glm::ivec2 spawnPoint, 
 
 	auto enemyComp = std::make_shared<EnemyComponent>(enemy.get(), target, spawnPoint);
 	enemy->AddComponent(enemyComp);
-	
+
+	EnemyManager::GetInstance().AddEnemyToCollection(enemyComp);
+
 	auto playerCol = std::make_shared<EnemyCollision>(enemy.get());
 	enemy->AddComponent(playerCol);
 
@@ -119,6 +123,15 @@ std::shared_ptr<dae::GameObject> LevelGen::GeneratePeter(glm::ivec2 pos, bool us
 	animComp->AddAnimationFrame("climbdown", { 0, 0 });
 	animComp->AddAnimationFrame("climbdown", { 16, 0 });
 	animComp->AddAnimationFrame("climbdown", { 32, 0 });
+	animComp->AddAnimationFrame("death", { 64, 16 });
+	animComp->AddAnimationFrame("death", { 80, 16 });
+	animComp->AddAnimationFrame("death", { 96, 16 });
+	int nrOfDeathWiggles{10};
+	for (int i = 0; i < nrOfDeathWiggles; ++i)
+	{
+		animComp->AddAnimationFrame("death", { 112, 16 });
+		animComp->AddAnimationFrame("death", { 128, 16 });
+	}
 
 	pepper->AddComponent(animComp);
 	pepper->SetSize(16 * LevelSettings::Scale, 16 * LevelSettings::Scale);
@@ -144,6 +157,7 @@ std::shared_ptr<dae::GameObject> LevelGen::GeneratePeter(glm::ivec2 pos, bool us
 		input.AddOrChangeCommand(eControllerButton::DpadDown, std::make_shared<VerticalMovementCommand>(pepComp, -1));
 		input.AddOrChangeCommand(eControllerButton::ButtonY, std::make_shared<ThrowSaltCommand>(pepComp));		
 	}
+	GameManager::GetInstance().RegisterPlayer(pepper, pos);
 	return pepper;
 }
 
@@ -199,6 +213,7 @@ std::shared_ptr<dae::GameObject> LevelGen::GeneratePlayerHotdog(glm::ivec2 pos, 
 		input.AddOrChangeCommand(eControllerButton::DpadUp, std::make_shared<VerticalMovementCommand>(pepComp, 1));
 		input.AddOrChangeCommand(eControllerButton::DpadDown, std::make_shared<VerticalMovementCommand>(pepComp, -1));
 	}
+	GameManager::GetInstance().RegisterPlayer(hotdog, pos);
 	return hotdog;
 }
 

@@ -17,7 +17,7 @@ void AnimationComponent::SetCurrentAnimation(const std::string& animName)
 	if (m_CurrentAnimation == animName) return;
 	m_Paused = false;
 	m_CurrentAnimation = animName;
-	m_CurrentFrame = m_Animations[m_CurrentAnimation].size();
+	m_CurrentFrame = m_Animations[m_CurrentAnimation].size()-1;
 	m_TimeSinceLastFrame = 1000;
 }
 

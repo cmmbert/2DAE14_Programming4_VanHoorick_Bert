@@ -16,10 +16,7 @@ bool EnemyComponent::CanClimbDown()
 	return (m_IsTouchingLadder || m_IsTouchingTopLadder) && !m_IsTouchingBlock && m_CurrentChaseDir.y != 1;
 }
 
-//{
-//  "x": -10,
-//  "y": 44
-//}
+
 bool EnemyComponent::CanMoveLeft()
 {
 	return !m_IsTouchingLeftBlock && m_CurrentChaseDir.x != 1;
@@ -251,33 +248,36 @@ void EnemyComponent::Update()
 	}
 	else
 	{
-		if(m_SaltStunTimeLeft > 0)
+		if(!m_IsStopped)
 		{
-			m_SaltStunTimeLeft -= GlobalTime::GetInstance().GetElapsed();
-			if (m_SaltStunTimeLeft < 0)
+			if(m_SaltStunTimeLeft > 0)
 			{
-				auto anim = m_pGameObject->GetComponent<AnimationComponent>();
-				anim->SetCurrentAnimation("run");
+				m_SaltStunTimeLeft -= GlobalTime::GetInstance().GetElapsed();
+				if (m_SaltStunTimeLeft < 0)
+				{
+					auto anim = m_pGameObject->GetComponent<AnimationComponent>();
+					anim->SetCurrentAnimation("run");
+				}
 			}
-		}
-		else
-		{
-			m_TimeSinceLastDirChange += GlobalTime::GetInstance().GetElapsed();
-
-			if (CanChangeDirection())
+			else
 			{
-				CalculateNewDir();
-			}
+				m_TimeSinceLastDirChange += GlobalTime::GetInstance().GetElapsed();
 
-			if (m_CurrentChaseDir == glm::ivec2{ 0,0 }) CalculateNewDir(); //Invalid direction, so get a new one
-			if(!CanMoveRight() && m_CurrentChaseDir == glm::ivec2{1,0}) SetRandomDirection();
-			if(!CanMoveLeft() && m_CurrentChaseDir == glm::ivec2{-1,0}) 
-				SetRandomDirection();
-			if(!CanClimbUp() && m_CurrentChaseDir == glm::ivec2{0,1}) SetRandomDirection();
-			if(!CanClimbDown() && m_CurrentChaseDir == glm::ivec2{0,-1}) SetRandomDirection();
+				if (CanChangeDirection())
+				{
+					CalculateNewDir();
+				}
+
+				if (m_CurrentChaseDir == glm::ivec2{ 0,0 }) CalculateNewDir(); //Invalid direction, so get a new one
+				if(!CanMoveRight() && m_CurrentChaseDir == glm::ivec2{1,0}) SetRandomDirection();
+				if(!CanMoveLeft() && m_CurrentChaseDir == glm::ivec2{-1,0}) 
+					SetRandomDirection();
+				if(!CanClimbUp() && m_CurrentChaseDir == glm::ivec2{0,1}) SetRandomDirection();
+				if(!CanClimbDown() && m_CurrentChaseDir == glm::ivec2{0,-1}) SetRandomDirection();
 
 			
-			ChaseTarget();
+				ChaseTarget();
+			}
 		}
 	}
 
@@ -288,5 +288,12 @@ void EnemyComponent::Update()
 	m_IsTouchingFloor = false;
 	m_IsTouchingLeftBlock = false;
 	m_IsTouchingRightBlock = false;
+}
+
+void EnemyComponent::Reset()
+{
+	Respawn();
+	m_IsStopped = false;
+
 }
 

@@ -11,6 +11,8 @@
 #include "BlockComp.h"
 #include "BoxColliderComp.h"
 #include "EnemyCollision.h"
+#include "EnemyManager.h"
+#include "GameManager.h"
 #include "LadderComp.h"
 #include "LadderTop.h"
 #include "SaltComp.h"
@@ -66,15 +68,21 @@ void PeterPepperComp::OnDeath()
 {
 	if (m_LivesLeft > 0) 
 		--m_LivesLeft;
-	
+	m_IsDead = true;
 	std::cout << "PlayerDied, lives left: " << m_LivesLeft << "\n";
 	NotifyAllObservers(*m_pGameObject, eEvent::PepperDied);
+	GameManager::GetInstance().PlayerDied();
+	auto anim = m_pGameObject->GetComponent<AnimationComponent>();
+	anim->SetCurrentAnimation("death");
+	anim->ContinueAnimation();
+	m_TimeSincePlayerDied = 0;
 }
 
 void PeterPepperComp::ThrowSalt()
 {
+	if (m_IsDead) return;
 	if (m_SaltsLeft == 0) return;
-	--m_SaltsLeft;
+		--m_SaltsLeft;
 	m_SaltGo->GetComponent<SaltComp>()->Reset();
 	m_pGameObject->GetComponent<AnimationComponent>()->Reset();
 	auto anim = m_SaltGo->GetComponent<AnimationComponent>();
@@ -106,6 +114,7 @@ void PeterPepperComp::ThrowSalt()
 
 void PeterPepperComp::StartClimbAnim(int direction)
 {
+	if (m_IsDead) return;
 	if (!CanClimbUp() && !CanClimbDown()) return;
 	auto anim = m_pGameObject->GetComponent<AnimationComponent>();
 	if(direction == 1)
@@ -118,7 +127,8 @@ void PeterPepperComp::StartClimbAnim(int direction)
 
 void PeterPepperComp::TryClimb(int direction)
 {
-	if(CanClimbDown() && direction == -1 || CanClimbUp() && direction == 1 && m_LastDir == glm::ivec2{0, direction})
+	if (m_IsDead) return;
+	if(CanClimbDown() && direction == -1 || CanClimbUp() && direction == 1 && m_LastDir == glm::ivec2{0, direction} )
 	{
 		m_HasRecievedInputThisFrame = true;
 		auto pos = m_pGameObject->GetPosition();
@@ -128,7 +138,7 @@ void PeterPepperComp::TryClimb(int direction)
 
 void PeterPepperComp::StartRunAnim(int direction)
 {
-	if (!IsOnFloor()) return;
+	if (!IsOnFloor() || m_IsDead) return;
 	auto anim = m_pGameObject->GetComponent<AnimationComponent>();
 	anim->SetCurrentAnimation("run");
 	auto text = m_pGameObject->GetComponent<dae::TextureComponent>();
@@ -138,7 +148,7 @@ void PeterPepperComp::StartRunAnim(int direction)
 
 void PeterPepperComp::TryRun(int direction)
 {
-	if (!IsOnFloor() || m_LastDir != glm::ivec2{ direction, 0 }) return;
+	if (!IsOnFloor() || m_LastDir != glm::ivec2{ direction, 0 } || m_IsDead) return;
 	m_HasRecievedInputThisFrame = true;
 	if (direction == 1 && !CanMoveRight()) return;
 	if (direction == -1 && !CanMoveLeft()) return;
@@ -150,8 +160,16 @@ void PeterPepperComp::TryRun(int direction)
 void PeterPepperComp::Update()
 {
 	auto anim = m_pGameObject->GetComponent<AnimationComponent>();
-
-	m_HasRecievedInputThisFrame ? anim->ContinueAnimation() : anim->StopAnimation();
+	if(!m_IsDead)
+		m_HasRecievedInputThisFrame ? anim->ContinueAnimation() : anim->StopAnimation();
+	else
+	{
+		m_TimeSincePlayerDied += GlobalTime::GetInstance().GetElapsed();
+		if(m_TimeSincePlayerDied > m_TimeBeforeRespawn)
+		{
+			GameManager::GetInstance().Reset();
+		}
+	}
 	m_HasRecievedInputThisFrame = false;
 	m_IsTouchingLadder = false;
 	m_IsTouchingTopLadder = false;
@@ -193,7 +211,13 @@ void PeterPepperComp::OnCollision(dae::GameObject* other)
 	}
 	if(other->GetComponent<EnemyCollision>())
 	{
-		std::cout << "ded, not big surprise\n";
+		if(!m_IsDead)
+			OnDeath();
 	}
+}
+
+void PeterPepperComp::Reset()
+{
+	m_IsDead = false;
 }
 

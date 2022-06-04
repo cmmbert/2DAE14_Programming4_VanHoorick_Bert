@@ -11,7 +11,7 @@ void PlayerObserver::OnNotify(const dae::GameObject& entity, eEvent event)
 		{
 			std::cout << "observed\n";
 			PeterPepperComp* pepperComp = entity.GetComponent<PeterPepperComp>();
-			if (pepperComp->m_LivesLeft <= 0) { std::cout << "Game Over\n"; }
+			//if (pepperComp->m_LivesLeft <= 0) { std::cout << "Game Over\n"; }
 			break;
 		}
 
