@@ -84,9 +84,6 @@
     <ClCompile Include="SaltComp.cpp">
       <Filter>Source Files\Salt</Filter>
     </ClCompile>
-    <ClCompile Include="VersusButton.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BurgerPiece.h">
@@ -254,23 +251,23 @@
     <ClInclude Include="SelectModeCommand.h">
       <Filter>Source Files\Menu</Filter>
     </ClInclude>
-    <ClInclude Include="SelectModeComp.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SwapModeCommand.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="CoopButton.h">
+      <Filter>Source Files\Menu</Filter>
     </ClInclude>
     <ClInclude Include="ModeButton.h">
-      <Filter>Header Files</Filter>
+      <Filter>Source Files\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="SelectModeComp.h">
+      <Filter>Source Files\Menu</Filter>
     </ClInclude>
     <ClInclude Include="SoloButton.h">
-      <Filter>Header Files</Filter>
+      <Filter>Source Files\Menu</Filter>
     </ClInclude>
-    <ClInclude Include="CoopButton.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="SwapModeCommand.h">
+      <Filter>Source Files\Menu</Filter>
     </ClInclude>
     <ClInclude Include="VersusButton.h">
-      <Filter>Header Files</Filter>
+      <Filter>Source Files\Menu</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -171,7 +171,6 @@
     <ClCompile Include="PeterPepperComp.cpp" />
     <ClCompile Include="PlayerObserver.cpp" />
     <ClCompile Include="SaltComp.cpp" />
-    <ClCompile Include="VersusButton.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BlockComp.h" />
