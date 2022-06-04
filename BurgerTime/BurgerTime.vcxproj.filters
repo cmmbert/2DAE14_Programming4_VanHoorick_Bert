@@ -269,5 +269,8 @@
     <ClInclude Include="VersusButton.h">
       <Filter>Source Files\Menu</Filter>
     </ClInclude>
+    <ClInclude Include="EnemyCollision.h">
+      <Filter>Source Files\Enemies</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

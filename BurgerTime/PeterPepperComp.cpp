@@ -10,6 +10,7 @@
 
 #include "BlockComp.h"
 #include "BoxColliderComp.h"
+#include "EnemyCollision.h"
 #include "LadderComp.h"
 #include "LadderTop.h"
 #include "SaltComp.h"
@@ -189,6 +190,10 @@ void PeterPepperComp::OnCollision(dae::GameObject* other)
 			m_IsTouchingRightBlock = true;
 		if(block->IsBlockingDirection(Direction::Left))
 			m_IsTouchingLeftBlock = true;
+	}
+	if(other->GetComponent<EnemyCollision>())
+	{
+		std::cout << "ded, not big surprise\n";
 	}
 }
 

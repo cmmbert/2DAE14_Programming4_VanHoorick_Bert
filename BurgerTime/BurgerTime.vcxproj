@@ -179,6 +179,7 @@
     <ClInclude Include="BurgerShardComp.h" />
     <ClInclude Include="BurgerTray.h" />
     <ClInclude Include="CoopButton.h" />
+    <ClInclude Include="EnemyCollision.h" />
     <ClInclude Include="SelectModeCommand.h" />
     <ClInclude Include="EnemyComponent.h" />
     <ClInclude Include="FloorComp.h" />
