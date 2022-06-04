@@ -60,6 +60,12 @@ void dae::GameObject::SetPosition(float x, float y)
 	SetPosition({ x,y,m_Transform.GetPosition().z });
 }
 
+void GameObject::SetPosition(int x, int y)
+{
+	SetPosition(static_cast<float>(x), static_cast<float>(y));
+
+}
+
 void GameObject::SetPosition(glm::vec2 vec)
 {
 	SetPosition(vec.x, vec.y);

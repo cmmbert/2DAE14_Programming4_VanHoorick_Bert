@@ -18,13 +18,13 @@ void CollisionManager::Update()
 {
 	for (auto& tag : m_Tags)
 	{
-		for (int i = 0; i < tag.second.size(); ++i)
+		for (size_t i = 0; i < tag.second.size(); ++i)
 		{
 			auto coll = tag.second[i];
-			for (int j = 0; j < tag.second.size(); ++j)
+			for (size_t j = 0; j < tag.second.size(); ++j)
 			{
 				bool valid = true;
-				for (int d = 0; d < m_DeletedTags[tag.first].size(); ++d)
+				for (size_t d = 0; d < m_DeletedTags[tag.first].size(); ++d)
 				{
 					if (m_DeletedTags[tag.first][d] == j) valid = false;
 					if (m_DeletedTags[tag.first][d] == i) valid = false;

@@ -19,7 +19,7 @@ public:
 		case eEvent::PepperDied:
 		{
 			std::cout << "observed\n";
-			PeterPepperComp* pepperComp = entity.GetComponent<PeterPepperComp>();
+			//PeterPepperComp* pepperComp = entity.GetComponent<PeterPepperComp>();
 			//SetText(m_Prefix + std::to_string(pepperComp->m_LivesLeft));
 			break;
 		}

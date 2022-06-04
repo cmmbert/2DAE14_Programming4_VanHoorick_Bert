@@ -1,5 +1,4 @@
 #include "MiniginPCH.h"
-#define _DEBUGRENDERING 1 //1 for debug collision boxes etc
 
 #if _DEBUG
 // ReSharper disable once CppUnusedIncludeDirective
@@ -83,7 +82,7 @@ int main(int, char* []) {
 	left->SetSize(1, 1000);
 	scene.Add(left);
 	auto right = LevelGen::GenerateBlockingField(Direction::Right);
-	right->SetPosition(static_cast<float>(dae::Renderer::GetInstance().ScreenSize().x), 0);
+	right->SetPosition(dae::Renderer::GetInstance().ScreenSize().x, 0);
 	right->SetSize(1, 1000);
 	scene.Add(right);
 	

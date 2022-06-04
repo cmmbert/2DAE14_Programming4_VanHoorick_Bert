@@ -541,11 +541,11 @@ void LevelGen::ReadLevelFromFile(const std::string& filePath, dae::Scene& scene)
 	const Value& hotdogs = enemies["hotdogs"];
 	for (SizeType i = 0; i < hotdogs.Size(); ++i)
 	{
-		auto x = hotdogs[i]["x"].GetInt();
-		auto y = hotdogs[i]["y"].GetInt();
+		x = hotdogs[i]["x"].GetInt();
+		y = hotdogs[i]["y"].GetInt();
 		glm::ivec2 pos = { x * LevelSettings::Scale, y * LevelSettings::Scale };
 
-		auto target = pepper;
+		auto& target = pepper;
 		if(LevelSettings::GameMode == GameMode::Coop) target = i % 2 ? pepper : msSalt;
 		auto hotdog = GenerateHotdog(pos, target);
 		scene.Add(hotdog);
@@ -555,10 +555,10 @@ void LevelGen::ReadLevelFromFile(const std::string& filePath, dae::Scene& scene)
 	const Value& eggs = enemies["eggs"];
 	for (SizeType i = 0; i < eggs.Size(); ++i)
 	{
-		auto x = eggs[i]["x"].GetInt();
-		auto y = eggs[i]["y"].GetInt();
+		x = eggs[i]["x"].GetInt();
+		y = eggs[i]["y"].GetInt();
 		glm::ivec2 pos = { x * LevelSettings::Scale, y * LevelSettings::Scale };
-		auto target = pepper;
+		auto& target = pepper;
 		if (LevelSettings::GameMode == GameMode::Coop) target = i % 2 ? pepper : msSalt;
 		auto egg = GenerateEgg(pos, target);
 		scene.Add(egg);
@@ -568,10 +568,10 @@ void LevelGen::ReadLevelFromFile(const std::string& filePath, dae::Scene& scene)
 	const Value& pickles = enemies["pickles"];
 	for (SizeType i = 0; i < pickles.Size(); ++i)
 	{
-		auto x = pickles[i]["x"].GetInt();
-		auto y = pickles[i]["y"].GetInt();
+		x = pickles[i]["x"].GetInt();
+		y = pickles[i]["y"].GetInt();
 		glm::ivec2 pos = { x * LevelSettings::Scale, y * LevelSettings::Scale };
-		auto target = pepper;
+		auto& target = pepper;
 		if (LevelSettings::GameMode == GameMode::Coop) target = i % 2 ? pepper : msSalt;
 		auto pickle = GeneratePickle(pos, target);
 		scene.Add(pickle);
@@ -582,8 +582,8 @@ void LevelGen::ReadLevelFromFile(const std::string& filePath, dae::Scene& scene)
 	const Value& trays = d["trays"];
 	for (SizeType i = 0; i < trays.Size(); ++i)
 	{
-		auto x = trays[i]["x"].GetInt();
-		auto y = trays[i]["y"].GetInt();
+		x = trays[i]["x"].GetInt();
+		y = trays[i]["y"].GetInt();
 		glm::ivec2 pos = { x * LevelSettings::Scale, y * LevelSettings::Scale };
 
 		auto piecesNeeded = trays[i]["piecesNeeded"].GetInt();

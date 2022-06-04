@@ -9,7 +9,7 @@ class CollisionManager : public dae::Singleton<CollisionManager>
 private:
 	bool m_IsDestructed{};
 	std::map<std::string, std::vector<Collider*>> m_Tags{};
-	std::map<std::string, std::vector<int>> m_DeletedTags{};
+	std::map<std::string, std::vector<size_t>> m_DeletedTags{};
 public:
 	void RegisterCollider(Collider* collider);
 	void UnregisterCollider(Collider* collider);

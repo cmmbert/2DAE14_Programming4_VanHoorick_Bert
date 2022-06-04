@@ -13,7 +13,7 @@ LadderComp::LadderComp(dae::GameObject* gameObject, dae::Scene& sceneRef): BaseC
 void LadderComp::RecalculateSize()
 {
 	m_NrOfSteps = m_pGameObject->GetTransform().GetSize().y / m_StepSize.y;
-	for (auto child : m_pGameObject->GetChildren())
+	for (auto& child : m_pGameObject->GetChildren())
 	{
 		m_SceneRef.Destroy(child);
 	}
@@ -31,7 +31,7 @@ void LadderComp::RecalculateSize()
 	auto top = std::make_shared<dae::GameObject>();
 
 	top->SetParent(m_pGameObject);
-	top->SetPosition(0, (float)(m_NrOfSteps * m_StepSize.y));
+	top->SetPosition(0, m_NrOfSteps * m_StepSize.y);
 	top->SetSize(m_StepSize.x, m_StepSize.y);
 
 #if _DEBUGRENDERING

@@ -23,7 +23,7 @@ void Scene::Destroy(const std::shared_ptr<SceneObject>& object)
 
 void Scene::Destroy(SceneObject* object)
 {
-	for (int i = 0; i < m_Objects.size(); ++i)
+	for (size_t i = 0; i < m_Objects.size(); ++i)
 	{
 		if (m_Objects[i].get() == object)
 		{

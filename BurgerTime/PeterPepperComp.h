@@ -24,7 +24,7 @@ private:
 
 	bool m_HasRecievedInputThisFrame{ };
 
-	int m_CurrentLadderXPos{};
+	float m_CurrentLadderXPos{};
 	std::shared_ptr<dae::GameObject> m_SaltGo;
 	int m_LivesLeft{ 3 };
 	bool m_IsDead{};

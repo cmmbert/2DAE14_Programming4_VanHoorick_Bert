@@ -17,7 +17,7 @@ void GameManager::RegisterPlayer(std::shared_ptr<dae::GameObject> go, glm::ivec2
 void GameManager::Reset()
 {
 	EnemyManager::GetInstance().ResetAllEnemies();
-	for (int i = 0; i < m_Players.size(); ++i)
+	for (size_t i = 0; i < m_Players.size(); ++i)
 	{
 		m_Players[i]->SetPosition(m_Spawnpoints[i]);
 		if(auto pepComp = m_Players[i]->GetComponent<PeterPepperComp>())
@@ -46,13 +46,13 @@ void GameManager::GameOver()
 	auto middle = dae::Renderer::GetInstance().ScreenSize()/2;
 	auto scale = glm::ivec2{ 480, 336 };
 	gameOver->SetSize(scale.x, scale.y);
-	gameOver->SetPosition(middle.x - scale.x/2, middle.y-scale.y/2);
+	gameOver->SetPosition({ middle.x - scale.x / 2, middle.y - scale.y / 2 });
 	scene.Add(gameOver);
 
 	auto pepper = std::make_shared<dae::GameObject>();
 	scale = glm::ivec2{ 48 * LevelSettings::Scale, 48 * LevelSettings::Scale };
 	pepper->SetSize(scale.x, scale.y);
-	pepper->SetPosition(middle.x - scale.x / 2, middle.y + scale.y / 2);
+	pepper->SetPosition({ middle.x - scale.x / 2, middle.y + scale.y / 2 });
 
 	texture = std::make_shared<dae::TextureComponent>(pepper.get(), "Burgertime/spritesheet.png", glm::vec4{ 112,16,16,16 });
 	pepper->AddComponent(texture);

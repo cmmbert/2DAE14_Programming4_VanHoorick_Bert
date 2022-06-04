@@ -29,6 +29,7 @@ namespace dae
 
 		glm::vec3 GetWorldPosition();
 		void SetPosition(float x, float y);
+		void SetPosition(int x, int y);
 		void SetPosition(glm::vec2 vec);
 		void SetPosition(glm::vec3 vec);
 		glm::vec3 GetPosition() const { return m_Transform.GetPosition(); }

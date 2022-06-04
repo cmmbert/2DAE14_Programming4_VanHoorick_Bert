@@ -40,7 +40,7 @@ void dae::TextComponent::Render() const
 	}
 }
 
-// This implementation uses the "dirty flag" pattern
+
 void dae::TextComponent::SetText(const std::string& text)
 {
 	m_Text = text;

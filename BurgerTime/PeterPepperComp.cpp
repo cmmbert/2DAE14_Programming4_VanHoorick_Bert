@@ -96,8 +96,8 @@ void PeterPepperComp::ThrowSalt()
 
 	auto posOffset = glm::ivec2{ 16 * LevelSettings::Scale,16 * LevelSettings::Scale };
 	posOffset *= m_LastDir;
-	posOffset.x += m_pGameObject->GetPosition().x;
-	posOffset.y += m_pGameObject->GetPosition().y;
+	posOffset.x += static_cast<int>(m_pGameObject->GetPosition().x);
+	posOffset.y += static_cast<int>(m_pGameObject->GetPosition().y);
 	m_SaltGo->SetPosition(posOffset);
 	if(m_LastDir == glm::ivec2{ -1,0 })
 	{

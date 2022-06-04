@@ -24,7 +24,7 @@ dae::Scene& dae::SceneManager::GetCurrentScene()
 {
 	auto it = std::find_if(m_Scenes.begin(), m_Scenes.end(), [](const std::shared_ptr<Scene>& scene) { return scene->m_IsActive == true; });
 	
-	__int64 idx = std::distance(m_Scenes.begin(), it);
+	size_t idx = std::distance(m_Scenes.begin(), it);
 	return *m_Scenes[idx];
 }
 
@@ -33,7 +33,7 @@ void dae::SceneManager::SetActiveScene(const std::string& name, bool newState)
 	auto it = std::find_if(m_Scenes.begin(), m_Scenes.end(), [&name](const std::shared_ptr<Scene>& scene) { return scene->GetName() == name; });
 	if(it != m_Scenes.end())
 	{
-		__int64 idx = std::distance(m_Scenes.begin(), it);
+		size_t idx = std::distance(m_Scenes.begin(), it);
 		m_Scenes[idx]->m_IsActive = newState;
 	}
 }
@@ -43,7 +43,7 @@ dae::Scene& dae::SceneManager::GetScene(const std::string& name)
 	auto it = std::find_if(m_Scenes.begin(), m_Scenes.end(), [&name](const std::shared_ptr<Scene>& scene) { return scene->GetName() == name; });
 	if (it != m_Scenes.end())
 	{
-		__int64 idx = std::distance(m_Scenes.begin(), it);
+		size_t idx = std::distance(m_Scenes.begin(), it);
 		return *m_Scenes[idx];
 	}
 	return GetInstance().CreateScene(name);

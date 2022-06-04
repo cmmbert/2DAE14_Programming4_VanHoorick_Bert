@@ -22,7 +22,7 @@ public:
 	{
 		m_SelectedOption += direction;
 		m_SelectedOption %= m_NrOfOptions;
-		for (int i = 0; i < m_NrOfOptions; ++i)
+		for (size_t i = 0; i < m_NrOfOptions; ++i)
 		{
 			m_ModeButtons[i]->SetActive(i == m_SelectedOption);
 		}

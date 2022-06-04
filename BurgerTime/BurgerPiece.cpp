@@ -38,7 +38,7 @@ void BurgerPiece::GenerateShards(glm::ivec2 texSrc, dae::Scene& sceneRef)
 void BurgerPiece::OnSteppedOn(int shardIdx)
 {
 	bool allPieces{true};
-	for (auto shard : m_pShards)
+	for (auto& shard : m_pShards)
 	{
 		if (!shard->m_SteppedOn)
 			allPieces = false;
@@ -74,9 +74,9 @@ void BurgerPiece::FallDown()
 	if (m_IsFalling) return;
 	auto pos = m_pGameObject->GetPosition();
 	m_pGameObject->SetPosition(pos.x, pos.y - 20);
-	m_LastHeight = m_pGameObject->GetPosition().y;
+	m_LastHeight = static_cast<int>(m_pGameObject->GetPosition().y);
 	m_IsFalling = true;
-	for (auto shard : m_pShards)
+	for (auto& shard : m_pShards)
 	{
 		shard->Reset();
 	}
