@@ -381,25 +381,33 @@ void LevelGen::ReadLevelFromFile(const std::string& filePath, dae::Scene& scene)
 	auto pepper = GeneratePeter(peterpos, usesKeyboard);
 	scene.Add(pepper);
 	
-
+	//mrs salt
 	auto msSalt = std::make_shared<dae::GameObject>();
-	bool msSaltExists = d.HasMember("mrssalt");
-	if(msSaltExists)
+	if(LevelSettings::GameMode == GameMode::Coop)
 	{
-		const Value& salt = d["mrssalt"];
-		x = salt["x"].GetInt();
-		y = salt["y"].GetInt();
-		glm::ivec2 pos = { x * LevelSettings::Scale, y * LevelSettings::Scale };
+		bool msSaltExists = d.HasMember("mrssalt");
+		if(msSaltExists)
+		{
+			const Value& salt = d["mrssalt"];
+			x = salt["x"].GetInt();
+			y = salt["y"].GetInt();
+			glm::ivec2 pos = { x * LevelSettings::Scale, y * LevelSettings::Scale };
 
-		usesKeyboard = salt["keyboard"].GetBool();
-		msSalt = GeneratePeter(pos, usesKeyboard);
-		scene.Add(msSalt);
+			usesKeyboard = salt["keyboard"].GetBool();
+			msSalt = GeneratePeter(pos, usesKeyboard);
+			scene.Add(msSalt);
+		}
+		else
+		{
+			std::cout << "No ms salt found in level file.\n";
+		}
 	}
 	
 
-
+	//Enemies
 	const Value& enemies = d["enemies"];
 
+	//Hotdogs
 	const Value& hotdogs = enemies["hotdogs"];
 	for (SizeType i = 0; i < hotdogs.Size(); ++i)
 	{
@@ -408,11 +416,12 @@ void LevelGen::ReadLevelFromFile(const std::string& filePath, dae::Scene& scene)
 		glm::ivec2 pos = { x * LevelSettings::Scale, y * LevelSettings::Scale };
 
 		auto target = pepper;
-		if(msSaltExists) target = i % 2 ? pepper : msSalt;
+		if(LevelSettings::GameMode == GameMode::Coop) target = i % 2 ? pepper : msSalt;
 		auto hotdog = GenerateHotdog(pos, target);
 		scene.Add(hotdog);
 	}
-	
+
+	//Eggs
 	const Value& eggs = enemies["eggs"];
 	for (SizeType i = 0; i < eggs.Size(); ++i)
 	{
@@ -425,7 +434,7 @@ void LevelGen::ReadLevelFromFile(const std::string& filePath, dae::Scene& scene)
 	}
 
 
-
+	//Burgertrays
 	const Value& trays = d["trays"];
 	for (SizeType i = 0; i < trays.Size(); ++i)
 	{
