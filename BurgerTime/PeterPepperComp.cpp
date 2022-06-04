@@ -67,7 +67,6 @@ PeterPepperComp::PeterPepperComp(dae::GameObject* gameObject) : BaseComponent(ga
 void PeterPepperComp::OnDeath()
 {
 	m_IsDead = true;
-	std::cout << "PlayerDied, lives left: " << m_LivesLeft << "\n";
 	NotifyAllObservers(*m_pGameObject, eEvent::PepperDied);
 	GameManager::GetInstance().PlayerDied();
 	auto anim = m_pGameObject->GetComponent<AnimationComponent>();
@@ -246,5 +245,7 @@ void PeterPepperComp::Reset()
 	m_IsDead = false;
 	auto anim = m_pGameObject->GetComponent<AnimationComponent>();
 	anim->SetAnimationSpeed(0.08f);
+	std::cout << "Lives left: " << m_LivesLeft << "\n";
+
 }
 

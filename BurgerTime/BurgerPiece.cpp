@@ -75,7 +75,6 @@ void BurgerPiece::FallDown()
 	auto pos = m_pGameObject->GetPosition();
 	m_pGameObject->SetPosition(pos.x, pos.y - 20);
 	m_LastHeight = m_pGameObject->GetPosition().y;
-	std::cout << m_LastHeight << "\n";
 	m_IsFalling = true;
 	for (auto shard : m_pShards)
 	{

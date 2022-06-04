@@ -76,7 +76,6 @@ void EnemyComponent::ChangeDirection(glm::ivec2 newDir)
 	}
 		
 	m_CurrentChaseDir = newDir;
-	std::cout << m_CurrentChaseDir.x << ";" << m_CurrentChaseDir.y << "\n";
 	m_TimeSinceLastDirChange = 0;
 }
 
@@ -140,7 +139,6 @@ bool EnemyComponent::IsOnFloor()
 	{
 		if (abs(levelHeight - m_pGameObject->GetWorldPosition().y) <= deviation)
 		{
-			//m_pGameObject->SetPosition(m_pGameObject->GetPosition().x, levelHeight);
 			return true;
 		}
 	}
