@@ -2,6 +2,7 @@
 #include <BaseComponent.h>
 #include <vector>
 
+#include "LevelSettings.h"
 #include "ModeButton.h"
 #include "ServiceLocator.h"
 
@@ -32,9 +33,10 @@ public:
 	{
 		m_ModeButtons[m_SelectedOption]->SetMode();
 		dae::SceneManager::GetInstance().SetActiveScene("Menu", false);
-		LevelGen::ReadLevelFromFile("BurgerTime/level2.json", dae::SceneManager::GetInstance().GetScene("Level1"));
+		std::string lvlPath = "BurgerTime/level" + std::to_string(LevelSettings::CurrentLevel) + ".json";
+		LevelGen::ReadLevelFromFile(lvlPath, dae::SceneManager::GetInstance().GetScene("Level" + std::to_string(LevelSettings::CurrentLevel)));
 		ServiceLocator::GetAudioService()->PlaySound(2, 0.5f);
-		dae::SceneManager::GetInstance().SetActiveScene("Level1");
+		dae::SceneManager::GetInstance().SetActiveScene("Level" + std::to_string(LevelSettings::CurrentLevel));
 	}
 };
 

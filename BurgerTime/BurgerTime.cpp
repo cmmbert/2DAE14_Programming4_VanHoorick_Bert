@@ -82,7 +82,7 @@ int main(int, char* []) {
 	input.AddOrChangeCommand(eKeyboardButton::Down, std::make_shared<SwapModeCommand>(select.get(), 1));
 	input.AddOrChangeCommand(eKeyboardButton::Up, std::make_shared<SwapModeCommand>(select.get(), -1));
 
-	auto& scene = dae::SceneManager::GetInstance().CreateScene("Level1");
+	auto& scene = dae::SceneManager::GetInstance().CreateScene("Level" + std::to_string(LevelSettings::CurrentLevel));
 	scene.m_IsActive = false;
 	auto left = LevelGen::GenerateBlockingField(Direction::Left);
 	left->SetPosition(0, 0);
@@ -95,7 +95,7 @@ int main(int, char* []) {
 	
 
 
-	dae::SceneManager::GetInstance().SetActiveScene("Level1");
+	dae::SceneManager::GetInstance().SetActiveScene("Level" + std::to_string(LevelSettings::CurrentLevel));
 
 	engine.Run();
 	return 0;
