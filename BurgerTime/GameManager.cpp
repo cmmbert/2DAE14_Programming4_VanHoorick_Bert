@@ -3,6 +3,7 @@
 #include "AnimationComponent.h"
 #include "EnemyManager.h"
 #include "GameObject.h"
+#include "LevelGen.h"
 #include "Renderer.h"
 #include "Scene.h"
 #include "SceneManager.h"
@@ -68,9 +69,22 @@ void GameManager::GameOver()
 
 void GameManager::NextLevel()
 {
+	if (LevelSettings::CurrentLevel == 3)return;
+	dae::SceneManager::GetInstance().SetActiveScene("Level" + std::to_string(LevelSettings::CurrentLevel), false);
 	++LevelSettings::CurrentLevel;
-	if (LevelSettings::CurrentLevel == 4)return;
+	std::string lvlPath = "BurgerTime/level" + std::to_string(LevelSettings::CurrentLevel) + ".json";
+	auto& scene = dae::SceneManager::GetInstance().CreateScene("Level" + std::to_string(LevelSettings::CurrentLevel));
+	LevelGen::ReadLevelFromFile(lvlPath, scene);
+	dae::SceneManager::GetInstance().SetActiveScene("Level" + std::to_string(LevelSettings::CurrentLevel));
+}
 
+void GameManager::BurgerCompleted()
+{
+	++m_BurgersCompleted;
+	if(m_BurgersCompleted == 4)
+	{
+		NextLevel();
+	}
 }
 
 

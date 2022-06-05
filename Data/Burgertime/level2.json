@@ -526,30 +526,16 @@
   "mrssalt": {
     "x": 96,
     "y": 188,
-    "keyboard": true
+    "keyboard": false
   },
 
   "enemies": {
     "hotdogs": [
-      {
-        "x": -10,
-        "y": 126
-      },
-      {
-        "x": -10,
-        "y": 190
-      },
-      {
-        "x": 200,
-        "y": 190
-      }
+      
 
     ],
     "eggs": [
-      {
-        "x": 200,
-        "y": 126
-      }
+      
     ],
     "pickles": [
     ]

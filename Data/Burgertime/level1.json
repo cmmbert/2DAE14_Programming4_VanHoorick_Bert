@@ -508,32 +508,20 @@
   "peter": {
     "x": 96,
     "y": 44,
-    "keyboard": false
+    "keyboard": true
   },
   "mrssalt": {
     "x": 96,
     "y": 188,
-    "keyboard": true
+    "keyboard": false
   },
 
   "enemies": {
     "hotdogs": [
-      {
-        "x": -10,
-        "y": 44
-      }
     ],
     "eggs": [
-      {
-        "x": 192,
-        "y": 44
-      }
     ],
     "pickles": [
-      {
-        "x": 200,
-        "y": 156
-      }
     ]
   },
   "trays": [
