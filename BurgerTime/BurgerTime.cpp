@@ -74,6 +74,12 @@ int main(int, char* []) {
 	input.AddOrChangeCommand(eControllerButton::ButtonA, std::make_shared<SelectModeCommand>(select.get()));
 	input.AddOrChangeCommand(eControllerButton::DpadDown, std::make_shared<SwapModeCommand>(select.get(), 1));
 	input.AddOrChangeCommand(eControllerButton::DpadUp, std::make_shared<SwapModeCommand>(select.get(), -1));
+	input.AddOrChangeCommand(eKeyboardButton::Enter , std::make_shared<SelectModeCommand>(select.get()));
+	input.AddOrChangeCommand(eKeyboardButton::S , std::make_shared<SwapModeCommand>(select.get(), 1));
+	input.AddOrChangeCommand(eKeyboardButton::W  ,std::make_shared<SwapModeCommand>(select.get(), -1));
+	input.AddOrChangeCommand(eKeyboardButton::Z  ,std::make_shared<SwapModeCommand>(select.get(), -1));
+	input.AddOrChangeCommand(eKeyboardButton::Down, std::make_shared<SwapModeCommand>(select.get(), 1));
+	input.AddOrChangeCommand(eKeyboardButton::Up, std::make_shared<SwapModeCommand>(select.get(), -1));
 
 	auto& scene = dae::SceneManager::GetInstance().CreateScene("Level1");
 	scene.m_IsActive = false;

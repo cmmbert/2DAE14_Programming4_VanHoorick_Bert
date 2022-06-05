@@ -25,7 +25,15 @@ enum class eKeyboardButton
 {
 	Shift = 0x10,
 	Control = 0x11,
+	Enter = 0x0D,
 
+	Up = 0x26,
+	Right = 0x27,
+	Down = 0x28,
+	Left = 0x25,
+
+
+	//https://docs.microsoft.com/en-us/windows/win32/inputdev/virtual-key-codes
 	A = 0x41,
 	B = 0x42,
 	C = 0x43,
