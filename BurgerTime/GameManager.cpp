@@ -66,4 +66,11 @@ void GameManager::GameOver()
 
 }
 
+void GameManager::NextLevel()
+{
+	++LevelSettings::CurrentLevel;
+	if (LevelSettings::CurrentLevel == 4)return;
+
+}
+
 

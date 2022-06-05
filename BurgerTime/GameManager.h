@@ -15,5 +15,6 @@ public:
 	void Reset();
 	void PlayerDied();
 	void GameOver();
+	void NextLevel();
 };
 
