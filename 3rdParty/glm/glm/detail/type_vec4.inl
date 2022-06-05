@@ -1,5 +1,6 @@
 /// @ref core
 /// @file glm/detail/type_tvec4.inl
+#pragma warning(disable:26495)
 
 namespace glm{
 namespace detail
