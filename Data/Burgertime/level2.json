@@ -1,0 +1,485 @@
+{
+  "floors": [
+    {
+      "type": "light",
+      "x": 96,
+      "y": 27
+    },
+    {
+      "type": "light",
+      "x": 48,
+      "y": 59
+    },
+    {
+      "type": "dark",
+      "x": 64,
+      "y": 59
+    },
+    {
+      "type": "light",
+      "x": 96,
+      "y": 59
+    },
+    {
+      "type": "dark",
+      "x": 112,
+      "y": 59
+    },
+    {
+      "type": "light",
+      "x": 144,
+      "y": 59
+    },
+    {
+      "type": "light",
+      "x": 96,
+      "y": 75
+    },
+    {
+      "type": "dark",
+      "x": 112,
+      "y": 75
+    },
+    {
+      "type": "light",
+      "x": 144,
+      "y": 75
+    },
+    {
+      "type": "light",
+      "x": 48,
+      "y": 91
+    },
+    {
+      "type": "dark",
+      "x": 64,
+      "y": 91
+    },
+    {
+      "type": "light",
+      "x": 96,
+      "y": 91
+    },
+    {
+      "type": "light",
+      "x": 96,
+      "y": 107
+    },
+    {
+      "type": "dark",
+      "x": 112,
+      "y": 107
+    },
+    {
+      "type": "light",
+      "x": 144,
+      "y": 107
+    },
+    {
+      "type": "light",
+      "x": 0,
+      "y": 123
+    },
+    {
+      "type": "dark",
+      "x": 16,
+      "y": 123
+    },
+    {
+      "type": "light",
+      "x": 48,
+      "y": 123
+    },
+    {
+      "type": "dark",
+      "x": 64,
+      "y": 123
+    },
+    {
+      "type": "light",
+      "x": 96,
+      "y": 123
+    },
+    {
+      "type": "dark",
+      "x": 112,
+      "y": 123
+    },
+    {
+      "type": "light",
+      "x": 144,
+      "y": 123
+    },
+    {
+      "type": "dark",
+      "x": 160,
+      "y": 123
+    },
+    {
+      "type": "light",
+      "x": 192,
+      "y": 123
+    },
+    {
+      "type": "light",
+      "x": 48,
+      "y": 139
+    },
+    {
+      "type": "dark",
+      "x": 64,
+      "y": 139
+    },
+    {
+      "type": "light",
+      "x": 96,
+      "y": 139
+    },
+    {
+      "type": "light",
+      "x": 144,
+      "y": 139
+    },
+    {
+      "type": "dark",
+      "x": 160,
+      "y": 139
+    },
+    {
+      "type": "light",
+      "x": 192,
+      "y": 139
+    },
+    {
+      "type": "light",
+      "x": 0,
+      "y": 155
+    },
+    {
+      "type": "dark",
+      "x": 16,
+      "y": 155
+    },
+    {
+      "type": "light",
+      "x": 48,
+      "y": 155
+    },
+    {
+      "type": "light",
+      "x": 96,
+      "y": 155
+    },
+    {
+      "type": "dark",
+      "x": 112,
+      "y": 155
+    },
+    {
+      "type": "light",
+      "x": 144,
+      "y": 155
+    },
+    {
+      "type": "dark",
+      "x": 160,
+      "y": 155
+    },
+    {
+      "type": "light",
+      "x": 192,
+      "y": 155
+    },
+    {
+      "type": "light",
+      "x": 0,
+      "y": 171
+    },
+    {
+      "type": "dark",
+      "x": 16,
+      "y": 171
+    },
+    {
+      "type": "light",
+      "x": 48,
+      "y": 171
+    },
+    {
+      "type": "dark",
+      "x": 64,
+      "y": 171
+    },
+    {
+      "type": "light",
+      "x": 96,
+      "y": 171
+    },
+    {
+      "type": "light",
+      "x": 0,
+      "y": 187
+    },
+    {
+      "type": "dark",
+      "x": 16,
+      "y": 187
+    },
+    {
+      "type": "light",
+      "x": 48,
+      "y": 187
+    },
+    {
+      "type": "dark",
+      "x": 64,
+      "y": 187
+    },
+    {
+      "type": "light",
+      "x": 96,
+      "y": 187
+    },
+    {
+      "type": "dark",
+      "x": 112,
+      "y": 187
+    },
+    {
+      "type": "light",
+      "x": 144,
+      "y": 187
+    },
+    {
+      "type": "dark",
+      "x": 160,
+      "y": 187
+    },
+    {
+      "type": "light",
+      "x": 192,
+      "y": 187
+    }
+
+
+
+
+
+
+  ],
+  "ladders": [
+    {
+      "x": 0,
+      "y": 124,
+      "height": 64
+    },
+    {
+      "x": 24,
+      "y": 124,
+      "height": 64
+    },
+    {
+      "x": 48,
+      "y": 124,
+      "height": 64
+    },
+    {
+      "x": 96,
+      "y": 28,
+      "height": 160
+    },
+    {
+      "x": 72,
+      "y": 60,
+      "height": 128
+    },
+    {
+      "x": 120,
+      "y": 60,
+      "height": 128
+    },
+    {
+      "x": 144,
+      "y": 124,
+      "height": 64
+    },
+    {
+      "x": 168,
+      "y": 124,
+      "height": 64
+    },
+    {
+      "x": 192,
+      "y": 124,
+      "height": 64
+    }
+  ],
+  "burgers": [
+    {
+      "x": 16,
+      "y": 187,
+      "texturex": 112,
+      "texturey": 49
+    },
+    {
+      "x": 16,
+      "y": 171,
+      "texturex": 112,
+      "texturey": 89
+    },
+    {
+      "x": 16,
+      "y": 154,
+      "texturex": 112,
+      "texturey": 65
+    },
+    {
+      "x": 16,
+      "y": 123,
+      "texturex": 112,
+      "texturey": 57
+    },
+    {
+      "x": 64,
+      "y": 187,
+      "texturex": 112,
+      "texturey": 49
+    },
+    {
+      "x": 64,
+      "y": 170,
+      "texturex": 112,
+      "texturey": 65
+    },
+    {
+      "x": 64,
+      "y": 139,
+      "texturex": 112,
+      "texturey": 89
+    },
+    {
+      "x": 64,
+      "y": 59,
+      "texturex": 112,
+      "texturey": 57
+    },
+    {
+      "x": 112,
+      "y": 187,
+      "texturex": 112,
+      "texturey": 49
+    },
+    {
+      "x": 112,
+      "y": 106,
+      "texturex": 112,
+      "texturey": 65
+    },
+    {
+      "x": 112,
+      "y": 75,
+      "texturex": 112,
+      "texturey": 89
+    },
+    {
+      "x": 112,
+      "y": 59,
+      "texturex": 112,
+      "texturey": 57
+    },
+    {
+      "x": 160,
+      "y": 187,
+      "texturex": 112,
+      "texturey": 49
+    },
+    {
+      "x": 160,
+      "y": 155,
+      "texturex": 112,
+      "texturey": 89
+    },
+    {
+      "x": 160,
+      "y": 138,
+      "texturex": 112,
+      "texturey": 65
+    },
+    {
+      "x": 160,
+      "y": 123,
+      "texturex": 112,
+      "texturey": 57
+    }
+
+
+  ],
+
+  "blockings": [
+    {
+      "x": 65,
+      "y": 125,
+      "w": 1,
+      "h": 8,
+      "dir": 32768
+    }
+  ],
+
+  "peter": {
+    "x": 150,
+    "y": 126,
+    "keyboard": false
+  },
+  "mrssalt": {
+    "x": 96,
+    "y": 188,
+    "keyboard": true
+  },
+
+  "enemies": {
+    "hotdogs": [
+      {
+        "x": -10,
+        "y": 126
+      },
+      {
+        "x": -10,
+        "y": 188
+      },
+      {
+        "x": 208,
+        "y": 188
+      }
+    ],
+    "eggs": [
+      {
+        "x": 208,
+        "y": 123
+      }
+    ],
+    "pickles": [
+    ]
+  },
+  "trays": [
+    {
+      "x": 13,
+      "y": 5,
+      "piecesNeeded": 4
+    },
+    {
+      "x": 61,
+      "y": 5,
+      "piecesNeeded": 4
+    },
+    {
+      "x": 109,
+      "y": 5,
+      "piecesNeeded": 4
+    },
+    {
+      "x": 157,
+      "y": 5,
+      "piecesNeeded": 4
+    }
+  ]
+}

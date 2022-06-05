@@ -15,11 +15,8 @@ public:
 
 	void SetMode() override
 	{
-		dae::SceneManager::GetInstance().SetActiveScene("Menu", false);
 		LevelSettings::GameMode = GameMode::Solo;
-		LevelGen::ReadLevelFromFile("BurgerTime/level.json", dae::SceneManager::GetInstance().GetScene("Level1"));
-
-		dae::SceneManager::GetInstance().SetActiveScene("Level1");
+		
 
 	}
 };

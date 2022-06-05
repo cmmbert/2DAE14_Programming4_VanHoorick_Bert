@@ -3,6 +3,7 @@
 #include <vector>
 
 #include "ModeButton.h"
+#include "ServiceLocator.h"
 
 class SelectModeComp final :
     public dae::BaseComponent
@@ -30,6 +31,10 @@ public:
 	void SelectCurrentMode()
 	{
 		m_ModeButtons[m_SelectedOption]->SetMode();
+		dae::SceneManager::GetInstance().SetActiveScene("Menu", false);
+		LevelGen::ReadLevelFromFile("BurgerTime/level2.json", dae::SceneManager::GetInstance().GetScene("Level1"));
+		ServiceLocator::GetAudioService()->PlaySound(2, 0.5f);
+		dae::SceneManager::GetInstance().SetActiveScene("Level1");
 	}
 };
 

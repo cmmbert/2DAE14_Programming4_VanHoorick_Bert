@@ -1,5 +1,7 @@
 #include "MiniginPCH.h"
 #include "SDLMixerAudioService.h"
+
+#include "ResourceManager.h"
 #include "SDL_mixer.h"
 
 void SDLMixerAudioService::PlaySound(int soundID, float volume)
@@ -46,8 +48,8 @@ void SDLMixerAudioService::ActuallyPlaySound(Sound sound)
 {
 	std::string output = "Play sound with ID: " + std::to_string(sound.id) + "\n";
 	std::cout << output;
-
-	auto sample = Mix_LoadWAV(("../Data/Sounds/" + std::to_string(sound.id) + ".wav").c_str());
+	auto path = dae::ResourceManager::GetInstance().GetBasePath() + "Sounds/" + std::to_string(sound.id) + ".wav";
+	auto sample = Mix_LoadWAV(path.c_str());
 	sample->volume = UINT8(sound.volume * 128);
 	Mix_PlayChannel(-1, sample, 0);
 }

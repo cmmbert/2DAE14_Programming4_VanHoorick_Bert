@@ -29,6 +29,7 @@ int main(int, char* []) {
 	dae::Minigin engine;
 	engine.Initialize();
 	auto& menuScene = dae::SceneManager::GetInstance().CreateScene("Menu");
+	ServiceLocator::GetAudioService()->PlaySound(1, 0.5f);
 
 	std::vector<ModeButton*> buttons{};
 
