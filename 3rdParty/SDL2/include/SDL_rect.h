@@ -24,6 +24,7 @@
  *
  *  Header file for SDL_rect definition and management functions.
  */
+#pragma warning(disable:26812)
 
 #ifndef SDL_rect_h_
 #define SDL_rect_h_

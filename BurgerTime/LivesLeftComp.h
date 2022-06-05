@@ -2,6 +2,7 @@
 #include "Observer.h"
 #include "TextComponent.h"
 #include "PeterPepperComp.h"
+#pragma warning(disable:4100)
 
 class LivesLeftComp final : public dae::TextComponent, public Observer
 {
@@ -19,6 +20,7 @@ public:
 		case eEvent::PepperDied:
 		{
 			std::cout << "observed\n";
+
 			//PeterPepperComp* pepperComp = entity.GetComponent<PeterPepperComp>();
 			//SetText(m_Prefix + std::to_string(pepperComp->m_LivesLeft));
 			break;
