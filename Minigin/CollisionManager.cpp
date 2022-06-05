@@ -16,6 +16,14 @@ void CollisionManager::UnregisterCollider(Collider* collider)
 
 void CollisionManager::Update()
 {
+	if(m_DeleteAll)
+	{
+		m_Tags.clear();
+		m_DeletedTags.clear();
+		m_DeleteAll = false;
+		return;
+	}
+
 	for (auto& tag : m_Tags)
 	{
 		for (size_t i = 0; i < tag.second.size(); ++i)
@@ -64,6 +72,11 @@ void CollisionManager::Update()
 
 	}
 	m_DeletedTags.clear();
+}
+
+void CollisionManager::UnregisterAll()
+{
+	m_DeleteAll = true;
 }
 
 bool CollisionManager::BoxCollision(glm::ivec2 box1TL, glm::ivec2 box1BR, glm::ivec2 box2TL, glm::ivec2 box2BR)

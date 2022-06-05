@@ -169,6 +169,7 @@
     <ClCompile Include="EnemyManager.cpp" />
     <ClCompile Include="FloorComp.cpp" />
     <ClCompile Include="GameManager.cpp" />
+    <ClCompile Include="GameManagerHelper.cpp" />
     <ClCompile Include="LadderComp.cpp" />
     <ClCompile Include="LadderTop.cpp" />
     <ClCompile Include="LevelGen.cpp" />
@@ -189,6 +190,7 @@
     <ClInclude Include="EnemyCollision.h" />
     <ClInclude Include="EnemyManager.h" />
     <ClInclude Include="GameManager.h" />
+    <ClInclude Include="GameManagerHelper.h" />
     <ClInclude Include="SelectModeCommand.h" />
     <ClInclude Include="EnemyComponent.h" />
     <ClInclude Include="FloorComp.h" />

@@ -1,6 +1,7 @@
 #include "GameManager.h"
 
 #include "AnimationComponent.h"
+#include "CollisionManager.h"
 #include "EnemyManager.h"
 #include "GameObject.h"
 #include "LevelGen.h"
@@ -67,9 +68,16 @@ void GameManager::GameOver()
 
 }
 
+
 void GameManager::NextLevel()
 {
 	if (LevelSettings::CurrentLevel == 3)return;
+	CollisionManager::GetInstance().UnregisterAll();
+	m_Helper->WaitOnNextLevel();
+}
+
+void GameManager::OnCollisionsDeleted()
+{
 	dae::SceneManager::GetInstance().SetActiveScene("Level" + std::to_string(LevelSettings::CurrentLevel), false);
 	++LevelSettings::CurrentLevel;
 	std::string lvlPath = "BurgerTime/level" + std::to_string(LevelSettings::CurrentLevel) + ".json";

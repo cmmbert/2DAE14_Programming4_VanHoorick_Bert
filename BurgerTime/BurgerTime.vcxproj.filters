@@ -93,6 +93,9 @@
     <ClCompile Include="EnemyCollision.cpp">
       <Filter>Source Files\Enemies</Filter>
     </ClCompile>
+    <ClCompile Include="GameManagerHelper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BurgerPiece.h">
@@ -285,6 +288,9 @@
       <Filter>Source Files\Enemies</Filter>
     </ClInclude>
     <ClInclude Include="GameManager.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameManagerHelper.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

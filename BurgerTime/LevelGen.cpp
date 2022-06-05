@@ -405,6 +405,13 @@ void LevelGen::ReadLevelFromFile(const std::string& filePath, dae::Scene& scene)
 	scene.Add(right);
 
 
+	//GameManagerHelper
+	auto gameMan = std::make_shared<dae::GameObject>();
+	auto helper = std::make_shared<GameManagerHelper>(gameMan.get());
+	gameMan->AddComponent(helper);
+	GameManager::GetInstance().SetHelper(helper);
+	scene.Add(gameMan);
+
 	//Floors
 	const Value& a = d["floors"];
 	assert(a.IsArray());
