@@ -42,6 +42,7 @@ void AnimationComponent::Update()
 {
 	if (!m_Paused)
 	{
+		if (m_Animations[m_CurrentAnimation].size() == 0) return;
 		m_TimeSinceLastFrame += GlobalTime::GetInstance().GetElapsed();
 		if (m_TimeSinceLastFrame > m_TimeBetweenFrames)
 		{

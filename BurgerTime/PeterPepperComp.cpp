@@ -84,7 +84,7 @@ void PeterPepperComp::ThrowSalt()
 
 	auto pepTexture = m_pGameObject->GetComponent<dae::TextureComponent>();
 	pepTexture->SetSrcRect({ 16,16,16,16 });
-	pepTexture->m_Flipped = false;
+	pepTexture->m_Flipped = true;
 
 	m_SaltGo->GetComponent<SaltComp>()->Reset();
 	auto anim = m_SaltGo->GetComponent<AnimationComponent>();

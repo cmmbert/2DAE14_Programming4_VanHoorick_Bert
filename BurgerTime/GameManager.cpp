@@ -92,6 +92,7 @@ void GameManager::BurgerCompleted()
 	if(m_BurgersCompleted == 4)
 	{
 		NextLevel();
+		m_BurgersCompleted = 0;
 	}
 }
 

@@ -399,6 +399,11 @@ void LevelGen::ReadLevelFromFile(const std::string& filePath, dae::Scene& scene)
 
 	//boundaries
 
+	auto left = GenerateBlockingField(Direction::Left);
+	left->SetPosition(0, 0);
+	left->SetSize(1, 1000);
+	scene.Add(left);
+
 	auto right = GenerateBlockingField(Direction::Right);
 	right->SetPosition(208*LevelSettings::Scale, 0);
 	right->SetSize(1, 1000);
